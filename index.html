@@ -10,6 +10,29 @@
 </head>
 
 <body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">
+                <div class="skateboard-animation">
+                    <div class="skateboard-deck"></div>
+                    <div class="skateboard-wheel wheel-1"></div>
+                    <div class="skateboard-wheel wheel-2"></div>
+                    <div class="electric-spark spark-1"></div>
+                    <div class="electric-spark spark-2"></div>
+                    <div class="electric-spark spark-3"></div>
+                </div>
+            </div>
+            <div class="preloader-text">
+                <h2>BOOSTED USA</h2>
+                <p>Загрузка...</p>
+            </div>
+            <div class="preloader-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Financing Banner -->
     <div class="financing-banner">
         <p>Financing option available at checkout.</p>
@@ -358,6 +381,31 @@
     </footer>
 
     <script>
+        // Preloader functionality
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            const progressBar = document.querySelector('.progress-bar');
+            
+            // Simulate loading progress
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 30;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(progressInterval);
+                    
+                    // Hide preloader after progress reaches 100%
+                    setTimeout(() => {
+                        preloader.classList.add('preloader-hidden');
+                        setTimeout(() => {
+                            preloader.style.display = 'none';
+                        }, 600);
+                    }, 300);
+                }
+                progressBar.style.width = progress + '%';
+            }, 100);
+        });
+
         // Обновление счетчиков корзины и избранного
         async function updateCounters() {
             try {

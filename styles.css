@@ -202,6 +202,74 @@ to create an engaging and interactive user experience.
     100% { transform: translateY(0px); }
 }
 
+@keyframes skateboardRide {
+    0% {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+}
+
+@keyframes wheelSpin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes sparkFly {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(var(--spark-x), var(--spark-y)) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(calc(var(--spark-x) * 2), calc(var(--spark-y) * 2)) scale(0);
+    }
+}
+
+@keyframes textGlow {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(255, 74, 50, 0.5);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(255, 74, 50, 0.8), 0 0 30px rgba(255, 74, 50, 0.6);
+    }
+}
+
+@keyframes progressFill {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes fadeOutPreloader {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
 /* Pseudo-element for text selection */
 ::selection {
     background-color: var(--primary-color);
@@ -221,6 +289,294 @@ body {
     color: #000000;
     background-color: #FFFFFF;
 }
+
+/* ============================================
+   PRELOADER STYLES
+   ============================================ */
+
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    transition: opacity 0.6s ease;
+}
+
+.preloader.preloader-hidden {
+    opacity: 0;
+    animation: fadeOutPreloader 0.6s ease forwards;
+}
+
+.preloader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+/* Skateboard Animation */
+.preloader-logo {
+    position: relative;
+    width: 200px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.skateboard-animation {
+    position: relative;
+    width: 120px;
+    height: 40px;
+    animation: skateboardRide 3s ease-in-out infinite;
+}
+
+.skateboard-deck {
+    position: absolute;
+    width: 100%;
+    height: 12px;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    border-radius: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 4px 15px rgba(255, 74, 50, 0.6);
+}
+
+.skateboard-deck::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 6px;
+    background: #FFFFFF;
+    border-radius: 3px;
+    opacity: 0.3;
+}
+
+.skateboard-wheel {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: linear-gradient(135deg, #333333 0%, #666666 100%);
+    border-radius: 50%;
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 0 10px rgba(255, 74, 50, 0.8);
+    animation: wheelSpin 0.6s linear infinite;
+}
+
+.skateboard-wheel::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    background: var(--primary-color);
+    border-radius: 50%;
+}
+
+.wheel-1 {
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.wheel-2 {
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Electric Sparks */
+.electric-spark {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--accent-color);
+    opacity: 0;
+}
+
+.spark-1 {
+    --spark-x: -30px;
+    --spark-y: -20px;
+    bottom: 0;
+    left: 20%;
+    animation: sparkFly 1s ease-out infinite;
+    animation-delay: 0s;
+}
+
+.spark-2 {
+    --spark-x: -40px;
+    --spark-y: -30px;
+    bottom: 0;
+    left: 50%;
+    animation: sparkFly 1s ease-out infinite;
+    animation-delay: 0.3s;
+}
+
+.spark-3 {
+    --spark-x: -25px;
+    --spark-y: -15px;
+    bottom: 0;
+    right: 20%;
+    animation: sparkFly 1s ease-out infinite;
+    animation-delay: 0.6s;
+}
+
+/* Preloader Text */
+.preloader-text {
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.preloader-text h2 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+    animation: textGlow 2s ease-in-out infinite;
+    text-transform: uppercase;
+}
+
+.preloader-text p {
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: #CCCCCC;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Progress Bar */
+.preloader-progress {
+    width: 300px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.preloader-progress::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: slideInLeft 2s ease-in-out infinite;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 50%, var(--primary-color) 100%);
+    background-size: 200% 100%;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 15px var(--primary-color);
+    animation: gradientShift 2s ease infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: slideInLeft 1.5s ease-in-out infinite;
+}
+
+/* Responsive Preloader */
+@media (max-width: 768px) {
+    .preloader-logo {
+        width: 160px;
+        height: 80px;
+    }
+    
+    .skateboard-animation {
+        width: 100px;
+        height: 35px;
+    }
+    
+    .skateboard-wheel {
+        width: 15px;
+        height: 15px;
+        border: 2px solid var(--primary-color);
+    }
+    
+    .preloader-text h2 {
+        font-size: 28px;
+    }
+    
+    .preloader-text p {
+        font-size: 14px;
+    }
+    
+    .preloader-progress {
+        width: 250px;
+        height: 5px;
+    }
+}
+
+@media (max-width: 320px) {
+    .preloader-logo {
+        width: 120px;
+        height: 60px;
+    }
+    
+    .skateboard-animation {
+        width: 80px;
+        height: 30px;
+    }
+    
+    .skateboard-deck {
+        height: 10px;
+    }
+    
+    .skateboard-wheel {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .preloader-text h2 {
+        font-size: 24px;
+    }
+    
+    .preloader-text p {
+        font-size: 12px;
+    }
+    
+    .preloader-progress {
+        width: 200px;
+        height: 4px;
+    }
+    
+    .electric-spark {
+        width: 6px;
+        height: 6px;
+    }
+}
+
+/* ============================================
+   END OF PRELOADER STYLES
+   ============================================ */
 
 .container {
     max-width: 1440px;
