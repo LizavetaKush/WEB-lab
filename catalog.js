@@ -9,7 +9,8 @@ const products = [
         description: "The most powerful board ever made. Top speed: 24 mph, Range: 14 miles.",
         inStock: true,
         maxSpeed: "24 mph",
-        range: "14 miles"
+        range: "14 miles",
+        rating: 4.9
     },
     {
         id: 2,
@@ -20,7 +21,8 @@ const products = [
         description: "Extended range electric skateboard. Top speed: 22 mph, Range: 14 miles.",
         inStock: true,
         maxSpeed: "22 mph",
-        range: "14 miles"
+        range: "14 miles",
+        rating: 4.7
     },
     {
         id: 3,
@@ -31,7 +33,8 @@ const products = [
         description: "Compact yet powerful. Perfect for urban commuting. Top speed: 20 mph.",
         inStock: true,
         maxSpeed: "20 mph",
-        range: "14 miles"
+        range: "14 miles",
+        rating: 4.6
     },
     {
         id: 4,
@@ -42,7 +45,8 @@ const products = [
         description: "Revolutionary electric scooter. Speed past traffic at 24 mph.",
         inStock: true,
         maxSpeed: "24 mph",
-        range: "22 miles"
+        range: "22 miles",
+        rating: 4.8
     },
     {
         id: 5,
@@ -53,7 +57,8 @@ const products = [
         description: "Replacement belt kit for your Boosted board. High-quality materials.",
         inStock: true,
         maxSpeed: "N/A",
-        range: "N/A"
+        range: "N/A",
+        rating: 4.3
     },
     {
         id: 6,
@@ -64,7 +69,8 @@ const products = [
         description: "Complete bearing service kit to keep your board running smoothly.",
         inStock: true,
         maxSpeed: "N/A",
-        range: "N/A"
+        range: "N/A",
+        rating: 4.5
     },
     {
         id: 7,
@@ -75,7 +81,8 @@ const products = [
         description: "Replacement motor kits for enhanced performance and reliability.",
         inStock: false,
         maxSpeed: "N/A",
-        range: "N/A"
+        range: "N/A",
+        rating: 4.7
     },
     {
         id: 8,
@@ -86,7 +93,8 @@ const products = [
         description: "Upgrade your pulley and belt system for better performance.",
         inStock: true,
         maxSpeed: "N/A",
-        range: "N/A"
+        range: "N/A",
+        rating: 4.4
     },
     {
         id: 9,
@@ -97,7 +105,8 @@ const products = [
         description: "Protect the bottom of your board with durable skid plates.",
         inStock: true,
         maxSpeed: "N/A",
-        range: "N/A"
+        range: "N/A",
+        rating: 4.2
     },
     {
         id: 10,
@@ -108,7 +117,8 @@ const products = [
         description: "Premium LED lights for safe night riding. Super bright and durable.",
         inStock: true,
         maxSpeed: "N/A",
-        range: "N/A"
+        range: "N/A",
+        rating: 4.6
     },
     {
         id: 11,
@@ -119,7 +129,8 @@ const products = [
         description: "Affordable and portable electric skateboard. Perfect for beginners.",
         inStock: true,
         maxSpeed: "18 mph",
-        range: "7 miles"
+        range: "7 miles",
+        rating: 4.5
     },
     {
         id: 12,
@@ -130,7 +141,8 @@ const products = [
         description: "Extended range battery pack. Double your riding distance.",
         inStock: true,
         maxSpeed: "N/A",
-        range: "Extended"
+        range: "Extended",
+        rating: 4.8
     },
     {
         id: 13,
@@ -141,7 +153,8 @@ const products = [
         description: "Replacement wireless remote with precise throttle control.",
         inStock: true,
         maxSpeed: "N/A",
-        range: "N/A"
+        range: "N/A",
+        rating: 4.4
     },
     {
         id: 14,
@@ -152,7 +165,8 @@ const products = [
         description: "Premium urethane wheels for smooth rides. Set of 4 wheels.",
         inStock: false,
         maxSpeed: "N/A",
-        range: "N/A"
+        range: "N/A",
+        rating: 4.6
     },
     {
         id: 15,
@@ -163,7 +177,8 @@ const products = [
         description: "Fast charging cable for all Boosted boards and scooters.",
         inStock: true,
         maxSpeed: "N/A",
-        range: "N/A"
+        range: "N/A",
+        rating: 4.1
     }
 ];
 
@@ -226,8 +241,11 @@ function addToCart(productId) {
     }
 }
 
-// Переменная для хранения текущего отфильтрованного массива
+// Переменные для хранения текущего состояния фильтров
 let currentProducts = [...products];
+let searchQuery = '';
+let selectedCategories = ['Electric Skateboards', 'Electric Scooters', 'Accessories'];
+let currentSort = 'default';
 
 // Функция обновления информации о фильтре
 function updateFilterInfo(description, count) {
@@ -254,6 +272,13 @@ function updateCatalog(filteredProducts, description) {
     const catalogContainer = document.getElementById('catalog-products');
     catalogContainer.innerHTML = '';
     
+    // Проверка на пустые результаты
+    if (filteredProducts.length === 0) {
+        showNoResultsMessage();
+        updateFilterInfo(description, 0);
+        return;
+    }
+    
     // Генерация карточек
     filteredProducts.forEach((product, index) => {
         const card = document.createElement('div');
@@ -276,6 +301,7 @@ function updateCatalog(filteredProducts, description) {
                     ${product.maxSpeed !== 'N/A' ? `<span class="spec-item">⚡ ${product.maxSpeed}</span>` : ''}
                     ${product.range !== 'N/A' && product.range !== 'Extended' ? `<span class="spec-item">🔋 ${product.range}</span>` : ''}
                     ${product.range === 'Extended' ? `<span class="spec-item">🔋 Extended Range</span>` : ''}
+                    <span class="spec-item">⭐ ${product.rating}/5</span>
                 </div>
                 <div class="product-catalog-footer">
                     <span class="product-catalog-price">$${product.price.toLocaleString()}</span>
@@ -292,6 +318,24 @@ function updateCatalog(filteredProducts, description) {
     });
     
     updateFilterInfo(description, filteredProducts.length);
+}
+
+// Функция отображения сообщения "Ничего не найдено"
+function showNoResultsMessage() {
+    const catalogContainer = document.getElementById('catalog-products');
+    catalogContainer.innerHTML = `
+        <div class="no-results-container">
+            <div class="no-results-icon">🔍</div>
+            <h2 class="no-results-title">No products found</h2>
+            <p class="no-results-message">
+                We couldn't find any products matching your search criteria.
+                <br>Try adjusting your filters or search terms.
+            </p>
+            <button class="no-results-btn" onclick="resetAllFilters()">
+                🔄 Reset All Filters
+            </button>
+        </div>
+    `;
 }
 
 // ========================================
@@ -367,10 +411,143 @@ function reverseOrder() {
     setActiveButton(event.target.closest('.filter-btn'));
 }
 
+// ========================================
+// ЭТАП 3: РАСШИРЕННАЯ ФИЛЬТРАЦИЯ И ПОИСК
+// ========================================
+
+// Функция применения всех фильтров одновременно
+function applyAllFilters() {
+    let filtered = [...products];
+    
+    // 1. Фильтрация по категориям
+    if (selectedCategories.length > 0) {
+        filtered = filtered.filter(product => selectedCategories.includes(product.category));
+    }
+    
+    // 2. Поиск по названию и описанию
+    if (searchQuery.trim() !== '') {
+        const query = searchQuery.toLowerCase();
+        filtered = filtered.filter(product => 
+            product.name.toLowerCase().includes(query) || 
+            product.description.toLowerCase().includes(query)
+        );
+    }
+    
+    // 3. Сортировка
+    filtered = applySorting(filtered, currentSort);
+    
+    // Обновление описания
+    let description = 'Showing filtered products';
+    if (searchQuery.trim() !== '') {
+        description = `Search results for "${searchQuery}"`;
+    } else if (selectedCategories.length < 3) {
+        description = `Filtered by: ${selectedCategories.join(', ')}`;
+    } else {
+        description = 'Showing all products';
+    }
+    
+    updateCatalog(filtered, description);
+}
+
+// Функция сортировки
+function applySorting(productsArray, sortType) {
+    const sorted = [...productsArray];
+    
+    switch(sortType) {
+        case 'price-asc':
+            return sorted.sort((a, b) => a.price - b.price);
+        case 'price-desc':
+            return sorted.sort((a, b) => b.price - a.price);
+        case 'name-asc':
+            return sorted.sort((a, b) => a.name.localeCompare(b.name));
+        case 'name-desc':
+            return sorted.sort((a, b) => b.name.localeCompare(a.name));
+        case 'rating-desc':
+            return sorted.sort((a, b) => b.rating - a.rating);
+        case 'rating-asc':
+            return sorted.sort((a, b) => a.rating - b.rating);
+        default:
+            return sorted; // Default order
+    }
+}
+
+// Обработчик поиска (вызывается при вводе в поисковую строку)
+function handleSearch() {
+    const searchInput = document.getElementById('search-input');
+    searchQuery = searchInput.value;
+    
+    // Показать/скрыть кнопку очистки
+    const clearBtn = document.getElementById('clear-search');
+    if (searchQuery.trim() !== '') {
+        clearBtn.style.display = 'block';
+    } else {
+        clearBtn.style.display = 'none';
+    }
+    
+    applyAllFilters();
+}
+
+// Очистка поиска
+function clearSearch() {
+    const searchInput = document.getElementById('search-input');
+    searchInput.value = '';
+    searchQuery = '';
+    document.getElementById('clear-search').style.display = 'none';
+    applyAllFilters();
+}
+
+// Обработчик сортировки
+function handleSort() {
+    const sortSelect = document.getElementById('sort-select');
+    currentSort = sortSelect.value;
+    applyAllFilters();
+}
+
+// Обработчик фильтрации по категориям
+function handleCategoryFilter() {
+    const checkboxes = document.querySelectorAll('.category-checkbox');
+    selectedCategories = [];
+    
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            selectedCategories.push(checkbox.value);
+        }
+    });
+    
+    applyAllFilters();
+}
+
+// Сброс всех фильтров
+function resetAllFilters() {
+    // Сброс поиска
+    document.getElementById('search-input').value = '';
+    searchQuery = '';
+    document.getElementById('clear-search').style.display = 'none';
+    
+    // Сброс сортировки
+    document.getElementById('sort-select').value = 'default';
+    currentSort = 'default';
+    
+    // Сброс категорий (отметить все)
+    const checkboxes = document.querySelectorAll('.category-checkbox');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = true;
+    });
+    selectedCategories = ['Electric Skateboards', 'Electric Scooters', 'Accessories'];
+    
+    // Сброс кнопок фильтров (убрать active)
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Применить фильтры
+    applyAllFilters();
+}
+
 // Запуск генерации карточек при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
-    updateCatalog([...products], 'Showing all products');
+    applyAllFilters();
     console.log('Catalog loaded:', products.length, 'products');
-    console.log('Available array methods: filter, sort, reverse, map, reduce, find, forEach');
+    console.log('Advanced filtering system initialized');
 });
 

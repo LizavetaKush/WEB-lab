@@ -50,6 +50,73 @@
         </div>
     </section>
 
+    <!-- Search & Advanced Filters -->
+    <section class="advanced-filters-section">
+        <div class="container">
+            <div class="advanced-controls">
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <input type="text" 
+                           id="search-input" 
+                           class="search-input" 
+                           placeholder="🔍 Search products by name or description..."
+                           oninput="handleSearch()">
+                    <button class="search-clear-btn" id="clear-search" onclick="clearSearch()" style="display: none;">✕</button>
+                </div>
+
+                <!-- Sort Dropdown -->
+                <div class="sort-container">
+                    <label for="sort-select" class="sort-label">Sort by:</label>
+                    <select id="sort-select" class="sort-select" onchange="handleSort()">
+                        <option value="default">Default</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="name-asc">Name: A-Z</option>
+                        <option value="name-desc">Name: Z-A</option>
+                        <option value="rating-desc">Rating: High to Low</option>
+                        <option value="rating-asc">Rating: Low to High</option>
+                    </select>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="category-container">
+                    <label class="category-label">Categories:</label>
+                    <div class="category-checkboxes">
+                        <label class="category-checkbox-label">
+                            <input type="checkbox" 
+                                   class="category-checkbox" 
+                                   value="Electric Skateboards" 
+                                   onchange="handleCategoryFilter()"
+                                   checked>
+                            <span class="checkbox-text">🛹 Skateboards</span>
+                        </label>
+                        <label class="category-checkbox-label">
+                            <input type="checkbox" 
+                                   class="category-checkbox" 
+                                   value="Electric Scooters" 
+                                   onchange="handleCategoryFilter()"
+                                   checked>
+                            <span class="checkbox-text">🛴 Scooters</span>
+                        </label>
+                        <label class="category-checkbox-label">
+                            <input type="checkbox" 
+                                   class="category-checkbox" 
+                                   value="Accessories" 
+                                   onchange="handleCategoryFilter()"
+                                   checked>
+                            <span class="checkbox-text">🔧 Accessories</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Reset Button -->
+                <button class="reset-filters-btn" onclick="resetAllFilters()">
+                    🔄 Reset All
+                </button>
+            </div>
+        </div>
+    </section>
+
     <!-- Filter Controls -->
     <section class="filter-section">
         <div class="container">
