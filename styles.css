@@ -1600,6 +1600,133 @@ body {
     animation: fadeIn 1.5s ease-out;
 }
 
+/* Filter Section */
+.filter-section {
+    background: linear-gradient(135deg, #FFFFFF 0%, #F7F7F7 100%);
+    padding: 40px 0;
+    border-bottom: 2px solid #ECECEC;
+}
+
+.filter-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #000000;
+    text-align: center;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.filter-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+.filter-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto 30px;
+}
+
+.filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #FFFFFF;
+    color: #000000;
+    border: 2px solid #E0E0E0;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 74, 50, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.filter-btn:hover::before {
+    left: 100%;
+}
+
+.filter-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(255, 74, 50, 0.2);
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    color: #FFFFFF;
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 15px rgba(255, 74, 50, 0.4);
+    font-weight: 600;
+}
+
+.filter-btn.active:hover {
+    transform: translateY(-3px) scale(1.05);
+}
+
+.btn-icon {
+    font-size: 18px;
+    display: inline-flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.filter-btn:hover .btn-icon {
+    transform: scale(1.2) rotate(10deg);
+}
+
+.filter-btn.active .btn-icon {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.filter-info {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.filter-info p {
+    font-size: 16px;
+    color: #666666;
+    margin: 5px 0;
+}
+
+#filter-description {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 18px;
+}
+
+#product-count {
+    font-size: 14px;
+    color: #999999;
+    font-style: italic;
+}
+
 /* Catalog Section */
 .catalog-section {
     background-color: #FFFFFF;
@@ -2196,6 +2323,38 @@ body {
     .product-catalog-image {
         height: 240px;
     }
+    
+    /* Filter Section - Tablet */
+    .filter-section {
+        padding: 30px 0;
+    }
+    
+    .filter-title {
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+    
+    .filter-controls {
+        gap: 12px;
+        padding: 0 20px;
+    }
+    
+    .filter-btn {
+        font-size: 13px;
+        padding: 10px 18px;
+    }
+    
+    .btn-icon {
+        font-size: 16px;
+    }
+    
+    .filter-info p {
+        font-size: 14px;
+    }
+    
+    #filter-description {
+        font-size: 16px;
+    }
 }
 
 /* Mobile - 320px */
@@ -2679,6 +2838,50 @@ body {
     
     .product-catalog-btn {
         padding: 8px 18px;
+        font-size: 12px;
+    }
+    
+    /* Filter Section - Mobile */
+    .filter-section {
+        padding: 25px 0;
+    }
+    
+    .filter-title {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .filter-controls {
+        gap: 10px;
+        padding: 0 15px;
+    }
+    
+    .filter-btn {
+        font-size: 12px;
+        padding: 8px 14px;
+        flex: 1 1 calc(50% - 5px);
+        min-width: 140px;
+        justify-content: center;
+    }
+    
+    .btn-icon {
+        font-size: 14px;
+    }
+    
+    .filter-btn:hover {
+        transform: translateY(-2px);
+    }
+    
+    .filter-info p {
+        font-size: 12px;
+        padding: 0 10px;
+    }
+    
+    #filter-description {
+        font-size: 14px;
+    }
+    
+    #product-count {
         font-size: 12px;
     }
 }

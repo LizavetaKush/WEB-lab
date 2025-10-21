@@ -50,6 +50,59 @@
         </div>
     </section>
 
+    <!-- Filter Controls -->
+    <section class="filter-section">
+        <div class="container">
+            <h2 class="filter-title">Filter & Sort Products</h2>
+            <div class="filter-controls">
+                <button class="filter-btn active" onclick="showAll()">
+                    <span class="btn-icon">🏠</span>
+                    Show All
+                </button>
+                <button class="filter-btn" onclick="filterSkateboards()">
+                    <span class="btn-icon">🛹</span>
+                    Skateboards Only
+                </button>
+                <button class="filter-btn" onclick="filterAccessories()">
+                    <span class="btn-icon">🔧</span>
+                    Accessories Only
+                </button>
+                <button class="filter-btn" onclick="filterInStock()">
+                    <span class="btn-icon">✅</span>
+                    In Stock Only
+                </button>
+                <button class="filter-btn" onclick="filterCheap()">
+                    <span class="btn-icon">💰</span>
+                    Under $100
+                </button>
+                <button class="filter-btn" onclick="filterExpensive()">
+                    <span class="btn-icon">💎</span>
+                    Premium ($500+)
+                </button>
+                <button class="filter-btn" onclick="sortByPriceAsc()">
+                    <span class="btn-icon">📈</span>
+                    Price: Low to High
+                </button>
+                <button class="filter-btn" onclick="sortByPriceDesc()">
+                    <span class="btn-icon">📉</span>
+                    Price: High to Low
+                </button>
+                <button class="filter-btn" onclick="sortByName()">
+                    <span class="btn-icon">🔤</span>
+                    Sort A-Z
+                </button>
+                <button class="filter-btn" onclick="reverseOrder()">
+                    <span class="btn-icon">🔄</span>
+                    Reverse Order
+                </button>
+            </div>
+            <div class="filter-info">
+                <p id="filter-description">Showing all products</p>
+                <p id="product-count"></p>
+            </div>
+        </div>
+    </section>
+
     <!-- Catalog Products -->
     <section class="catalog-section">
         <div class="container">

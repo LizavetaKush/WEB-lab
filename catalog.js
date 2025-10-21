@@ -226,9 +226,151 @@ function addToCart(productId) {
     }
 }
 
+// Переменная для хранения текущего отфильтрованного массива
+let currentProducts = [...products];
+
+// Функция обновления информации о фильтре
+function updateFilterInfo(description, count) {
+    document.getElementById('filter-description').textContent = description;
+    document.getElementById('product-count').textContent = `Showing ${count} product${count !== 1 ? 's' : ''}`;
+}
+
+// Функция обновления активной кнопки
+function setActiveButton(clickedButton) {
+    // Убираем класс active со всех кнопок
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    // Добавляем класс active к нажатой кнопке
+    if (clickedButton) {
+        clickedButton.classList.add('active');
+    }
+}
+
+// Функция перегенерации карточек с текущим массивом
+function updateCatalog(filteredProducts, description) {
+    currentProducts = filteredProducts;
+    
+    const catalogContainer = document.getElementById('catalog-products');
+    catalogContainer.innerHTML = '';
+    
+    // Генерация карточек
+    filteredProducts.forEach((product, index) => {
+        const card = document.createElement('div');
+        card.className = 'product-catalog-card';
+        card.style.animationDelay = `${index * 0.1}s`;
+        
+        card.innerHTML = `
+            <div class="product-catalog-image">
+                <img src="${product.image}" alt="${product.name}">
+                ${product.inStock ? 
+                    '<span class="catalog-badge in-stock">In Stock</span>' : 
+                    '<span class="catalog-badge out-of-stock">Out of Stock</span>'
+                }
+            </div>
+            <div class="product-catalog-content">
+                <span class="product-catalog-category">${product.category}</span>
+                <h3 class="product-catalog-title">${product.name}</h3>
+                <p class="product-catalog-description">${product.description}</p>
+                <div class="product-catalog-specs">
+                    ${product.maxSpeed !== 'N/A' ? `<span class="spec-item">⚡ ${product.maxSpeed}</span>` : ''}
+                    ${product.range !== 'N/A' && product.range !== 'Extended' ? `<span class="spec-item">🔋 ${product.range}</span>` : ''}
+                    ${product.range === 'Extended' ? `<span class="spec-item">🔋 Extended Range</span>` : ''}
+                </div>
+                <div class="product-catalog-footer">
+                    <span class="product-catalog-price">$${product.price.toLocaleString()}</span>
+                    <button class="product-catalog-btn ${!product.inStock ? 'disabled' : ''}" 
+                            ${!product.inStock ? 'disabled' : ''}
+                            onclick="addToCart(${product.id})">
+                        ${product.inStock ? 'Add to Cart' : 'Sold Out'}
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        catalogContainer.appendChild(card);
+    });
+    
+    updateFilterInfo(description, filteredProducts.length);
+}
+
+// ========================================
+// МЕТОДЫ ФИЛЬТРАЦИИ И СОРТИРОВКИ МАССИВОВ
+// ========================================
+
+// 1. Показать все товары (reset)
+function showAll() {
+    updateCatalog([...products], 'Showing all products');
+    setActiveButton(event.target.closest('.filter-btn'));
+}
+
+// 2. FILTER: Только электрические скейтборды
+function filterSkateboards() {
+    const filtered = products.filter(product => product.category === 'Electric Skateboards');
+    updateCatalog(filtered, 'Electric Skateboards only');
+    setActiveButton(event.target.closest('.filter-btn'));
+}
+
+// 3. FILTER: Только аксессуары
+function filterAccessories() {
+    const filtered = products.filter(product => product.category === 'Accessories');
+    updateCatalog(filtered, 'Accessories only');
+    setActiveButton(event.target.closest('.filter-btn'));
+}
+
+// 4. FILTER: Только товары в наличии
+function filterInStock() {
+    const filtered = products.filter(product => product.inStock === true);
+    updateCatalog(filtered, 'In stock products only');
+    setActiveButton(event.target.closest('.filter-btn'));
+}
+
+// 5. FILTER: Товары дешевле $100
+function filterCheap() {
+    const filtered = products.filter(product => product.price < 100);
+    updateCatalog(filtered, 'Products under $100');
+    setActiveButton(event.target.closest('.filter-btn'));
+}
+
+// 6. FILTER: Премиум товары (от $500)
+function filterExpensive() {
+    const filtered = products.filter(product => product.price >= 500);
+    updateCatalog(filtered, 'Premium products ($500+)');
+    setActiveButton(event.target.closest('.filter-btn'));
+}
+
+// 7. SORT: Сортировка по цене (возрастание)
+function sortByPriceAsc() {
+    const sorted = [...currentProducts].sort((a, b) => a.price - b.price);
+    updateCatalog(sorted, 'Sorted by price: Low to High');
+    setActiveButton(event.target.closest('.filter-btn'));
+}
+
+// 8. SORT: Сортировка по цене (убывание)
+function sortByPriceDesc() {
+    const sorted = [...currentProducts].sort((a, b) => b.price - a.price);
+    updateCatalog(sorted, 'Sorted by price: High to Low');
+    setActiveButton(event.target.closest('.filter-btn'));
+}
+
+// 9. SORT: Сортировка по названию (A-Z)
+function sortByName() {
+    const sorted = [...currentProducts].sort((a, b) => a.name.localeCompare(b.name));
+    updateCatalog(sorted, 'Sorted alphabetically (A-Z)');
+    setActiveButton(event.target.closest('.filter-btn'));
+}
+
+// 10. REVERSE: Обратный порядок
+function reverseOrder() {
+    const reversed = [...currentProducts].reverse();
+    updateCatalog(reversed, 'Reversed order');
+    setActiveButton(event.target.closest('.filter-btn'));
+}
+
 // Запуск генерации карточек при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
-    generateProductCards();
+    updateCatalog([...products], 'Showing all products');
     console.log('Catalog loaded:', products.length, 'products');
+    console.log('Available array methods: filter, sort, reverse, map, reduce, find, forEach');
 });
 
