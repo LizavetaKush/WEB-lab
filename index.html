@@ -44,7 +44,9 @@
             <div class="nav-logo">
                 <img src="images/Rectangle.png" alt="Boosted USA Logo">
             </div>
-            <div class="nav-menu">
+            
+            <!-- Desktop Menu -->
+            <div class="nav-menu nav-menu-desktop">
                 <a href="index.html" class="nav-link active">Home</a>
                 <a href="catalog-server.html" class="nav-link">Catalog</a>
                 <a href="favorites.html" class="nav-link">Избранное</a>
@@ -53,6 +55,7 @@
                 <a href="admin.html" class="nav-link" id="admin-nav-link" style="display: none;">Admin</a>
                 <a href="auth.html" class="nav-link">Вход</a>
             </div>
+            
             <div class="nav-social">
                 <a href="favorites.html" class="social-link">
                     ❤️ <span id="favorites-count">0</span>
@@ -61,8 +64,66 @@
                     🛒 <span id="cart-count">0</span>
                 </a>
             </div>
+            
+            <!-- Burger Menu Button -->
+            <button class="burger-menu-btn" id="burgerMenuBtn" aria-label="Toggle menu">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </button>
         </div>
     </nav>
+    
+    <!-- Mobile Burger Menu -->
+    <div class="burger-menu-overlay" id="burgerMenuOverlay"></div>
+    <div class="burger-menu" id="burgerMenu">
+        <div class="burger-menu-header">
+            <div class="burger-menu-logo">
+                <img src="images/Rectangle.png" alt="Boosted USA Logo">
+            </div>
+            <button class="burger-menu-close" id="burgerMenuClose" aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+        <nav class="burger-menu-nav">
+            <a href="index.html" class="burger-menu-link active">
+                <span class="link-icon">🏠</span>
+                <span>Home</span>
+            </a>
+            <a href="catalog-server.html" class="burger-menu-link">
+                <span class="link-icon">📦</span>
+                <span>Catalog</span>
+            </a>
+            <a href="favorites.html" class="burger-menu-link">
+                <span class="link-icon">❤️</span>
+                <span>Избранное</span>
+                <span class="link-badge" id="burger-favorites-count">0</span>
+            </a>
+            <a href="cart.html" class="burger-menu-link">
+                <span class="link-icon">🛒</span>
+                <span>Корзина</span>
+                <span class="link-badge" id="burger-cart-count">0</span>
+            </a>
+            <a href="feedback.html" class="burger-menu-link">
+                <span class="link-icon">💬</span>
+                <span>Отзывы</span>
+            </a>
+            <a href="admin.html" class="burger-menu-link" id="burger-admin-link" style="display: none;">
+                <span class="link-icon">⚙️</span>
+                <span>Admin</span>
+            </a>
+            <a href="auth.html" class="burger-menu-link">
+                <span class="link-icon">👤</span>
+                <span>Вход</span>
+            </a>
+        </nav>
+        <div class="burger-menu-footer">
+            <p>© 2024 Boosted USA</p>
+            <p>All Rights Reserved</p>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -629,6 +690,95 @@
             new ProductSlider('productSlider');
         });
 
+        // Burger Menu functionality
+        class BurgerMenu {
+            constructor() {
+                this.burgerBtn = document.getElementById('burgerMenuBtn');
+                this.burgerMenu = document.getElementById('burgerMenu');
+                this.burgerOverlay = document.getElementById('burgerMenuOverlay');
+                this.burgerClose = document.getElementById('burgerMenuClose');
+                this.burgerLinks = document.querySelectorAll('.burger-menu-link');
+                this.body = document.body;
+                this.isOpen = false;
+                
+                this.init();
+            }
+            
+            init() {
+                // Open menu
+                this.burgerBtn.addEventListener('click', () => this.toggleMenu());
+                
+                // Close menu via close button
+                this.burgerClose.addEventListener('click', () => this.closeMenu());
+                
+                // Close menu via overlay click
+                this.burgerOverlay.addEventListener('click', () => this.closeMenu());
+                
+                // Close menu when clicking on links
+                this.burgerLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        // Small delay to allow navigation
+                        setTimeout(() => this.closeMenu(), 100);
+                    });
+                });
+                
+                // Close menu on ESC key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.isOpen) {
+                        this.closeMenu();
+                    }
+                });
+                
+                // Prevent menu close when clicking inside menu
+                this.burgerMenu.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            }
+            
+            toggleMenu() {
+                if (this.isOpen) {
+                    this.closeMenu();
+                } else {
+                    this.openMenu();
+                }
+            }
+            
+            openMenu() {
+                this.isOpen = true;
+                this.burgerMenu.classList.add('active');
+                this.burgerOverlay.classList.add('active');
+                this.burgerBtn.classList.add('active');
+                this.body.classList.add('menu-open');
+                
+                // Animate menu links
+                const links = this.burgerMenu.querySelectorAll('.burger-menu-link');
+                links.forEach((link, index) => {
+                    setTimeout(() => {
+                        link.style.animation = `slideInRight 0.4s ease-out forwards`;
+                    }, index * 50);
+                });
+            }
+            
+            closeMenu() {
+                this.isOpen = false;
+                this.burgerMenu.classList.remove('active');
+                this.burgerOverlay.classList.remove('active');
+                this.burgerBtn.classList.remove('active');
+                this.body.classList.remove('menu-open');
+                
+                // Reset animations
+                const links = this.burgerMenu.querySelectorAll('.burger-menu-link');
+                links.forEach(link => {
+                    link.style.animation = '';
+                });
+            }
+        }
+        
+        // Initialize burger menu
+        document.addEventListener('DOMContentLoaded', () => {
+            new BurgerMenu();
+        });
+
         // Обновление счетчиков корзины и избранного
         async function updateCounters() {
             try {
@@ -643,9 +793,13 @@
                 
                 const favCountEl = document.getElementById('favorites-count');
                 const cartCountEl = document.getElementById('cart-count');
+                const burgerFavCountEl = document.getElementById('burger-favorites-count');
+                const burgerCartCountEl = document.getElementById('burger-cart-count');
                 
                 if (favCountEl) favCountEl.textContent = favorites.length;
                 if (cartCountEl) cartCountEl.textContent = cart.length;
+                if (burgerFavCountEl) burgerFavCountEl.textContent = favorites.length;
+                if (burgerCartCountEl) burgerCartCountEl.textContent = cart.length;
                 
             } catch (error) {
                 console.error('Ошибка обновления счетчиков:', error);
@@ -659,8 +813,10 @@
                 try {
                     const userData = JSON.parse(userDataStr);
                     const adminNavLink = document.getElementById('admin-nav-link');
-                    if (userData.role === 'admin' && adminNavLink) {
-                        adminNavLink.style.display = 'block';
+                    const burgerAdminLink = document.getElementById('burger-admin-link');
+                    if (userData.role === 'admin') {
+                        if (adminNavLink) adminNavLink.style.display = 'block';
+                        if (burgerAdminLink) burgerAdminLink.style.display = 'flex';
                     }
                 } catch (e) {
                     console.error('Ошибка чтения данных пользователя:', e);
