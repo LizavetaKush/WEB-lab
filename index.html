@@ -556,6 +556,21 @@
         </div>
     </section>
 
+    <!-- Video Modal -->
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-content">
+            <button class="video-modal-close" id="closeVideoModal">✕</button>
+            <h2 class="video-modal-title">Boosted Stealth - Обзор</h2>
+            <div class="video-container">
+                <video id="galleryVideo" controls>
+                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
+            </div>
+            <p class="video-modal-desc">Премиальный электрический скейтборд Boosted Stealth - максимальная производительность и стиль</p>
+        </div>
+    </div>
+
     <!-- Store Locations Section -->
     <section class="stores-section">
         <div class="container">
@@ -954,7 +969,7 @@
     <script>
         // Gallery data with 10+ images
         const galleryData = [
-            { id: 1, image: 'images/skate1.jpg', title: 'Boosted Stealth', desc: 'Премиальный электрический скейтборд', freq: 440 },
+            { id: 1, image: 'images/skate1.jpg', title: 'Boosted Stealth', desc: 'Премиальный электрический скейтборд', freq: 440, hasVideo: true },
             { id: 2, image: 'images/skate2.jpg', title: 'Boosted Plus', desc: 'Универсальный электроскейт', freq: 523 },
             { id: 3, image: 'images/skate3.jpg', title: 'Boosted Mini X', desc: 'Компактный и мощный', freq: 659 },
             { id: 4, image: 'images/skoot1.jpg', title: 'Boosted Rev', desc: 'Электрический самокат', freq: 784 },
@@ -1054,7 +1069,7 @@
             setTimeout(() => {
                 mainImage.src = item.image;
                 imageTitle.textContent = item.title;
-                imageDesc.textContent = item.desc;
+                imageDesc.textContent = item.desc + (item.hasVideo ? ' 🎬 (нажмите для просмотра видео)' : '');
                 currentIndex = index;
                 
                 // Fade in
@@ -1136,6 +1151,7 @@
                 thumb.className = 'gallery-thumbnail' + (index === 0 ? ' active' : '');
                 thumb.innerHTML = `
                     <img src="${item.image}" alt="${item.title}">
+                    ${item.hasVideo ? '<div class="video-badge">🎬</div>' : ''}
                     <div class="thumbnail-overlay">
                         <span>${item.title}</span>
                     </div>
@@ -1162,7 +1178,12 @@
             
             document.getElementById('galleryImageContainer').addEventListener('click', (e) => {
                 if (e.target.id === 'galleryMainImage') {
-                    showRandomImage();
+                    const currentItem = galleryData[currentIndex];
+                    if (currentItem.hasVideo) {
+                        openVideoModal();
+                    } else {
+                        showRandomImage();
+                    }
                 }
             });
             
@@ -1180,7 +1201,52 @@
                     playSound(item.freq);
                 }
             });
+            
+            // Video modal controls
+            const videoModal = document.getElementById('videoModal');
+            const closeVideoBtn = document.getElementById('closeVideoModal');
+            const galleryVideo = document.getElementById('galleryVideo');
+            
+            closeVideoBtn.addEventListener('click', closeVideoModal);
+            
+            videoModal.addEventListener('click', (e) => {
+                if (e.target === videoModal) {
+                    closeVideoModal();
+                }
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+                    closeVideoModal();
+                }
+            });
         });
+        
+        // Video modal functions
+        function openVideoModal() {
+            const videoModal = document.getElementById('videoModal');
+            const galleryVideo = document.getElementById('galleryVideo');
+            videoModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Auto play video
+            setTimeout(() => {
+                galleryVideo.play().catch(err => {
+                    console.log('Автовоспроизведение заблокировано:', err);
+                });
+            }, 300);
+        }
+        
+        function closeVideoModal() {
+            const videoModal = document.getElementById('videoModal');
+            const galleryVideo = document.getElementById('galleryVideo');
+            videoModal.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // Pause video
+            galleryVideo.pause();
+            galleryVideo.currentTime = 0;
+        }
     </script>
 
     <!-- Yandex Maps API -->
@@ -1593,6 +1659,34 @@
             text-align: center;
         }
         
+        .video-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.5);
+            animation: videoPulse 2s ease-in-out infinite;
+            z-index: 2;
+        }
+        
+        @keyframes videoPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 4px 12px rgba(255, 107, 107, 0.5);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 6px 16px rgba(255, 107, 107, 0.7);
+            }
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .media-gallery-section {
@@ -1622,6 +1716,121 @@
             
             .volume-control {
                 flex-wrap: wrap;
+            }
+        }
+        
+        /* Video Modal */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .video-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+        
+        .video-modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .video-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .video-modal-close:hover {
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+        }
+        
+        .video-modal-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .video-modal-desc {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .video-modal-content {
+                padding: 20px;
+                width: 95%;
+            }
+            
+            .video-modal-title {
+                font-size: 22px;
             }
         }
         
