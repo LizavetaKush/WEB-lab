@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Отзывы на товары - Boosted USA</title>
+    <title>Product Reviews - Boosted USA</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* Стили для страницы отзывов */
+        /* Styles for reviews page */
         .feedback-header {
             text-align: center;
             padding: 60px 20px 40px;
@@ -45,7 +45,7 @@
             }
         }
 
-        /* Форма отзыва */
+        /* Review form */
         .feedback-form-container {
             background: white;
             border-radius: 12px;
@@ -177,7 +177,7 @@
             text-decoration: underline;
         }
 
-        /* Список отзывов */
+        /* List of reviews */
         .feedback-list {
             background: white;
             border-radius: 12px;
@@ -379,9 +379,9 @@
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="catalog.html" class="nav-link">Catalog (Static)</a>
                 <a href="catalog-server.html" class="nav-link">Catalog (Server)</a>
-                <a href="favorites.html" class="nav-link">Избранное</a>
-                <a href="cart.html" class="nav-link">Корзина</a>
-                <a href="feedback.html" class="nav-link active">Отзывы</a>
+                <a href="favorites.html" class="nav-link">Favorites</a>
+                <a href="cart.html" class="nav-link">Cart</a>
+                <a href="feedback.html" class="nav-link active">Reviews</a>
                 <a href="admin.html" class="nav-link" id="admin-nav-link" style="display: none;">Admin</a>
             </div>
             <div class="nav-social">
@@ -398,57 +398,57 @@
     <!-- Feedback Header -->
     <section class="feedback-header">
         <div class="container">
-            <h1 class="feedback-title">💬 Отзывы на товары</h1>
-            <p class="feedback-subtitle">Поделитесь своим мнением о наших продуктах</p>
+            <h1 class="feedback-title">💬 Product Reviews</h1>
+            <p class="feedback-subtitle">Share your opinion about our products</p>
         </div>
     </section>
 
     <!-- Feedback Content -->
     <section class="feedback-content">
         <div class="feedback-layout">
-            <!-- Список отзывов -->
+            <!-- List of reviews -->
             <div class="feedback-list">
-                <h2 class="list-title">Все отзывы</h2>
+                <h2 class="list-title">All Reviews</h2>
                 
                 <div class="feedback-filters">
                     <select class="filter-select" id="product-filter" onchange="loadFeedback()">
-                        <option value="">Все товары</option>
+                        <option value="">All Products</option>
                     </select>
                     <select class="filter-select" id="rating-filter" onchange="loadFeedback()">
-                        <option value="">Все рейтинги</option>
-                        <option value="5">⭐⭐⭐⭐⭐ (5 звезд)</option>
-                        <option value="4">⭐⭐⭐⭐ (4 звезды)</option>
-                        <option value="3">⭐⭐⭐ (3 звезды)</option>
-                        <option value="2">⭐⭐ (2 звезды)</option>
-                        <option value="1">⭐ (1 звезда)</option>
+                        <option value="">All Ratings</option>
+                        <option value="5">⭐⭐⭐⭐⭐ (5 stars)</option>
+                        <option value="4">⭐⭐⭐⭐ (4 stars)</option>
+                        <option value="3">⭐⭐⭐ (3 stars)</option>
+                        <option value="2">⭐⭐ (2 stars)</option>
+                        <option value="1">⭐ (1 star)</option>
                     </select>
                 </div>
 
                 <div id="feedback-container">
-                    <div class="loading">⏳ Загрузка отзывов...</div>
+                    <div class="loading">⏳ Loading reviews...</div>
                 </div>
             </div>
 
-            <!-- Форма отзыва -->
+            <!-- Review form -->
             <div class="feedback-form-container">
-                <h2 class="form-title">Оставить отзыв</h2>
+                <h2 class="form-title">Leave a Review</h2>
                 
                 <div id="success-message" class="success-message"></div>
                 
                 <div id="login-notice" class="login-notice" style="display: none;">
-                    Пожалуйста, <a href="auth.html">войдите</a>, чтобы оставить отзыв
+                    Please <a href="auth.html">login</a> to leave a review
                 </div>
 
                 <form id="feedback-form">
                     <div class="form-group">
-                        <label class="form-label" for="product-select">Товар</label>
+                        <label class="form-label" for="product-select">Product</label>
                         <select class="form-select" id="product-select" required>
-                            <option value="">Выберите товар...</option>
+                            <option value="">Select a product...</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Ваша оценка</label>
+                        <label class="form-label">Your Rating</label>
                         <div class="rating-container">
                             <div class="star-rating" id="star-rating">
                                 <span class="star" data-rating="1">★</span>
@@ -457,21 +457,21 @@
                                 <span class="star" data-rating="4">★</span>
                                 <span class="star" data-rating="5">★</span>
                             </div>
-                            <span class="rating-text" id="rating-text">Выберите рейтинг</span>
+                            <span class="rating-text" id="rating-text">Select rating</span>
                         </div>
                         <input type="hidden" id="rating-value" required>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="comment">Ваш отзыв (минимум 20 символов)</label>
-                        <textarea class="form-textarea" id="comment" placeholder="Расскажите о вашем опыте использования товара..." required></textarea>
+                        <label class="form-label" for="comment">Your Review (minimum 20 characters)</label>
+                        <textarea class="form-textarea" id="comment" placeholder="Tell us about your experience with the product..." required></textarea>
                         <div style="font-size: 12px; color: #666; margin-top: 5px; text-align: right;">
-                            Символов: <span id="comment-count">0</span>/20 минимум
+                            Characters: <span id="comment-count">0</span>/20 minimum
                         </div>
                     </div>
 
                     <button type="submit" class="btn-submit-feedback">
-                        ✨ Отправить отзыв
+                        ✨ Submit Review
                     </button>
                 </form>
             </div>
@@ -492,9 +492,9 @@
                     <div class="footer-links">
                         <a href="index.html">Home</a>
                         <a href="catalog-server.html">Catalog</a>
-                        <a href="favorites.html">Избранное</a>
-                        <a href="cart.html">Корзина</a>
-                        <a href="feedback.html">Отзывы</a>
+                        <a href="favorites.html">Favorites</a>
+                        <a href="cart.html">Cart</a>
+                        <a href="feedback.html">Reviews</a>
                     </div>
                 </div>
                 <div class="footer-section">

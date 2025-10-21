@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вход / Регистрация - Boosted USA</title>
+    <title>Login / Register - Boosted USA</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* Стили для страницы авторизации */
+        /* Authentication page styles */
         .auth-header {
             text-align: center;
             padding: 60px 20px 40px;
@@ -303,8 +303,8 @@
 <body>
     <!-- User Status Indicator -->
     <div id="user-status" class="user-status">
-        <span id="user-name"></span>
-        <button class="btn-logout" onclick="logout()">Выйти</button>
+                <span id="user-name"></span>
+                <button class="btn-logout" onclick="logout()">Logout</button>
     </div>
 
     <!-- Financing Banner -->
@@ -324,10 +324,10 @@
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="catalog.html" class="nav-link">Catalog (Static)</a>
                 <a href="catalog-server.html" class="nav-link">Catalog (Server)</a>
-                <a href="favorites.html" class="nav-link">Избранное</a>
-                <a href="cart.html" class="nav-link">Корзина</a>
+                <a href="favorites.html" class="nav-link">Favorites</a>
+                <a href="cart.html" class="nav-link">Cart</a>
                 <a href="admin.html" class="nav-link" id="admin-nav-link" style="display: none;">Admin</a>
-                <a href="auth.html" class="nav-link active">Вход</a>
+                <a href="auth.html" class="nav-link active">Login</a>
             </div>
             <div class="nav-social">
                 <a href="favorites.html" class="social-link">
@@ -343,8 +343,8 @@
     <!-- Auth Header -->
     <section class="auth-header">
         <div class="container">
-            <h1 class="auth-title">🔐 Добро пожаловать!</h1>
-            <p class="auth-subtitle">Войдите или создайте новый аккаунт</p>
+            <h1 class="auth-title">🔐 Welcome!</h1>
+            <p class="auth-subtitle">Login or create a new account</p>
         </div>
     </section>
 
@@ -353,10 +353,10 @@
         <!-- Tabs -->
         <div class="auth-tabs">
             <button class="auth-tab active" onclick="switchTab('login')">
-                Вход
+                Login
             </button>
             <button class="auth-tab" onclick="switchTab('register')">
-                Регистрация
+                Register
             </button>
         </div>
 
@@ -367,122 +367,122 @@
 
             <!-- Login Form -->
             <form id="login-form" class="auth-form active">
-                <h2 style="margin-bottom: 25px; color: #333;">Войти в аккаунт</h2>
+                <h2 style="margin-bottom: 25px; color: #333;">Login to Account</h2>
                 
                 <div class="form-group">
                     <label class="form-label" for="login-email">Email</label>
                     <input type="email" id="login-email" class="form-input" placeholder="your@email.com" required>
-                    <span class="error-message" id="login-email-error">Введите корректный email</span>
+                    <span class="error-message" id="login-email-error">Enter valid email</span>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="login-password">Пароль</label>
+                    <label class="form-label" for="login-password">Password</label>
                     <input type="password" id="login-password" class="form-input" placeholder="••••••••" required>
-                    <span class="error-message" id="login-password-error">Введите пароль</span>
+                    <span class="error-message" id="login-password-error">Enter password</span>
                 </div>
 
                 <button type="submit" class="btn-submit">
-                    🚀 Войти
+                    🚀 Login
                 </button>
 
                 <div class="form-footer">
-                    Нет аккаунта? <a href="#" onclick="switchTab('register'); return false;" style="color: #667eea; font-weight: 600;">Зарегистрируйтесь</a>
+                    No account? <a href="#" onclick="switchTab('register'); return false;" style="color: #667eea; font-weight: 600;">Register</a>
                 </div>
             </form>
 
             <!-- Register Form -->
             <form id="register-form" class="auth-form">
-                <h2 style="margin-bottom: 25px; color: #333;">Создать аккаунт</h2>
+                <h2 style="margin-bottom: 25px; color: #333;">Create Account</h2>
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label class="form-label" for="register-firstname">Имя <span style="color: red;">*</span></label>
-                        <input type="text" id="register-firstname" class="form-input" placeholder="Иван" required>
-                        <span class="error-message" id="register-firstname-error">Введите имя</span>
+                        <label class="form-label" for="register-firstname">First Name <span style="color: red;">*</span></label>
+                        <input type="text" id="register-firstname" class="form-input" placeholder="John" required>
+                        <span class="error-message" id="register-firstname-error">Enter first name</span>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="register-lastname">Фамилия <span style="color: red;">*</span></label>
-                        <input type="text" id="register-lastname" class="form-input" placeholder="Иванов" required>
-                        <span class="error-message" id="register-lastname-error">Введите фамилию</span>
+                        <label class="form-label" for="register-lastname">Last Name <span style="color: red;">*</span></label>
+                        <input type="text" id="register-lastname" class="form-input" placeholder="Doe" required>
+                        <span class="error-message" id="register-lastname-error">Enter last name</span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="register-middlename">Отчество</label>
-                    <input type="text" id="register-middlename" class="form-input" placeholder="Петрович">
+                    <label class="form-label" for="register-middlename">Middle Name</label>
+                    <input type="text" id="register-middlename" class="form-input" placeholder="Optional">
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="register-phone">Телефон РБ <span style="color: red;">*</span></label>
+                    <label class="form-label" for="register-phone">Phone (BY) <span style="color: red;">*</span></label>
                     <input type="tel" id="register-phone" class="form-input" placeholder="+375 (29) 123-45-67" required>
-                    <span class="error-message" id="register-phone-error">Введите корректный номер РБ</span>
+                    <span class="error-message" id="register-phone-error">Enter valid BY phone number</span>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="register-birthdate">Дата рождения <span style="color: red;">*</span></label>
+                    <label class="form-label" for="register-birthdate">Date of Birth <span style="color: red;">*</span></label>
                     <input type="date" id="register-birthdate" class="form-input" required>
-                    <span class="error-message" id="register-birthdate-error">Вам должно быть минимум 16 лет</span>
+                    <span class="error-message" id="register-birthdate-error">You must be at least 16 years old</span>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label" for="register-email">Email <span style="color: red;">*</span></label>
                     <input type="email" id="register-email" class="form-input" placeholder="your@email.com" required>
-                    <span class="error-message" id="register-email-error">Введите корректный email</span>
+                    <span class="error-message" id="register-email-error">Enter valid email</span>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Никнейм <span style="color: red;">*</span></label>
+                    <label class="form-label">Username <span style="color: red;">*</span></label>
                     <div style="display: flex; gap: 10px; align-items: center;">
                         <input type="text" id="register-username" class="form-input" placeholder="username" required readonly style="flex: 1;">
-                        <button type="button" class="btn-generate" id="btn-generate-nickname">🔄 Сгенерировать</button>
+                        <button type="button" class="btn-generate" id="btn-generate-nickname">🔄 Generate</button>
                     </div>
                     <div style="font-size: 12px; color: #666; margin-top: 5px;">
-                        Попыток: <span id="nickname-attempts">0</span>/5
+                        Attempts: <span id="nickname-attempts">0</span>/5
                     </div>
-                    <span class="error-message" id="register-username-error">Никнейм уже занят или некорректен</span>
+                    <span class="error-message" id="register-username-error">Username already taken or invalid</span>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Способ задания пароля <span style="color: red;">*</span></label>
+                    <label class="form-label">Password Method <span style="color: red;">*</span></label>
                     <div style="display: flex; gap: 15px; margin-bottom: 10px;">
                         <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
                             <input type="radio" name="password-mode" value="manual" checked onchange="togglePasswordMode()">
-                            <span>Ввести самостоятельно</span>
+                            <span>Enter Manually</span>
                         </label>
                         <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
                             <input type="radio" name="password-mode" value="auto" onchange="togglePasswordMode()">
-                            <span>Сгенерировать автоматически</span>
+                            <span>Generate Automatically</span>
                         </label>
                     </div>
                 </div>
 
                 <div id="manual-password-fields">
                     <div class="form-group">
-                        <label class="form-label" for="register-password">Пароль <span style="color: red;">*</span></label>
+                        <label class="form-label" for="register-password">Password <span style="color: red;">*</span></label>
                         <input type="password" id="register-password" class="form-input" placeholder="••••••••">
                         <div style="font-size: 11px; color: #666; margin-top: 5px;">
-                            8-20 символов, заглавные, строчные, цифры, спецсимволы
+                            8-20 characters, uppercase, lowercase, numbers, special characters
                         </div>
                         <span class="error-message" id="register-password-error"></span>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="register-password-confirm">Подтвердите пароль <span style="color: red;">*</span></label>
+                        <label class="form-label" for="register-password-confirm">Confirm Password <span style="color: red;">*</span></label>
                         <input type="password" id="register-password-confirm" class="form-input" placeholder="••••••••" onpaste="return false;">
-                        <span class="error-message" id="register-password-confirm-error">Пароли не совпадают</span>
+                        <span class="error-message" id="register-password-confirm-error">Passwords do not match</span>
                     </div>
                 </div>
 
                 <div id="auto-password-field" style="display: none;">
                     <div class="form-group">
-                        <label class="form-label">Сгенерированный пароль</label>
+                        <label class="form-label">Generated Password</label>
                         <div style="display: flex; gap: 10px; align-items: center;">
                             <input type="text" id="generated-password" class="form-input" readonly style="flex: 1;">
                             <button type="button" class="btn-generate" onclick="generatePassword()">🔄</button>
                         </div>
                         <div style="font-size: 12px; color: #e74c3c; margin-top: 5px;">
-                            ⚠️ Сохраните пароль! Он не будет показан повторно.
+                            ⚠️ Save this password! It will not be shown again.
                         </div>
                     </div>
                 </div>
@@ -491,18 +491,18 @@
                     <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
                         <input type="checkbox" id="register-agreement" required style="margin-top: 4px;">
                         <span style="font-size: 14px;">
-                            Я прочитал и согласен с <a href="#" style="color: #667eea; text-decoration: underline;" onclick="showAgreement(); return false;">Соглашением пользователя</a> <span style="color: red;">*</span>
+                            I have read and agree to the <a href="#" style="color: #667eea; text-decoration: underline;" onclick="showAgreement(); return false;">User Agreement</a> <span style="color: red;">*</span>
                         </span>
                     </label>
-                    <span class="error-message" id="register-agreement-error">Необходимо принять соглашение</span>
+                    <span class="error-message" id="register-agreement-error">You must accept the agreement</span>
                 </div>
 
                 <button type="submit" class="btn-submit" id="btn-register" disabled>
-                    ✨ Зарегистрироваться
+                    ✨ Register
                 </button>
 
                 <div class="form-footer">
-                    Уже есть аккаунт? <a href="#" onclick="switchTab('login'); return false;" style="color: #667eea; font-weight: 600;">Войдите</a>
+                    Already have an account? <a href="#" onclick="switchTab('login'); return false;" style="color: #667eea; font-weight: 600;">Login</a>
                 </div>
             </form>
         </div>
@@ -511,23 +511,23 @@
     <!-- Agreement Modal -->
     <div id="agreement-modal" class="agreement-modal">
         <div class="agreement-content">
-            <h2>Соглашение пользователя</h2>
-            <p><strong>1. Общие положения</strong></p>
-            <p>Настоящее соглашение определяет условия использования сервиса Boosted USA.</p>
+            <h2>User Agreement</h2>
+            <p><strong>1. General Provisions</strong></p>
+            <p>This agreement defines the terms of use of the Boosted USA service.</p>
             
-            <p><strong>2. Сбор и использование данных</strong></p>
-            <p>Мы собираем и обрабатываем ваши персональные данные в соответствии с законодательством РБ.</p>
+            <p><strong>2. Data Collection and Use</strong></p>
+            <p>We collect and process your personal data in accordance with BY legislation.</p>
             
-            <p><strong>3. Права и обязанности пользователя</strong></p>
-            <p>Пользователь обязуется предоставлять достоверную информацию и не нарушать права других пользователей.</p>
+            <p><strong>3. User Rights and Obligations</strong></p>
+            <p>Users agree to provide accurate information and not violate the rights of other users.</p>
             
-            <p><strong>4. Ответственность</strong></p>
-            <p>Администрация не несет ответственности за действия пользователей на платформе.</p>
+            <p><strong>4. Responsibility</strong></p>
+            <p>Administration is not responsible for user actions on the platform.</p>
             
-            <p><strong>5. Заключительные положения</strong></p>
-            <p>Администрация оставляет за собой право изменять условия соглашения.</p>
+            <p><strong>5. Final Provisions</strong></p>
+            <p>Administration reserves the right to change the terms of the agreement.</p>
             
-            <button class="btn-submit" onclick="closeAgreement()" style="margin-top: 20px;">Закрыть</button>
+            <button class="btn-submit" onclick="closeAgreement()" style="margin-top: 20px;">Close</button>
         </div>
     </div>
 
@@ -545,9 +545,9 @@
                     <div class="footer-links">
                         <a href="index.html">Home</a>
                         <a href="catalog-server.html">Catalog</a>
-                        <a href="favorites.html">Избранное</a>
-                        <a href="cart.html">Корзина</a>
-                        <a href="auth.html">Вход</a>
+                        <a href="favorites.html">Favorites</a>
+                        <a href="cart.html">Cart</a>
+                        <a href="auth.html">Login</a>
                     </div>
                 </div>
                 <div class="footer-section">

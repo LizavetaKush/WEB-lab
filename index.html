@@ -52,7 +52,7 @@
             </div>
             <div class="preloader-text">
                 <h2>BOOSTED USA</h2>
-                <p>Загрузка...</p>
+                <p>Loading...</p>
             </div>
             <div class="preloader-progress">
                 <div class="progress-bar"></div>
@@ -79,11 +79,8 @@
                 <a href="#gallery" class="nav-link smooth-scroll">Gallery</a>
                 <a href="#stores" class="nav-link smooth-scroll">Stores</a>
                 <a href="catalog-server.html" class="nav-link">Catalog</a>
-                <a href="favorites.html" class="nav-link">Избранное</a>
-                <a href="cart.html" class="nav-link">Корзина</a>
-                <a href="feedback.html" class="nav-link">Отзывы</a>
                 <a href="admin.html" class="nav-link" id="admin-nav-link" style="display: none;">Admin</a>
-                <a href="auth.html" class="nav-link">Вход</a>
+                <a href="auth.html" class="nav-link">Login</a>
             </div>
             
             <div class="nav-social">
@@ -140,17 +137,17 @@
             </a>
             <a href="favorites.html" class="burger-menu-link">
                 <span class="link-icon">❤️</span>
-                <span>Избранное</span>
+                <span>Favorites</span>
                 <span class="link-badge" id="burger-favorites-count">0</span>
             </a>
             <a href="cart.html" class="burger-menu-link">
                 <span class="link-icon">🛒</span>
-                <span>Корзина</span>
+                <span>Cart</span>
                 <span class="link-badge" id="burger-cart-count">0</span>
             </a>
             <a href="feedback.html" class="burger-menu-link">
                 <span class="link-icon">💬</span>
-                <span>Отзывы</span>
+                <span>Reviews</span>
             </a>
             <a href="admin.html" class="burger-menu-link" id="burger-admin-link" style="display: none;">
                 <span class="link-icon">⚙️</span>
@@ -158,7 +155,7 @@
             </a>
             <a href="auth.html" class="burger-menu-link">
                 <span class="link-icon">👤</span>
-                <span>Вход</span>
+                <span>Login</span>
             </a>
         </nav>
         <div class="burger-menu-footer">
@@ -234,14 +231,14 @@
     <!-- Animated Statistics Section -->
     <section class="stats-section scroll-reveal" id="stats">
         <div class="container">
-            <h2 class="section-title">Наши достижения</h2>
-            <p class="section-subtitle">Цифры, которые говорят сами за себя</p>
+            <h2 class="section-title">Our Achievements</h2>
+            <p class="section-subtitle">Numbers that speak for themselves</p>
             
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon">🛹</div>
                     <div class="stat-number" data-target="15000" data-suffix="+">0</div>
-                    <div class="stat-label">Довольных клиентов</div>
+                    <div class="stat-label">Happy Customers</div>
                     <div class="stat-progress">
                         <div class="stat-progress-bar"></div>
                     </div>
@@ -250,7 +247,7 @@
                 <div class="stat-card">
                     <div class="stat-icon">📦</div>
                     <div class="stat-number" data-target="25000" data-suffix="+">0</div>
-                    <div class="stat-label">Проданных устройств</div>
+                    <div class="stat-label">Devices Sold</div>
                     <div class="stat-progress">
                         <div class="stat-progress-bar"></div>
                     </div>
@@ -259,7 +256,7 @@
                 <div class="stat-card">
                     <div class="stat-icon">⭐</div>
                     <div class="stat-number" data-target="4.9" data-suffix="" data-decimals="1">0</div>
-                    <div class="stat-label">Средний рейтинг</div>
+                    <div class="stat-label">Average Rating</div>
                     <div class="stat-progress">
                         <div class="stat-progress-bar"></div>
                     </div>
@@ -268,7 +265,7 @@
                 <div class="stat-card">
                     <div class="stat-icon">🌍</div>
                     <div class="stat-number" data-target="50" data-suffix="+">0</div>
-                    <div class="stat-label">Стран доставки</div>
+                    <div class="stat-label">Shipping Countries</div>
                     <div class="stat-progress">
                         <div class="stat-progress-bar"></div>
                     </div>
@@ -614,8 +611,8 @@
     <!-- Interactive Media Gallery Section -->
     <section class="media-gallery-section scroll-reveal" id="gallery">
         <div class="container">
-            <h2 class="section-title scroll-fade-in">Интерактивная галерея</h2>
-            <p class="section-subtitle">Нажмите на кнопки или изображение для просмотра коллекции с озвучкой</p>
+            <h2 class="section-title scroll-fade-in">Interactive Gallery</h2>
+            <p class="section-subtitle">Click buttons or images to browse the collection with audio</p>
             
             <div class="gallery-container">
                 <!-- Main Display -->
@@ -630,7 +627,7 @@
                         </div>
                         <div class="gallery-info">
                             <h3 id="galleryImageTitle">Boosted Stealth</h3>
-                            <p id="galleryImageDesc">Премиальный электрический скейтборд</p>
+                            <p id="galleryImageDesc">Premium electric skateboard</p>
                         </div>
                     </div>
                 </div>
@@ -639,20 +636,20 @@
                 <div class="gallery-controls">
                     <div class="gallery-action-buttons">
                         <button class="gallery-btn gallery-btn-primary" id="randomImageBtn">
-                            🎲 Случайное изображение
+                            🎲 Random image
                         </button>
                         <button class="gallery-btn gallery-btn-secondary" id="nextImageBtn">
-                            ➡️ Следующее
+                            ➡️ Next
                         </button>
                         <button class="gallery-btn gallery-btn-tertiary" id="prevImageBtn">
-                            ⬅️ Предыдущее
+                            ⬅️ Previous
                         </button>
                     </div>
                     
                     <!-- Volume Control -->
                     <div class="volume-control">
                         <label for="volumeSlider">
-                            <span id="volumeIcon">🔊</span> Громкость
+                            <span id="volumeIcon">🔊</span> Volume
                         </label>
                         <input type="range" id="volumeSlider" min="0" max="100" value="50">
                         <span id="volumeValue">50%</span>
@@ -661,7 +658,7 @@
                     <!-- Player Status -->
                     <div class="player-status">
                         <span class="status-indicator" id="statusIndicator">⏹️</span>
-                        <span id="statusText">Остановлено</span>
+                        <span id="statusText">Stopped</span>
                     </div>
                 </div>
                 
@@ -677,7 +674,7 @@
     <div class="scroll-progress-bar" id="scrollProgressBar"></div>
 
     <!-- Scroll to Top Button -->
-    <button id="scrollToTopBtn" class="scroll-to-top" title="Наверх">
+    <button id="scrollToTopBtn" class="scroll-to-top" title="To Top">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -687,22 +684,22 @@
     <div id="videoModal" class="video-modal">
         <div class="video-modal-content">
             <button class="video-modal-close" id="closeVideoModal">✕</button>
-            <h2 class="video-modal-title">Boosted Stealth - Обзор</h2>
+            <h2 class="video-modal-title">Boosted Stealth - Review</h2>
             <div class="video-container">
                 <video id="galleryVideo" controls>
                     <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-                    Ваш браузер не поддерживает видео.
+                    Your browser does not support video.
                 </video>
             </div>
-            <p class="video-modal-desc">Премиальный электрический скейтборд Boosted Stealth - максимальная производительность и стиль</p>
+            <p class="video-modal-desc">Boosted Stealth Premium Electric Skateboard - Maximum Performance and Style</p>
         </div>
     </div>
 
     <!-- Store Locations Section -->
     <section class="stores-section scroll-reveal" id="stores">
         <div class="container">
-            <h2 class="section-title scroll-fade-in">Наши магазины в Минске</h2>
-            <p class="section-subtitle">Посетите один из наших магазинов, чтобы протестировать электротранспорт</p>
+            <h2 class="section-title scroll-fade-in">Our Stores in Minsk</h2>
+            <p class="section-subtitle">Visit one of our stores to test electric vehicles</p>
             
             <div class="stores-container">
                 <!-- Map -->
@@ -715,12 +712,12 @@
                     <div class="store-card" data-coords="53.9045,27.5615">
                         <div class="store-icon">📍</div>
                         <div class="store-info">
-                            <h3>Boosted Центральный</h3>
-                            <p class="store-address">пр-т Независимости, 47</p>
-                            <p class="store-hours">⏰ Пн-Вс: 10:00 - 21:00</p>
+                            <h3>Boosted Central</h3>
+                            <p class="store-address">Independence Ave, 47</p>
+                            <p class="store-hours">⏰ Mon-Sun: 10:00 - 21:00</p>
                             <p class="store-phone">📞 +375 (29) 123-45-67</p>
                             <button class="store-route-btn" onclick="showRoute(53.9045, 27.5615)">
-                                🗺️ Построить маршрут
+                                🗺️ Get Directions
                             </button>
                         </div>
                     </div>
@@ -728,12 +725,12 @@
                     <div class="store-card" data-coords="53.9168,27.5921">
                         <div class="store-icon">📍</div>
                         <div class="store-info">
-                            <h3>Boosted Комаровка</h3>
-                            <p class="store-address">ул. Веры Хоружей, 3</p>
-                            <p class="store-hours">⏰ Пн-Вс: 10:00 - 22:00</p>
+                            <h3>Boosted Komarovka</h3>
+                            <p class="store-address">Vera Horuzhaya St, 3</p>
+                            <p class="store-hours">⏰ Mon-Sun: 10:00 - 22:00</p>
                             <p class="store-phone">📞 +375 (29) 234-56-78</p>
                             <button class="store-route-btn" onclick="showRoute(53.9168, 27.5921)">
-                                🗺️ Построить маршрут
+                                🗺️ Get Directions
                             </button>
                         </div>
                     </div>
@@ -741,12 +738,12 @@
                     <div class="store-card" data-coords="53.9253,27.4615">
                         <div class="store-icon">📍</div>
                         <div class="store-info">
-                            <h3>Boosted Дражня</h3>
-                            <p class="store-address">пр-т Дзержинского, 104</p>
-                            <p class="store-hours">⏰ Пн-Вс: 10:00 - 21:00</p>
+                            <h3>Boosted Drazhnya</h3>
+                            <p class="store-address">Dzerzhinsky Ave, 104</p>
+                            <p class="store-hours">⏰ Mon-Sun: 10:00 - 21:00</p>
                             <p class="store-phone">📞 +375 (29) 345-67-89</p>
                             <button class="store-route-btn" onclick="showRoute(53.9253, 27.4615)">
-                                🗺️ Построить маршрут
+                                🗺️ Get Directions
                             </button>
                         </div>
                     </div>
@@ -1040,7 +1037,7 @@
             new BurgerMenu();
         });
 
-        // Обновление счетчиков корзины и избранного
+        // Update cart and favorites counters
         async function updateCounters() {
             try {
                 const API_BASE_URL = 'http://localhost:3001';
@@ -1063,11 +1060,11 @@
                 if (burgerCartCountEl) burgerCartCountEl.textContent = cart.length;
                 
             } catch (error) {
-                console.error('Ошибка обновления счетчиков:', error);
+                console.error('Error updating counters:', error);
             }
         }
         
-        // Показать кнопку админ-панели для администраторов
+        // Show admin panel button for administrators
         function checkAdminNavLink() {
             const userDataStr = localStorage.getItem('currentUser');
             if (userDataStr) {
@@ -1080,12 +1077,12 @@
                         if (burgerAdminLink) burgerAdminLink.style.display = 'flex';
                     }
                 } catch (e) {
-                    console.error('Ошибка чтения данных пользователя:', e);
+                    console.error('Error reading user data:', e);
                 }
             }
         }
         
-        // Вызываем при загрузке страницы
+        // Call on page load
         document.addEventListener('DOMContentLoaded', () => {
             updateCounters();
             checkAdminNavLink();
@@ -1095,14 +1092,14 @@
     <!-- Smooth Scroll Script -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Плавная прокрутка для всех якорных ссылок
+            // Smooth scroll for all anchor links
             const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
             
             smoothScrollLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     const href = this.getAttribute('href');
                     
-                    // Игнорируем пустые якоря
+                    // Ignore empty anchors
                     if (href === '#' || href === '#!') {
                         e.preventDefault();
                         return;
@@ -1114,7 +1111,7 @@
                     if (targetElement) {
                         e.preventDefault();
                         
-                        // Закрываем бургер-меню если оно открыто
+                        // Close burger menu if open
                         const burgerMenu = document.getElementById('burgerMenu');
                         const burgerOverlay = document.getElementById('burgerMenuOverlay');
                         if (burgerMenu && burgerMenu.classList.contains('active')) {
@@ -1123,7 +1120,7 @@
                             document.body.style.overflow = '';
                         }
                         
-                        // Плавная прокрутка
+                        // Smooth scroll
                         const navbarHeight = document.querySelector('.navbar').offsetHeight;
                         const targetPosition = targetElement.offsetTop - navbarHeight;
                         
@@ -1132,7 +1129,7 @@
                             behavior: 'smooth'
                         });
                         
-                        // Обновляем активную ссылку в навигации
+                        // Update active link in navigation
                         document.querySelectorAll('.nav-link').forEach(navLink => {
                             navLink.classList.remove('active');
                         });
@@ -1141,10 +1138,10 @@
                 });
             });
             
-            // Кнопка "Наверх"
+            // "To Top" button
             const scrollToTopBtn = document.getElementById('scrollToTopBtn');
             
-            // Показываем/скрываем кнопку при прокрутке
+            // Show/hide button on scroll
             window.addEventListener('scroll', () => {
                 if (window.pageYOffset > 300) {
                     scrollToTopBtn.classList.add('visible');
@@ -1152,11 +1149,11 @@
                     scrollToTopBtn.classList.remove('visible');
                 }
                 
-                // Подсветка активного раздела в навигации
+                // Highlight active section in navigation
                 highlightActiveSection();
             });
             
-            // Клик по кнопке "Наверх"
+            // Click on "To Top" button
             scrollToTopBtn.addEventListener('click', () => {
                 window.scrollTo({
                     top: 0,
@@ -1164,7 +1161,7 @@
                 });
             });
             
-            // Функция подсветки активного раздела
+            // Function to highlight active section
             function highlightActiveSection() {
                 const sections = document.querySelectorAll('section[id]');
                 const navbarHeight = document.querySelector('.navbar').offsetHeight;
@@ -1194,16 +1191,16 @@
             const navbar = document.querySelector('.navbar');
             const scrollProgressBar = document.getElementById('scrollProgressBar');
             
-            // Обновление прогресс-бара и navbar при скролле
+            // Update progress bar and navbar on scroll
             function updateScrollEffects() {
                 const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
                 const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
                 const scrollPercent = (scrollTop / docHeight) * 100;
                 
-                // Обновляем прогресс-бар
+                // Update progress bar
                 scrollProgressBar.style.width = scrollPercent + '%';
                 
-                // Добавляем/убираем класс для navbar при скролле
+                // Add/remove class for navbar on scroll
                 if (scrollTop > 100) {
                     navbar.classList.add('scrolled');
                 } else {
@@ -1211,7 +1208,7 @@
                 }
             }
             
-            // Reveal анимация для элементов
+            // Reveal animation for elements
             function revealOnScroll() {
                 const revealElements = document.querySelectorAll('.scroll-reveal, .scroll-fade-in, .product-card, .store-card, .gallery-thumbnail, .stat-card');
                 const windowHeight = window.innerHeight;
@@ -1224,7 +1221,7 @@
                         if (!element.classList.contains('revealed')) {
                             element.classList.add('revealed');
                             
-                            // Запускаем анимацию счетчика для stat-card
+                            // Start counter animation for stat-card
                             if (element.classList.contains('stat-card')) {
                                 const statNumber = element.querySelector('.stat-number');
                                 if (statNumber && !statNumber.dataset.animated) {
@@ -1236,7 +1233,7 @@
                 });
             }
             
-            // Многослойный параллакс эффект для hero секции
+            // Multi-layer parallax effect for hero section
             function parallaxEffect() {
                 const hero = document.querySelector('.hero');
                 if (!hero) return;
@@ -1244,30 +1241,30 @@
                 const scrolled = window.pageYOffset;
                 const heroHeight = hero.offsetHeight;
                 
-                // Останавливаем эффект когда секция вне видимости
+                // Stop effect when section is out of view
                 if (scrolled > heroHeight * 1.5) return;
                 
-                // Получаем все parallax слои
+                // Get all parallax layers
                 const parallaxLayers = hero.querySelectorAll('.parallax-layer');
                 
                 parallaxLayers.forEach(layer => {
                     const speed = parseFloat(layer.getAttribute('data-speed')) || 0;
                     const yPos = -(scrolled * speed);
                     
-                    // Применяем трансформацию в зависимости от скорости
+                    // Apply transformation based on speed
                     if (speed < 0) {
-                        // Обратное направление (движется вверх при скролле вниз)
+                        // Reverse direction (moves up on scroll down)
                         layer.style.transform = `translateY(${-yPos}px)`;
                     } else if (speed === 1.0) {
-                        // Нормальная скорость (контент)
+                        // Normal speed (content)
                         layer.style.transform = `translateY(0)`;
                     } else {
-                        // Замедленное движение
+                        // Slow motion
                         layer.style.transform = `translateY(${yPos}px)`;
                     }
                 });
                 
-                // Дополнительные эффекты для плавности
+                // Additional effects for smoothness
                 const decorativeCircles = hero.querySelectorAll('.parallax-circle');
                 decorativeCircles.forEach((circle, index) => {
                     const offset = scrolled * (0.1 + index * 0.05);
@@ -1284,7 +1281,7 @@
                 });
             }
             
-            // Обработчик скролла
+            // Scroll handler
             let ticking = false;
             window.addEventListener('scroll', () => {
                 if (!ticking) {
@@ -1298,12 +1295,12 @@
                 }
             });
             
-            // Функция анимированного счетчика
+            // Animated counter function
             function animateCounter(element) {
                 const target = parseFloat(element.dataset.target);
                 const suffix = element.dataset.suffix || '';
                 const decimals = parseInt(element.dataset.decimals) || 0;
-                const duration = 2000; // 2 секунды
+                const duration = 2000; // 2 seconds
                 const steps = 60;
                 const increment = target / steps;
                 const stepDuration = duration / steps;
@@ -1323,7 +1320,7 @@
                 }, stepDuration);
             }
             
-            // Функция обновления счетчиков в navbar с анимацией
+            // Function to update navbar counters with animation
             window.updateNavCounters = function(favCount, cartCount) {
                 const favCounters = document.querySelectorAll('#favorites-count, #burger-favorites-count');
                 const cartCounters = document.querySelectorAll('#cart-count, #burger-cart-count');
@@ -1346,7 +1343,7 @@
                     }
                 });
                 
-                // Обновляем динамические stat-card если они есть
+                // Update dynamic stat-cards if they exist
                 const favStatCard = document.querySelector('[data-dynamic="favorites"]');
                 const cartStatCard = document.querySelector('[data-dynamic="cart"]');
                 
@@ -1365,7 +1362,7 @@
                 }
             };
             
-            // Вспомогательная функция для анимации изменения значения
+            // Helper function for value change animation
             function animateCounterValue(element, start, end) {
                 const duration = 300;
                 const steps = 20;
@@ -1383,11 +1380,11 @@
                 }, stepDuration);
             }
             
-            // Начальная проверка при загрузке
+            // Initial check on load
             updateScrollEffects();
             revealOnScroll();
             
-            // Добавляем класс для анимации при загрузке
+            // Add class for animation on load
             setTimeout(() => {
                 document.body.classList.add('loaded');
             }, 100);
@@ -1396,7 +1393,7 @@
 
     <!-- API Counters Script -->
     <script>
-        // Загрузка и обновление счетчиков из API
+        // Load and update counters from API
         async function loadCounters() {
             try {
                 const [favResponse, cartResponse] = await Promise.all([
@@ -1407,27 +1404,27 @@
                 const favorites = await favResponse.json();
                 const cart = await cartResponse.json();
                 
-                // Обновляем счетчики с анимацией
+                // Update counters with animation
                 if (window.updateNavCounters) {
                     window.updateNavCounters(favorites.length, cart.length);
                 }
             } catch (error) {
-                console.log('API не доступен, используем значения по умолчанию');
-                // Если API недоступен, устанавливаем 0
+                console.log('API not available, using default values');
+                // If API is unavailable, set to 0
                 if (window.updateNavCounters) {
                     window.updateNavCounters(0, 0);
                 }
             }
         }
         
-        // Загружаем счетчики при загрузке страницы
+        // Load counters on page load
         document.addEventListener('DOMContentLoaded', () => {
             loadCounters();
-            // Обновляем каждые 5 секунд
+            // Update every 5 seconds
             setInterval(loadCounters, 5000);
         });
         
-        // Делаем функцию глобально доступной
+        // Make function globally available
         window.loadCounters = loadCounters;
     </script>
 
@@ -1435,18 +1432,18 @@
     <script>
         // Gallery data with 10+ images
         const galleryData = [
-            { id: 1, image: 'images/skate1.jpg', title: 'Boosted Stealth', desc: 'Премиальный электрический скейтборд', freq: 440, hasVideo: true },
-            { id: 2, image: 'images/skate2.jpg', title: 'Boosted Plus', desc: 'Универсальный электроскейт', freq: 523 },
-            { id: 3, image: 'images/skate3.jpg', title: 'Boosted Mini X', desc: 'Компактный и мощный', freq: 659 },
-            { id: 4, image: 'images/skoot1.jpg', title: 'Boosted Rev', desc: 'Электрический самокат', freq: 784 },
-            { id: 5, image: 'images/motor-kits.jpg', title: 'Motor Kits', desc: 'Комплекты двигателей', freq: 330 },
-            { id: 6, image: 'images/kit.jpg', title: 'Service Kit', desc: 'Набор для обслуживания', freq: 392 },
-            { id: 7, image: 'images/kit2.png', title: 'Belt Drive Kit', desc: 'Комплект ременной передачи', freq: 494 },
-            { id: 8, image: 'images/shred-lights.jpg', title: 'Shred Lights', desc: 'Освещение для доски', freq: 587 },
-            { id: 9, image: 'images/skid-plates.jpg', title: 'Skid Plates', desc: 'Защитные пластины', freq: 698 },
-            { id: 10, image: 'images/pulley-belt-upgrade.jpg', title: 'Pulley & Belt', desc: 'Шкивы и ремни', freq: 880 },
-            { id: 11, image: 'images/boosted-mini.jpg', title: 'Boosted Mini S', desc: 'Легкий и маневренный', freq: 740 },
-            { id: 12, image: 'images/Extended Battery.jpg', title: 'Extended Battery', desc: 'Увеличенная батарея', freq: 622 }
+            { id: 1, image: 'images/skate1.jpg', title: 'Boosted Stealth', desc: 'Premium electric skateboard', freq: 440, hasVideo: true },
+            { id: 2, image: 'images/skate2.jpg', title: 'Boosted Plus', desc: 'Versatile electric skateboard', freq: 523 },
+            { id: 3, image: 'images/skate3.jpg', title: 'Boosted Mini X', desc: 'Compact and powerful', freq: 659 },
+            { id: 4, image: 'images/skoot1.jpg', title: 'Boosted Rev', desc: 'Electric scooter', freq: 784 },
+            { id: 5, image: 'images/motor-kits.jpg', title: 'Motor Kits', desc: 'Motor kits', freq: 330 },
+            { id: 6, image: 'images/kit.jpg', title: 'Service Kit', desc: 'Service kit', freq: 392 },
+            { id: 7, image: 'images/kit2.png', title: 'Belt Drive Kit', desc: 'Belt drive kit', freq: 494 },
+            { id: 8, image: 'images/shred-lights.jpg', title: 'Shred Lights', desc: 'Board lighting', freq: 587 },
+            { id: 9, image: 'images/skid-plates.jpg', title: 'Skid Plates', desc: 'Protective plates', freq: 698 },
+            { id: 10, image: 'images/pulley-belt-upgrade.jpg', title: 'Pulley & Belt', desc: 'Pulleys and belts', freq: 880 },
+            { id: 11, image: 'images/boosted-mini.jpg', title: 'Boosted Mini S', desc: 'Light and maneuverable', freq: 740 },
+            { id: 12, image: 'images/Extended Battery.jpg', title: 'Extended Battery', desc: 'Extended battery', freq: 622 }
         ];
         
         let currentIndex = 0;
@@ -1510,12 +1507,12 @@
             
             if (playing) {
                 statusIndicator.textContent = '▶️';
-                statusText.textContent = 'Воспроизведение';
+                statusText.textContent = 'Playing';
                 playIcon.style.display = 'none';
                 pauseIcon.style.display = 'inline';
             } else {
                 statusIndicator.textContent = '⏹️';
-                statusText.textContent = 'Остановлено';
+                statusText.textContent = 'Stopped';
                 playIcon.style.display = 'inline';
                 pauseIcon.style.display = 'none';
             }
@@ -1535,7 +1532,7 @@
             setTimeout(() => {
                 mainImage.src = item.image;
                 imageTitle.textContent = item.title;
-                imageDesc.textContent = item.desc + (item.hasVideo ? ' 🎬 (нажмите для просмотра видео)' : '');
+                imageDesc.textContent = item.desc + (item.hasVideo ? ' 🎬 (click to watch video)' : '');
                 currentIndex = index;
                 
                 // Fade in
@@ -1698,7 +1695,7 @@
             // Auto play video
             setTimeout(() => {
                 galleryVideo.play().catch(err => {
-                    console.log('Автовоспроизведение заблокировано:', err);
+                    console.log('Autoplay blocked:', err);
                 });
             }, 300);
         }
@@ -1718,62 +1715,62 @@
     <!-- Yandex Maps API -->
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script>
-        // Инициализация карты
+        // Initialize map
         let myMap;
         let routeControl;
         
         ymaps.ready(init);
         
         function init() {
-            // Создаём карту с центром в Минске
+            // Create map centered on Minsk
             myMap = new ymaps.Map("map", {
-                center: [53.9045, 27.5615], // Координаты центра Минска
+                center: [53.9045, 27.5615], // Minsk center coordinates
                 zoom: 11,
                 controls: ['zoomControl', 'typeSelector', 'fullscreenControl']
             });
             
-            // Данные магазинов
+            // Store data
             const stores = [
                 {
                     coords: [53.9045, 27.5615],
-                    name: 'Boosted Центральный',
-                    address: 'пр-т Независимости, 47',
-                    hours: 'Пн-Вс: 10:00 - 21:00',
+                    name: 'Boosted Central',
+                    address: 'Independence Ave, 47',
+                    hours: 'Mon-Sun: 10:00 - 21:00',
                     phone: '+375 (29) 123-45-67'
                 },
                 {
                     coords: [53.9168, 27.5921],
-                    name: 'Boosted Комаровка',
-                    address: 'ул. Веры Хоружей, 3',
-                    hours: 'Пн-Вс: 10:00 - 22:00',
+                    name: 'Boosted Komarovka',
+                    address: 'Vera Horuzhaya St, 3',
+                    hours: 'Mon-Sun: 10:00 - 22:00',
                     phone: '+375 (29) 234-56-78'
                 },
                 {
                     coords: [53.9253, 27.4615],
-                    name: 'Boosted Дражня',
-                    address: 'пр-т Дзержинского, 104',
-                    hours: 'Пн-Вс: 10:00 - 21:00',
+                    name: 'Boosted Drazhnya',
+                    address: 'Dzerzhinsky Ave, 104',
+                    hours: 'Mon-Sun: 10:00 - 21:00',
                     phone: '+375 (29) 345-67-89'
                 }
             ];
             
-            // Добавляем метки для каждого магазина
+            // Add markers for each store
             stores.forEach((store, index) => {
                 const placemark = new ymaps.Placemark(store.coords, {
                     balloonContentHeader: `<strong>${store.name}</strong>`,
                     balloonContentBody: `
-                        <p><b>Адрес:</b> ${store.address}</p>
-                        <p><b>Время работы:</b> ${store.hours}</p>
-                        <p><b>Телефон:</b> ${store.phone}</p>
+                        <p><b>Address:</b> ${store.address}</p>
+                        <p><b>Hours:</b> ${store.hours}</p>
+                        <p><b>Phone:</b> ${store.phone}</p>
                     `,
-                    balloonContentFooter: `<button onclick="showRoute(${store.coords[0]}, ${store.coords[1]})" style="padding: 8px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">🗺️ Построить маршрут</button>`,
+                    balloonContentFooter: `<button onclick="showRoute(${store.coords[0]}, ${store.coords[1]})" style="padding: 8px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">🗺️ Get Directions</button>`,
                     hintContent: store.name
                 }, {
                     preset: 'islands#blueElectricIcon',
                     iconColor: '#667eea'
                 });
                 
-                // Добавляем обработчик клика на карточку магазина
+                // Add click handler for store card
                 const storeCards = document.querySelectorAll('.store-card');
                 if (storeCards[index]) {
                     storeCards[index].addEventListener('click', function(e) {
@@ -1789,28 +1786,28 @@
             });
         }
         
-        // Функция построения маршрута
+        // Route building function
         function showRoute(lat, lon) {
-            // Удаляем предыдущий маршрут, если есть
+            // Remove previous route if exists
             if (routeControl) {
                 myMap.controls.remove(routeControl);
             }
             
-            // Получаем геолокацию пользователя
+            // Get user's geolocation
             ymaps.geolocation.get({
                 provider: 'yandex',
                 mapStateAutoApply: true
             }).then(function (result) {
                 const userCoords = result.geoObjects.position;
                 
-                // Создаём мультимаршрут
+                // Create multi-route
                 const multiRoute = new ymaps.multiRouter.MultiRoute({
                     referencePoints: [
                         userCoords,
                         [lat, lon]
                     ],
                     params: {
-                        routingMode: 'pedestrian' // пешком
+                        routingMode: 'pedestrian' // walking
                     }
                 }, {
                     boundsAutoApply: true,
@@ -1824,12 +1821,12 @@
                 routeControl = multiRoute;
                 
             }).catch(function (err) {
-                // Если не удалось получить геолокацию, строим маршрут от центра
-                alert('Не удалось определить ваше местоположение. Попробуйте разрешить доступ к геолокации.');
+                // If failed to get geolocation, build route from center
+                alert('Failed to determine your location. Please allow access to geolocation.');
                 
                 const multiRoute = new ymaps.multiRouter.MultiRoute({
                     referencePoints: [
-                        [53.9045, 27.5615], // центр Минска
+                        [53.9045, 27.5615], // Minsk center
                         [lat, lon]
                     ],
                     params: {

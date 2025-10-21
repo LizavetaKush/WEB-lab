@@ -213,75 +213,75 @@
 <body>
     <div class="container">
         <h1>🚀 JSON Server API Demo</h1>
-        <p class="subtitle">Интерактивная демонстрация работы с REST API для Boosted USA</p>
+        <p class="subtitle">Interactive demonstration of REST API for Boosted USA</p>
 
-        <!-- Статистика -->
+        <!-- Statistics -->
         <div class="stats">
             <div class="stat-card">
                 <div class="stat-value" id="product-count">-</div>
-                <div class="stat-label">Всего товаров</div>
+                <div class="stat-label">Total Products</div>
             </div>
             <div class="stat-card">
                 <div class="stat-value" id="favorites-count">-</div>
-                <div class="stat-label">В избранном</div>
+                <div class="stat-label">Favorites</div>
             </div>
             <div class="stat-card">
                 <div class="stat-value" id="cart-count">-</div>
-                <div class="stat-label">В корзине</div>
+                <div class="stat-label">Cart Items</div>
             </div>
         </div>
 
-        <!-- GET Запросы -->
+        <!-- GET Requests -->
         <div class="api-section">
-            <h2>📥 GET Запросы</h2>
+            <h2>📥 GET Requests</h2>
             <div class="btn-group">
-                <button class="btn btn-primary" onclick="getAllProducts()">Получить все товары</button>
-                <button class="btn btn-primary" onclick="getProduct(1)">Получить товар #1</button>
-                <button class="btn btn-primary" onclick="filterByCategory('Accessories')">Только аксессуары</button>
-                <button class="btn btn-primary" onclick="filterInStock()">Только в наличии</button>
-                <button class="btn btn-primary" onclick="sortByPrice()">Сортировка по цене</button>
-                <button class="btn btn-primary" onclick="getFavorites()">Показать избранное</button>
-                <button class="btn btn-primary" onclick="getCart()">Показать корзину</button>
+                <button class="btn btn-primary" onclick="getAllProducts()">Get All Products</button>
+                <button class="btn btn-primary" onclick="getProduct(1)">Get Product #1</button>
+                <button class="btn btn-primary" onclick="filterByCategory('Accessories')">Accessories Only</button>
+                <button class="btn btn-primary" onclick="filterInStock()">In Stock Only</button>
+                <button class="btn btn-primary" onclick="sortByPrice()">Sort by Price</button>
+                <button class="btn btn-primary" onclick="getFavorites()">Show Favorites</button>
+                <button class="btn btn-primary" onclick="getCart()">Show Cart</button>
             </div>
         </div>
 
-        <!-- POST Запросы -->
+        <!-- POST Requests -->
         <div class="api-section">
-            <h2>➕ POST Запросы (Добавление)</h2>
+            <h2>➕ POST Requests (Add)</h2>
             <div class="input-group">
-                <input type="number" id="add-product-id" placeholder="ID товара" min="1" max="15" value="1">
-                <button class="btn btn-success" onclick="addToFavorites()">Добавить в избранное</button>
-                <button class="btn btn-success" onclick="addToCart()">Добавить в корзину</button>
+                <input type="number" id="add-product-id" placeholder="Product ID" min="1" max="15" value="1">
+                <button class="btn btn-success" onclick="addToFavorites()">Add to Favorites</button>
+                <button class="btn btn-success" onclick="addToCart()">Add to Cart</button>
             </div>
         </div>
 
-        <!-- DELETE Запросы -->
+        <!-- DELETE Requests -->
         <div class="api-section">
-            <h2>🗑️ DELETE Запросы (Удаление)</h2>
+            <h2>🗑️ DELETE Requests (Remove)</h2>
             <div class="input-group">
-                <input type="number" id="delete-item-id" placeholder="ID записи для удаления" min="1" value="1">
-                <button class="btn btn-danger" onclick="removeFromFavorites()">Удалить из избранного</button>
-                <button class="btn btn-danger" onclick="removeFromCart()">Удалить из корзины</button>
+                <input type="number" id="delete-item-id" placeholder="Entry ID to delete" min="1" value="1">
+                <button class="btn btn-danger" onclick="removeFromFavorites()">Remove from Favorites</button>
+                <button class="btn btn-danger" onclick="removeFromCart()">Remove from Cart</button>
             </div>
         </div>
 
-        <!-- Специальные запросы -->
+        <!-- Special Requests -->
         <div class="api-section">
-            <h2>🔍 Расширенные запросы</h2>
+            <h2>🔍 Advanced Requests</h2>
             <div class="btn-group">
-                <button class="btn btn-info" onclick="searchProducts()">Поиск "Boosted"</button>
-                <button class="btn btn-info" onclick="priceRange()">Цена $50-$500</button>
-                <button class="btn btn-info" onclick="topRated()">Лучшие по рейтингу</button>
-                <button class="btn btn-info" onclick="pagination()">Первые 5 товаров</button>
+                <button class="btn btn-info" onclick="searchProducts()">Search "Boosted"</button>
+                <button class="btn btn-info" onclick="priceRange()">Price $50-$500</button>
+                <button class="btn btn-info" onclick="topRated()">Top Rated</button>
+                <button class="btn btn-info" onclick="pagination()">First 5 Products</button>
             </div>
         </div>
 
-        <!-- Вывод результатов -->
+        <!-- Results Output -->
         <div class="api-section">
-            <h2>📄 Результат запроса <span id="status"></span></h2>
-            <div class="endpoint-url" id="endpoint-display">Выберите действие выше...</div>
+            <h2>📄 Request Result <span id="status"></span></h2>
+            <div class="endpoint-url" id="endpoint-display">Select an action above...</div>
             <div class="output-container" id="output">
-                <pre>Здесь будет отображаться результат запросов к API...</pre>
+                <pre>API request results will be displayed here...</pre>
             </div>
         </div>
     </div>
@@ -289,7 +289,7 @@
     <script>
         const API_BASE = 'http://localhost:3001';
         
-        // Функция для отображения результата
+        // Function to display result
         function displayResult(data, endpoint, status = 'success') {
             const output = document.getElementById('output');
             const endpointDisplay = document.getElementById('endpoint-display');
@@ -299,18 +299,18 @@
             output.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
             
             statusEl.innerHTML = status === 'success' 
-                ? '<span class="status status-success">✓ Успешно</span>'
-                : '<span class="status status-error">✗ Ошибка</span>';
+                ? '<span class="status status-success">✓ Success</span>'
+                : '<span class="status status-error">✗ Error</span>';
             
             updateStats();
         }
 
-        // Функция для обработки ошибок
+        // Error handling function
         function handleError(error, endpoint) {
             displayResult({ error: error.message }, endpoint, 'error');
         }
 
-        // Обновление статистики
+        // Update statistics
         async function updateStats() {
             try {
                 const [products, favorites, cart] = await Promise.all([
@@ -327,7 +327,7 @@
             }
         }
 
-        // ========== GET ЗАПРОСЫ ==========
+        // ========== GET REQUESTS ==========
 
         async function getAllProducts() {
             const endpoint = `${API_BASE}/products`;
@@ -406,18 +406,18 @@
             }
         }
 
-        // ========== POST ЗАПРОСЫ ==========
+        // ========== POST REQUESTS ==========
 
         async function addToFavorites() {
             const productId = parseInt(document.getElementById('add-product-id').value);
             const endpoint = `${API_BASE}/favorites`;
             
             try {
-                // Сначала получаем данные товара
+                // First get product data
                 const productResponse = await fetch(`${API_BASE}/products/${productId}`);
                 const product = await productResponse.json();
                 
-                // Добавляем в избранное
+                // Add to favorites
                 const response = await fetch(endpoint, {
                     method: 'POST',
                     headers: {
@@ -443,11 +443,11 @@
             const endpoint = `${API_BASE}/cart`;
             
             try {
-                // Сначала получаем данные товара
+                // First get product data
                 const productResponse = await fetch(`${API_BASE}/products/${productId}`);
                 const product = await productResponse.json();
                 
-                // Добавляем в корзину
+                // Add to cart
                 const response = await fetch(endpoint, {
                     method: 'POST',
                     headers: {
@@ -469,7 +469,7 @@
             }
         }
 
-        // ========== DELETE ЗАПРОСЫ ==========
+        // ========== DELETE REQUESTS ==========
 
         async function removeFromFavorites() {
             const itemId = parseInt(document.getElementById('delete-item-id').value);
@@ -480,7 +480,7 @@
                     method: 'DELETE'
                 });
                 
-                displayResult({ message: 'Успешно удалено из избранного', id: itemId }, `DELETE ${endpoint}`);
+                displayResult({ message: 'Successfully removed from favorites', id: itemId }, `DELETE ${endpoint}`);
             } catch (error) {
                 handleError(error, endpoint);
             }
@@ -495,13 +495,13 @@
                     method: 'DELETE'
                 });
                 
-                displayResult({ message: 'Успешно удалено из корзины', id: itemId }, `DELETE ${endpoint}`);
+                displayResult({ message: 'Successfully removed from cart', id: itemId }, `DELETE ${endpoint}`);
             } catch (error) {
                 handleError(error, endpoint);
             }
         }
 
-        // ========== РАСШИРЕННЫЕ ЗАПРОСЫ ==========
+        // ========== ADVANCED REQUESTS ==========
 
         async function searchProducts() {
             const endpoint = `${API_BASE}/products?name_like=Boosted`;
@@ -547,7 +547,7 @@
             }
         }
 
-        // Загрузка начальной статистики
+        // Load initial statistics
         window.addEventListener('DOMContentLoaded', () => {
             updateStats();
         });

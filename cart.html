@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Корзина покупок - Boosted USA</title>
+    <title>Shopping Cart - Boosted USA</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* Стили для страницы корзины */
+        /* Shopping cart page styles */
         .cart-header {
             text-align: center;
             padding: 60px 20px 40px;
@@ -46,7 +46,7 @@
             }
         }
 
-        /* Список товаров */
+        /* Product list */
         .cart-items {
             background: white;
             border-radius: 12px;
@@ -113,7 +113,7 @@
             color: #333;
         }
 
-        /* Управление количеством (Требование 3) */
+        /* Quantity controls (Requirement 3) */
         .quantity-controls {
             display: flex;
             align-items: center;
@@ -166,7 +166,7 @@
             box-shadow: 0 4px 8px rgba(239, 83, 80, 0.4);
         }
 
-        /* Сводка заказа (Требование 4) */
+        /* Order summary (Requirement 4) */
         .cart-summary {
             background: white;
             border-radius: 12px;
@@ -209,7 +209,7 @@
             color: #333;
         }
 
-        /* Кнопка оформления (Требование 5) */
+        /* Checkout button (Requirement 5) */
         .btn-checkout {
             width: 100%;
             padding: 18px;
@@ -249,7 +249,7 @@
             color: #764ba2;
         }
 
-        /* Пустая корзина */
+        /* Empty cart */
         .empty-cart {
             text-align: center;
             padding: 80px 20px;
@@ -291,7 +291,7 @@
             box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
         }
 
-        /* Модальное окно успешной покупки */
+        /* Successful purchase modal */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -427,8 +427,8 @@
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="catalog.html" class="nav-link">Catalog (Static)</a>
                 <a href="catalog-server.html" class="nav-link">Catalog (Server)</a>
-                <a href="favorites.html" class="nav-link">Избранное</a>
-                <a href="cart.html" class="nav-link active">Корзина</a>
+                <a href="favorites.html" class="nav-link">Favorites</a>
+                <a href="cart.html" class="nav-link active">Cart</a>
             </div>
             <div class="nav-social">
                 <a href="favorites.html" class="social-link">
@@ -444,8 +444,8 @@
     <!-- Cart Header -->
     <section class="cart-header">
         <div class="container">
-            <h1 class="cart-title">🛒 Корзина покупок</h1>
-            <p class="cart-subtitle">Оформите заказ и получите товары в кратчайшие сроки</p>
+            <h1 class="cart-title">🛒 Shopping Cart</h1>
+            <p class="cart-subtitle">Complete your order and receive products promptly</p>
         </div>
     </section>
 
@@ -453,7 +453,7 @@
     <section class="cart-content">
         <div id="cart-container">
             <div class="loading-spinner">
-                ⏳ Загрузка корзины...
+                ⏳ Loading cart...
             </div>
         </div>
     </section>
@@ -472,8 +472,8 @@
                     <div class="footer-links">
                         <a href="index.html">Home</a>
                         <a href="catalog-server.html">Catalog</a>
-                        <a href="favorites.html">Избранное</a>
-                        <a href="cart.html">Корзина</a>
+                        <a href="favorites.html">Favorites</a>
+                        <a href="cart.html">Cart</a>
                     </div>
                 </div>
                 <div class="footer-section">

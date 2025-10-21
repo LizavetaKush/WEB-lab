@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Админ-панель - Boosted USA</title>
+    <title>Admin Panel - Boosted USA</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* Стили для админ-панели */
+        /* Admin panel styles */
         .admin-header {
             text-align: center;
             padding: 60px 20px 40px;
@@ -89,7 +89,7 @@
             padding-bottom: 15px;
         }
 
-        /* Таблицы */
+        /* Tables */
         .data-table {
             width: 100%;
             border-collapse: collapse;
@@ -150,7 +150,7 @@
             color: #856404;
         }
 
-        /* Кнопки действий */
+        /* Action buttons */
         .action-buttons {
             display: flex;
             gap: 8px;
@@ -196,7 +196,7 @@
             transform: translateY(-2px);
         }
 
-        /* Формы */
+        /* Forms */
         .form-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -278,7 +278,7 @@
             background: #5a6268;
         }
 
-        /* Модальное окно */
+        /* Modal window */
         .modal {
             display: none;
             position: fixed;
@@ -479,7 +479,7 @@
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="catalog-server.html" class="nav-link">Catalog</a>
                 <a href="admin.html" class="nav-link active" id="admin-nav-link" style="display: none;">Admin Panel</a>
-                <a href="auth.html" class="nav-link" id="auth-link">Вход</a>
+                <a href="auth.html" class="nav-link" id="auth-link">Login</a>
             </div>
             <div class="nav-social">
                 <a href="favorites.html" class="social-link">
@@ -495,8 +495,8 @@
     <!-- Admin Header -->
     <section class="admin-header">
         <div class="container">
-            <h1 class="admin-title">⚙️ Админ-панель</h1>
-            <p class="admin-subtitle">Управление товарами и отзывами</p>
+            <h1 class="admin-title">⚙️ Admin Panel</h1>
+            <p class="admin-subtitle">Product and review management</p>
         </div>
     </section>
 
@@ -505,7 +505,7 @@
         <div id="access-check">
             <div class="access-denied">
                 <div class="access-denied-icon">🔒</div>
-                <h2 class="access-denied-title">Проверка доступа...</h2>
+                <h2 class="access-denied-title">Checking access...</h2>
             </div>
         </div>
 
@@ -513,40 +513,40 @@
             <!-- Tabs -->
             <div class="admin-tabs">
                 <button class="admin-tab active" onclick="switchPanel('dashboard')">
-                    📊 Статистика
+                    📊 Statistics
                 </button>
                 <button class="admin-tab" onclick="switchPanel('products')">
-                    📦 Управление товарами
+                    📦 Product Management
                 </button>
                 <button class="admin-tab" onclick="switchPanel('feedback')">
-                    💬 Управление отзывами
+                    💬 Review Management
                 </button>
                 <button class="admin-tab" onclick="switchPanel('orders')">
-                    🛒 Заказы
+                    🛒 Orders
                 </button>
             </div>
 
             <!-- Dashboard Panel -->
             <div id="dashboard-panel" class="admin-panel active">
-                <h2 class="panel-title">Статистика</h2>
+                <h2 class="panel-title">Statistics</h2>
                 <div class="stats-grid" id="stats-container"></div>
             </div>
 
             <!-- Products Panel -->
             <div id="products-panel" class="admin-panel">
-                <h2 class="panel-title">Управление товарами</h2>
+                <h2 class="panel-title">Product Management</h2>
                 <button class="btn-submit-admin" onclick="openProductModal()">
-                    ➕ Добавить товар
+                    ➕ Add Product
                 </button>
                 <table class="data-table" id="products-table">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Название</th>
-                            <th>Цена</th>
-                            <th>Категория</th>
-                            <th>В наличии</th>
-                            <th>Действия</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>In Stock</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="products-tbody"></tbody>
@@ -555,24 +555,24 @@
 
             <!-- Feedback Panel -->
             <div id="feedback-panel" class="admin-panel">
-                <h2 class="panel-title">Управление отзывами</h2>
+                <h2 class="panel-title">Review Management</h2>
                 
-                <!-- Фильтры отзывов -->
+                <!-- Review filters -->
                 <div class="feedback-filters-admin">
                     <div class="filter-group">
-                        <label for="filter-by-product">Фильтр по товару:</label>
+                        <label for="filter-by-product">Filter by product:</label>
                         <select id="filter-by-product" class="form-select-admin" onchange="filterFeedback()">
-                            <option value="">Все товары</option>
+                            <option value="">All products</option>
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label for="filter-by-user">Фильтр по пользователю:</label>
+                        <label for="filter-by-user">Filter by user:</label>
                         <select id="filter-by-user" class="form-select-admin" onchange="filterFeedback()">
-                            <option value="">Все пользователи</option>
+                            <option value="">All users</option>
                         </select>
                     </div>
                     <button class="btn-submit-admin" onclick="resetFeedbackFilters()" style="margin-left: auto;">
-                        🔄 Сбросить фильтры
+                        🔄 Reset Filters
                     </button>
                 </div>
 
@@ -580,12 +580,12 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Товар</th>
-                            <th>Пользователь</th>
-                            <th>Рейтинг</th>
-                            <th>Отзыв</th>
-                            <th>Статус</th>
-                            <th>Действия</th>
+                            <th>Product</th>
+                            <th>User</th>
+                            <th>Rating</th>
+                            <th>Review</th>
+                            <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="feedback-tbody"></tbody>
@@ -594,17 +594,17 @@
 
             <!-- Orders Panel -->
             <div id="orders-panel" class="admin-panel">
-                <h2 class="panel-title">Заказы</h2>
+                <h2 class="panel-title">Orders</h2>
                 <table class="data-table" id="orders-table">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Клиент</th>
+                            <th>Customer</th>
                             <th>Email</th>
-                            <th>Товары</th>
-                            <th>Сумма</th>
-                            <th>Дата</th>
-                            <th>Статус</th>
+                            <th>Products</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody id="orders-tbody"></tbody>
@@ -617,65 +617,65 @@
     <div id="product-modal" class="modal">
         <div class="modal-content-admin">
             <div class="modal-header">
-                <h2 class="modal-title" id="product-modal-title">Добавить товар</h2>
+                <h2 class="modal-title" id="product-modal-title">Add Product</h2>
                 <button class="btn-close" onclick="closeProductModal()">&times;</button>
             </div>
             <form id="product-form">
                 <input type="hidden" id="product-id">
                 <div class="form-grid">
                     <div class="form-group-admin">
-                        <label class="form-label-admin">Название <span style="color: red;">*</span></label>
+                        <label class="form-label-admin">Name <span style="color: red;">*</span></label>
                         <input type="text" class="form-input-admin" id="product-name" required>
-                        <span class="error-message-admin" id="product-name-error">Введите название товара</span>
+                        <span class="error-message-admin" id="product-name-error">Enter product name</span>
                     </div>
                     <div class="form-group-admin">
-                        <label class="form-label-admin">Цена ($) <span style="color: red;">*</span></label>
+                        <label class="form-label-admin">Price ($) <span style="color: red;">*</span></label>
                         <input type="number" class="form-input-admin" id="product-price" required min="0" step="0.01">
-                        <span class="error-message-admin" id="product-price-error">Введите корректную цену</span>
+                        <span class="error-message-admin" id="product-price-error">Enter valid price</span>
                     </div>
                     <div class="form-group-admin">
-                        <label class="form-label-admin">Категория <span style="color: red;">*</span></label>
+                        <label class="form-label-admin">Category <span style="color: red;">*</span></label>
                         <select class="form-select-admin" id="product-category" required>
-                            <option value="">Выберите категорию</option>
+                            <option value="">Select category</option>
                             <option value="Electric Skateboards">Electric Skateboards</option>
                             <option value="Electric Scooters">Electric Scooters</option>
                             <option value="Accessories">Accessories</option>
                         </select>
-                        <span class="error-message-admin" id="product-category-error">Выберите категорию</span>
+                        <span class="error-message-admin" id="product-category-error">Select category</span>
                     </div>
                     <div class="form-group-admin">
-                        <label class="form-label-admin">Изображение (путь) <span style="color: red;">*</span></label>
+                        <label class="form-label-admin">Image (path) <span style="color: red;">*</span></label>
                         <input type="text" class="form-input-admin" id="product-image" required placeholder="images/product.jpg">
-                        <span class="error-message-admin" id="product-image-error">Введите путь к изображению</span>
+                        <span class="error-message-admin" id="product-image-error">Enter image path</span>
                     </div>
                     <div class="form-group-admin full-width">
-                        <label class="form-label-admin">Описание <span style="color: red;">*</span></label>
+                        <label class="form-label-admin">Description <span style="color: red;">*</span></label>
                         <textarea class="form-textarea-admin" id="product-description" required></textarea>
-                        <span class="error-message-admin" id="product-description-error">Введите описание товара</span>
+                        <span class="error-message-admin" id="product-description-error">Enter product description</span>
                     </div>
                     <div class="form-group-admin">
-                        <label class="form-label-admin">Макс. скорость</label>
+                        <label class="form-label-admin">Max Speed</label>
                         <input type="text" class="form-input-admin" id="product-max-speed" placeholder="24 mph">
                     </div>
                     <div class="form-group-admin">
-                        <label class="form-label-admin">Дальность</label>
+                        <label class="form-label-admin">Range</label>
                         <input type="text" class="form-input-admin" id="product-range" placeholder="14 miles">
                     </div>
                     <div class="form-group-admin">
-                        <label class="form-label-admin">Рейтинг</label>
+                        <label class="form-label-admin">Rating</label>
                         <input type="number" class="form-input-admin" id="product-rating" step="0.1" min="0" max="5" placeholder="4.5">
-                        <span class="error-message-admin" id="product-rating-error">Рейтинг должен быть от 0 до 5</span>
+                        <span class="error-message-admin" id="product-rating-error">Rating must be between 0 and 5</span>
                     </div>
                     <div class="form-group-admin">
-                        <label class="form-label-admin">В наличии <span style="color: red;">*</span></label>
+                        <label class="form-label-admin">In Stock <span style="color: red;">*</span></label>
                         <select class="form-select-admin" id="product-in-stock" required>
-                            <option value="true">Да</option>
-                            <option value="false">Нет</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="btn-submit-admin" id="btn-save-product" disabled>Сохранить</button>
-                <button type="button" class="btn-cancel" onclick="closeProductModal()">Отмена</button>
+                <button type="submit" class="btn-submit-admin" id="btn-save-product" disabled>Save</button>
+                <button type="button" class="btn-cancel" onclick="closeProductModal()">Cancel</button>
             </form>
         </div>
     </div>
