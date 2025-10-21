@@ -1,0 +1,196 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Boosted Stealth",
+      "price": 1599,
+      "category": "Electric Skateboards",
+      "image": "images/skate1.jpg",
+      "description": "The most powerful board ever made. Top speed: 24 mph, Range: 14 miles.",
+      "inStock": true,
+      "maxSpeed": "24 mph",
+      "range": "14 miles",
+      "rating": 4.9
+    },
+    {
+      "id": 2,
+      "name": "Boosted Plus",
+      "price": 1399,
+      "category": "Electric Skateboards",
+      "image": "images/skate2.jpg",
+      "description": "Extended range electric skateboard. Top speed: 22 mph, Range: 14 miles.",
+      "inStock": true,
+      "maxSpeed": "22 mph",
+      "range": "14 miles",
+      "rating": 4.7
+    },
+    {
+      "id": 3,
+      "name": "Boosted Mini X",
+      "price": 999,
+      "category": "Electric Skateboards",
+      "image": "images/skate3.jpg",
+      "description": "Compact yet powerful. Perfect for urban commuting. Top speed: 20 mph.",
+      "inStock": true,
+      "maxSpeed": "20 mph",
+      "range": "14 miles",
+      "rating": 4.6
+    },
+    {
+      "id": 4,
+      "name": "Boosted Rev",
+      "price": 1599,
+      "category": "Electric Scooters",
+      "image": "images/skoot1.jpg",
+      "description": "Revolutionary electric scooter. Speed past traffic at 24 mph.",
+      "inStock": true,
+      "maxSpeed": "24 mph",
+      "range": "22 miles",
+      "rating": 4.8
+    },
+    {
+      "id": 5,
+      "name": "Belt Kit",
+      "price": 25,
+      "category": "Accessories",
+      "image": "images/kit.jpg",
+      "description": "Replacement belt kit for your Boosted board. High-quality materials.",
+      "inStock": true,
+      "maxSpeed": "N/A",
+      "range": "N/A",
+      "rating": 4.3
+    },
+    {
+      "id": 6,
+      "name": "Bearing Service Kit",
+      "price": 50,
+      "category": "Accessories",
+      "image": "images/kit2.png",
+      "description": "Complete bearing service kit to keep your board running smoothly.",
+      "inStock": true,
+      "maxSpeed": "N/A",
+      "range": "N/A",
+      "rating": 4.5
+    },
+    {
+      "id": 7,
+      "name": "Motor Kits",
+      "price": 350,
+      "category": "Accessories",
+      "image": "images/motor-kits.jpg",
+      "description": "Replacement motor kits for enhanced performance and reliability.",
+      "inStock": false,
+      "maxSpeed": "N/A",
+      "range": "N/A",
+      "rating": 4.7
+    },
+    {
+      "id": 8,
+      "name": "Pulley Belt Upgrade",
+      "price": 75,
+      "category": "Accessories",
+      "image": "images/pulley-belt-upgrade.jpg",
+      "description": "Upgrade your pulley and belt system for better performance.",
+      "inStock": true,
+      "maxSpeed": "N/A",
+      "range": "N/A",
+      "rating": 4.4
+    },
+    {
+      "id": 9,
+      "name": "Skid Plates",
+      "price": 20,
+      "category": "Accessories",
+      "image": "images/skid-plates.jpg",
+      "description": "Protect the bottom of your board with durable skid plates.",
+      "inStock": true,
+      "maxSpeed": "N/A",
+      "range": "N/A",
+      "rating": 4.2
+    },
+    {
+      "id": 10,
+      "name": "Shred Lights",
+      "price": 99,
+      "category": "Accessories",
+      "image": "images/shred-lights.jpg",
+      "description": "Premium LED lights for safe night riding. Super bright and durable.",
+      "inStock": true,
+      "maxSpeed": "N/A",
+      "range": "N/A",
+      "rating": 4.6
+    },
+    {
+      "id": 11,
+      "name": "Boosted Mini S",
+      "price": 749,
+      "category": "Electric Skateboards",
+      "image": "images/boosted-mini.jpg",
+      "description": "Affordable and portable electric skateboard. Perfect for beginners.",
+      "inStock": true,
+      "maxSpeed": "18 mph",
+      "range": "7 miles",
+      "rating": 4.5
+    },
+    {
+      "id": 12,
+      "name": "Extended Battery",
+      "price": 299,
+      "category": "Accessories",
+      "image": "images/Extended Battery.jpg",
+      "description": "Extended range battery pack. Double your riding distance.",
+      "inStock": true,
+      "maxSpeed": "N/A",
+      "range": "Extended",
+      "rating": 4.8
+    },
+    {
+      "id": 13,
+      "name": "Remote Control",
+      "price": 99,
+      "category": "Accessories",
+      "image": "images/Remote Control.jpg",
+      "description": "Replacement wireless remote with precise throttle control.",
+      "inStock": true,
+      "maxSpeed": "N/A",
+      "range": "N/A",
+      "rating": 4.4
+    },
+    {
+      "id": 14,
+      "name": "Wheel Set - 85mm",
+      "price": 89,
+      "category": "Accessories",
+      "image": "images/Wheel Set - 85mm.jpg",
+      "description": "Premium urethane wheels for smooth rides. Set of 4 wheels.",
+      "inStock": false,
+      "maxSpeed": "N/A",
+      "range": "N/A",
+      "rating": 4.6
+    },
+    {
+      "id": 15,
+      "name": "Charging Cable",
+      "price": 45,
+      "category": "Accessories",
+      "image": "images/Charging Cable.jpg",
+      "description": "Fast charging cable for all Boosted boards and scooters.",
+      "inStock": true,
+      "maxSpeed": "N/A",
+      "range": "N/A",
+      "rating": 4.1
+    }
+  ],
+  "favorites": [],
+  "cart": [
+    {
+      "productId": 2,
+      "name": "Boosted Plus",
+      "price": 1399,
+      "image": "images/skate2.jpg",
+      "category": "Electric Skateboards",
+      "quantity": 1,
+      "id": 1
+    }
+  ]
+}
