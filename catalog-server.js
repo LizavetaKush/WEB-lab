@@ -536,37 +536,10 @@ function resetFilters() {
 // ПРОСМОТР ИЗБРАННОГО И КОРЗИНЫ
 // ============================================
 
-async function viewFavorites(event) {
-    event.preventDefault();
-    
-    if (favoritesData.length === 0) {
-        alert('Ваше избранное пусто. Добавьте товары, нажав на кнопку "🤍 В избранное"');
-        return;
-    }
-    
-    const items = favoritesData.map(item => 
-        `- ${item.name} ($${item.price})`
-    ).join('\n');
-    
-    alert(`❤️ Избранное (${favoritesData.length} товаров):\n\n${items}\n\nПримечание: Это демонстрация. В реальном приложении здесь была бы отдельная страница.`);
-}
-
-async function viewCart(event) {
-    event.preventDefault();
-    
-    if (cartData.length === 0) {
-        alert('Ваша корзина пуста. Добавьте товары, нажав на кнопку "🛒 В корзину"');
-        return;
-    }
-    
-    const items = cartData.map(item => 
-        `- ${item.name} x${item.quantity} = $${item.price * item.quantity}`
-    ).join('\n');
-    
-    const total = cartData.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    
-    alert(`🛒 Корзина (${cartData.length} позиций):\n\n${items}\n\nИтого: $${total}\n\nПримечание: Это демонстрация. В реальном приложении здесь была бы отдельная страница оформления заказа.`);
-}
+// Теперь используются отдельные страницы:
+// - favorites.html - страница избранного
+// - cart.html - страница корзины
+// Навигация обновлена в HTML
 
 // ============================================
 // УВЕДОМЛЕНИЯ
