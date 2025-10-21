@@ -47,7 +47,10 @@
             
             <!-- Desktop Menu -->
             <div class="nav-menu nav-menu-desktop">
-                <a href="index.html" class="nav-link active">Home</a>
+                <a href="#home" class="nav-link active smooth-scroll">Home</a>
+                <a href="#products" class="nav-link smooth-scroll">Products</a>
+                <a href="#gallery" class="nav-link smooth-scroll">Gallery</a>
+                <a href="#stores" class="nav-link smooth-scroll">Stores</a>
                 <a href="catalog-server.html" class="nav-link">Catalog</a>
                 <a href="favorites.html" class="nav-link">Избранное</a>
                 <a href="cart.html" class="nav-link">Корзина</a>
@@ -88,9 +91,21 @@
             </button>
         </div>
         <nav class="burger-menu-nav">
-            <a href="index.html" class="burger-menu-link active">
+            <a href="#home" class="burger-menu-link active smooth-scroll">
                 <span class="link-icon">🏠</span>
                 <span>Home</span>
+            </a>
+            <a href="#products" class="burger-menu-link smooth-scroll">
+                <span class="link-icon">🛹</span>
+                <span>Products</span>
+            </a>
+            <a href="#gallery" class="burger-menu-link smooth-scroll">
+                <span class="link-icon">🎨</span>
+                <span>Gallery</span>
+            </a>
+            <a href="#stores" class="burger-menu-link smooth-scroll">
+                <span class="link-icon">📍</span>
+                <span>Stores</span>
             </a>
             <a href="catalog-server.html" class="burger-menu-link">
                 <span class="link-icon">📦</span>
@@ -126,7 +141,7 @@
     </div>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="home">
         <div class="hero-background">
             <img src="images/Rectangle(1).png" alt="Boosted Products">
         </div>
@@ -173,7 +188,7 @@
     </section>
 
     <!-- Product Showcase Section -->
-    <section class="product-showcase">
+    <section class="product-showcase scroll-reveal" id="products">
         <div class="container">
             <div class="showcase-grid">
                 <div class="product-card boards-card">
@@ -495,9 +510,9 @@
     </section>
 
     <!-- Interactive Media Gallery Section -->
-    <section class="media-gallery-section">
+    <section class="media-gallery-section scroll-reveal" id="gallery">
         <div class="container">
-            <h2 class="section-title">Интерактивная галерея</h2>
+            <h2 class="section-title scroll-fade-in">Интерактивная галерея</h2>
             <p class="section-subtitle">Нажмите на кнопки или изображение для просмотра коллекции с озвучкой</p>
             
             <div class="gallery-container">
@@ -556,6 +571,16 @@
         </div>
     </section>
 
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="scroll-to-top" title="Наверх">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
     <!-- Video Modal -->
     <div id="videoModal" class="video-modal">
         <div class="video-modal-content">
@@ -572,9 +597,9 @@
     </div>
 
     <!-- Store Locations Section -->
-    <section class="stores-section">
+    <section class="stores-section scroll-reveal" id="stores">
         <div class="container">
-            <h2 class="section-title">Наши магазины в Минске</h2>
+            <h2 class="section-title scroll-fade-in">Наши магазины в Минске</h2>
             <p class="section-subtitle">Посетите один из наших магазинов, чтобы протестировать электротранспорт</p>
             
             <div class="stores-container">
@@ -962,6 +987,177 @@
         document.addEventListener('DOMContentLoaded', () => {
             updateCounters();
             checkAdminNavLink();
+        });
+    </script>
+
+    <!-- Smooth Scroll Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Плавная прокрутка для всех якорных ссылок
+            const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
+            
+            smoothScrollLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    
+                    // Игнорируем пустые якоря
+                    if (href === '#' || href === '#!') {
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    const targetId = href.substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        e.preventDefault();
+                        
+                        // Закрываем бургер-меню если оно открыто
+                        const burgerMenu = document.getElementById('burgerMenu');
+                        const burgerOverlay = document.getElementById('burgerMenuOverlay');
+                        if (burgerMenu && burgerMenu.classList.contains('active')) {
+                            burgerMenu.classList.remove('active');
+                            burgerOverlay.classList.remove('active');
+                            document.body.style.overflow = '';
+                        }
+                        
+                        // Плавная прокрутка
+                        const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                        const targetPosition = targetElement.offsetTop - navbarHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Обновляем активную ссылку в навигации
+                        document.querySelectorAll('.nav-link').forEach(navLink => {
+                            navLink.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                    }
+                });
+            });
+            
+            // Кнопка "Наверх"
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            
+            // Показываем/скрываем кнопку при прокрутке
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.classList.add('visible');
+                } else {
+                    scrollToTopBtn.classList.remove('visible');
+                }
+                
+                // Подсветка активного раздела в навигации
+                highlightActiveSection();
+            });
+            
+            // Клик по кнопке "Наверх"
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Функция подсветки активного раздела
+            function highlightActiveSection() {
+                const sections = document.querySelectorAll('section[id]');
+                const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                const scrollPosition = window.pageYOffset + navbarHeight + 100;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        document.querySelectorAll('.nav-link').forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${sectionId}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+
+    <!-- Scroll Effects Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navbar = document.querySelector('.navbar');
+            const scrollProgressBar = document.getElementById('scrollProgressBar');
+            
+            // Обновление прогресс-бара и navbar при скролле
+            function updateScrollEffects() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                
+                // Обновляем прогресс-бар
+                scrollProgressBar.style.width = scrollPercent + '%';
+                
+                // Добавляем/убираем класс для navbar при скролле
+                if (scrollTop > 100) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            }
+            
+            // Reveal анимация для элементов
+            function revealOnScroll() {
+                const revealElements = document.querySelectorAll('.scroll-reveal, .scroll-fade-in, .product-card, .store-card, .gallery-thumbnail');
+                const windowHeight = window.innerHeight;
+                
+                revealElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < windowHeight - elementVisible) {
+                        element.classList.add('revealed');
+                    }
+                });
+            }
+            
+            // Параллакс эффект для hero секции
+            function parallaxEffect() {
+                const hero = document.querySelector('.hero');
+                if (hero) {
+                    const scrolled = window.pageYOffset;
+                    const heroBackground = hero.querySelector('.hero-background img');
+                    if (heroBackground) {
+                        heroBackground.style.transform = `translateY(${scrolled * 0.5}px)`;
+                    }
+                }
+            }
+            
+            // Обработчик скролла
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        updateScrollEffects();
+                        revealOnScroll();
+                        parallaxEffect();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+            
+            // Начальная проверка при загрузке
+            updateScrollEffects();
+            revealOnScroll();
+            
+            // Добавляем класс для анимации при загрузке
+            setTimeout(() => {
+                document.body.classList.add('loaded');
+            }, 100);
         });
     </script>
 
@@ -1716,6 +1912,209 @@
             
             .volume-control {
                 flex-wrap: wrap;
+            }
+        }
+        
+        /* Scroll Progress Bar */
+        .scroll-progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            width: 0%;
+            z-index: 10001;
+            transition: width 0.1s ease;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.5);
+        }
+        
+        /* Navbar Scroll Effect */
+        .navbar {
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Scroll Reveal Animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .scroll-fade-in {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.6s ease;
+        }
+        
+        .scroll-fade-in.revealed {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Product Cards Animation */
+        .product-card {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: all 0.6s ease;
+        }
+        
+        .product-card.revealed {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .product-card:nth-child(1) { transition-delay: 0.1s; }
+        .product-card:nth-child(2) { transition-delay: 0.2s; }
+        .product-card:nth-child(3) { transition-delay: 0.3s; }
+        .product-card:nth-child(4) { transition-delay: 0.4s; }
+        .product-card:nth-child(5) { transition-delay: 0.5s; }
+        .product-card:nth-child(6) { transition-delay: 0.6s; }
+        
+        /* Store Cards Animation */
+        .store-card {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s ease;
+        }
+        
+        .store-card.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .store-card:nth-child(1) { transition-delay: 0.1s; }
+        .store-card:nth-child(2) { transition-delay: 0.3s; }
+        .store-card:nth-child(3) { transition-delay: 0.5s; }
+        
+        /* Gallery Thumbnails Animation */
+        .gallery-thumbnail {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.4s ease;
+        }
+        
+        .gallery-thumbnail.revealed {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .gallery-thumbnail:nth-child(1) { transition-delay: 0.05s; }
+        .gallery-thumbnail:nth-child(2) { transition-delay: 0.1s; }
+        .gallery-thumbnail:nth-child(3) { transition-delay: 0.15s; }
+        .gallery-thumbnail:nth-child(4) { transition-delay: 0.2s; }
+        .gallery-thumbnail:nth-child(5) { transition-delay: 0.25s; }
+        .gallery-thumbnail:nth-child(6) { transition-delay: 0.3s; }
+        .gallery-thumbnail:nth-child(7) { transition-delay: 0.35s; }
+        .gallery-thumbnail:nth-child(8) { transition-delay: 0.4s; }
+        .gallery-thumbnail:nth-child(9) { transition-delay: 0.45s; }
+        .gallery-thumbnail:nth-child(10) { transition-delay: 0.5s; }
+        .gallery-thumbnail:nth-child(11) { transition-delay: 0.55s; }
+        .gallery-thumbnail:nth-child(12) { transition-delay: 0.6s; }
+        
+        /* Parallax Effect for Hero */
+        .hero {
+            overflow: hidden;
+        }
+        
+        .hero-background {
+            will-change: transform;
+        }
+        
+        /* Body Loaded State */
+        body.loaded .hero {
+            animation: fadeInHero 1s ease;
+        }
+        
+        @keyframes fadeInHero {
+            from {
+                opacity: 0;
+                transform: scale(1.05);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        /* Pulse Animation for Interactive Elements */
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+            }
+        }
+        
+        .scroll-reveal.revealed .gallery-play-btn {
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+        
+        /* Smooth transitions for all elements */
+        * {
+            scroll-behavior: smooth;
+        }
+        
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            z-index: 9999;
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .scroll-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .scroll-to-top:active {
+            transform: translateY(-2px) scale(1.05);
+        }
+        
+        .scroll-to-top svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        @media (max-width: 768px) {
+            .scroll-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
             }
         }
         
