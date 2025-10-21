@@ -1,0 +1,21 @@
+{
+  "name": "boosted-usa-web-lab",
+  "version": "1.0.0",
+  "description": "Boosted USA Electric Skateboards & Scooters - Web Laboratory Project",
+  "scripts": {
+    "server": "json-server --watch db.json --port 3000",
+    "server:host": "json-server --watch db.json --port 3000 --host 0.0.0.0"
+  },
+  "keywords": [
+    "boosted",
+    "electric-skateboard",
+    "json-server",
+    "web-lab"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "json-server": "^0.17.4"
+  }
+}
+
