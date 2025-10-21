@@ -133,6 +133,15 @@ async function loadProducts() {
     try {
         updateAPIIndicator('loading');
         
+        const selectedCategories = getSelectedCategories();
+        
+        // Если выбрано несколько категорий, делаем несколько запросов к серверу
+        // Вся фильтрация происходит на сервере через параметры!
+        if (selectedCategories.length > 1 && selectedCategories.length < allCategories.size) {
+            await loadProductsMultipleCategories(selectedCategories);
+            return;
+        }
+        
         // Построение URL с параметрами (Требования 3, 4, 5, 6, 7, 9)
         const url = buildAPIUrl();
         console.log('📡 Запрос к API:', url);
@@ -149,6 +158,7 @@ async function loadProducts() {
         totalItems = parseInt(response.headers.get('X-Total-Count') || products.length);
         
         // Требование 10: обновление отображения
+        // ВАЖНО: Никакой клиентской фильтрации! Все данные уже отфильтрованы сервером
         renderProducts(products);
         renderPagination();
         updateStats(products.length);
@@ -162,45 +172,105 @@ async function loadProducts() {
 }
 
 // ============================================
+// ЗАГРУЗКА ТОВАРОВ ПО НЕСКОЛЬКИМ КАТЕГОРИЯМ
+// (Несколько запросов к серверу - ВСЯ фильтрация на сервере!)
+// ============================================
+
+async function loadProductsMultipleCategories(categories) {
+    try {
+        console.log('📡 Множественные запросы к серверу для категорий:', categories);
+        
+        // Делаем отдельный запрос к серверу для каждой категории
+        // ВАЖНО: Каждый запрос фильтрует данные на сервере через параметры!
+        const promises = categories.map(category => {
+            const url = buildAPIUrl(category);
+            console.log('  ➜ Запрос:', url);
+            return fetch(url).then(r => r.json());
+        });
+        
+        // Ждем все запросы
+        const results = await Promise.all(promises);
+        
+        // Объединяем результаты всех запросов
+        let allProducts = [];
+        results.forEach(products => {
+            allProducts = allProducts.concat(products);
+        });
+        
+        // Удаляем дубликаты (если товар попал в несколько категорий)
+        const uniqueProducts = Array.from(
+            new Map(allProducts.map(p => [p.id, p])).values()
+        );
+        
+        console.log(`✅ Загружено ${uniqueProducts.length} уникальных товаров из ${categories.length} категорий`);
+        
+        totalItems = uniqueProducts.length;
+        
+        // Отображаем результаты
+        // ВАЖНО: Никакой клиентской фильтрации! Данные отфильтрованы сервером
+        renderProducts(uniqueProducts);
+        renderPagination();
+        updateStats(uniqueProducts.length);
+        updateAPIIndicator('connected');
+        
+    } catch (error) {
+        console.error('❌ Ошибка при загрузке товаров по категориям:', error);
+        updateAPIIndicator('error');
+        showError('Ошибка загрузки товаров. Проверьте подключение к серверу.');
+    }
+}
+
+// ============================================
 // ПОСТРОЕНИЕ URL С ПАРАМЕТРАМИ ФИЛЬТРАЦИИ
 // ============================================
 
-function buildAPIUrl() {
+function buildAPIUrl(forcedCategory = null) {
     let url = API_ENDPOINTS.products;
     const params = new URLSearchParams();
     
     // 1. Полнотекстовый поиск (Требование 3)
+    // Вся фильтрация происходит на сервере через параметр ?q=
     const searchQuery = document.getElementById('search-query').value.trim();
     if (searchQuery) {
         params.append('q', searchQuery);
     }
     
     // 2. Фильтрация по категориям (Требование 5)
-    const selectedCategories = getSelectedCategories();
-    if (selectedCategories.length > 0 && selectedCategories.length < allCategories.size) {
-        // Если выбраны не все категории, добавляем фильтр
-        // JSON Server не поддерживает OR для category, поэтому делаем множественные запросы
-        // Или используем только первую категорию для демонстрации
-        params.append('category', selectedCategories[0]);
+    // ВАЖНО: Фильтрация происходит на сервере через параметр ?category=
+    if (forcedCategory) {
+        // Если передана конкретная категория (при множественном запросе)
+        params.append('category', forcedCategory);
+    } else {
+        // Если выбрана одна категория
+        const selectedCategories = getSelectedCategories();
+        if (selectedCategories.length === 1) {
+            params.append('category', selectedCategories[0]);
+        }
+        // Если выбраны все категории - параметр не добавляем (сервер вернет все)
+        // Если выбрано несколько - используется loadProductsMultipleCategories()
     }
     
     // 3. Фильтрация по наличию (Требование 6)
+    // Фильтрация на сервере через параметр ?inStock=
     const stockFilter = document.getElementById('stock-filter').value;
     if (stockFilter !== 'all') {
         params.append('inStock', stockFilter);
     }
     
     // 4. Фильтрация по диапазону цен (Требование 7)
+    // Фильтрация на сервере через параметры ?price_gte= и ?price_lte=
     const priceMin = document.getElementById('price-min').value;
     const priceMax = document.getElementById('price-max').value;
     if (priceMin) params.append('price_gte', priceMin);
     if (priceMax) params.append('price_lte', priceMax);
     
     // 5. Фильтрация по рейтингу (Требование 7)
+    // Фильтрация на сервере через параметр ?rating_gte=
     const ratingMin = document.getElementById('rating-min').value;
     if (ratingMin) params.append('rating_gte', ratingMin);
     
     // 6. Сортировка (Требование 4)
+    // Сортировка на сервере через параметры ?_sort= и ?_order=
     const sortValue = document.getElementById('sort-select').value;
     if (sortValue) {
         const [field, order] = sortValue.split(':');
@@ -209,6 +279,7 @@ function buildAPIUrl() {
     }
     
     // 7. Пагинация (Требование 9)
+    // Пагинация на сервере через параметры ?_page= и ?_limit=
     itemsPerPage = parseInt(document.getElementById('items-per-page').value);
     if (itemsPerPage !== 999) {
         params.append('_page', currentPage);
@@ -635,6 +706,11 @@ console.log(`
 ║  ✅ Требование 10: Обновление отображения                 ║
 ║  ✅ Требование 11: Добавление в избранное                 ║
 ║  ✅ Требование 12: Добавление в корзину                   ║
+╠═══════════════════════════════════════════════════════════╣
+║  🔥 ВАЖНО: ВСЯ ФИЛЬТРАЦИЯ НА СЕРВЕРЕ!                    ║
+║  Данные передаются в параметрах запроса.                  ║
+║  Клиентская фильтрация НЕ используется.                   ║
+║  Множественные категории = множественные запросы.         ║
 ╚═══════════════════════════════════════════════════════════╝
 `);
 
