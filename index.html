@@ -140,12 +140,30 @@
         </div>
     </div>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Multi-Layer Parallax -->
     <section class="hero" id="home">
-        <div class="hero-background">
+        <!-- Layer 1: Background (slowest - 0.2x speed) -->
+        <div class="hero-background parallax-layer" data-speed="0.2">
             <img src="images/Rectangle(1).png" alt="Boosted Products">
         </div>
-        <div class="hero-content">
+        
+        <!-- Layer 2: Decorative circles (reverse direction - moves up on scroll) -->
+        <div class="parallax-layer parallax-decorative" data-speed="-0.3">
+            <div class="parallax-circle circle-1"></div>
+            <div class="parallax-circle circle-2"></div>
+            <div class="parallax-circle circle-3"></div>
+        </div>
+        
+        <!-- Layer 3: Floating elements (medium speed - 0.5x) -->
+        <div class="parallax-layer parallax-floating" data-speed="0.5">
+            <div class="floating-element element-1">⚡</div>
+            <div class="floating-element element-2">🛹</div>
+            <div class="floating-element element-3">🚀</div>
+            <div class="floating-element element-4">⭐</div>
+        </div>
+        
+        <!-- Layer 4: Main content (normal speed - 1.0x) -->
+        <div class="hero-content parallax-layer" data-speed="1.0">
             <h1 class="hero-title">Welcome to Boosted USA</h1>
             <p class="hero-subtitle">The Holy Grail of Electric Skateboards and One REVolutionary Scooter</p>
             <div class="hero-buttons">
@@ -153,6 +171,16 @@
                 <button class="btn-primary">BOOSTED REVS</button>
                 <button class="btn-primary">BOOSTED BOARDS</button>
             </div>
+        </div>
+        
+        <!-- Layer 5: Foreground particles (fastest - 1.5x speed) -->
+        <div class="parallax-layer parallax-particles" data-speed="1.5">
+            <div class="particle particle-1"></div>
+            <div class="particle particle-2"></div>
+            <div class="particle particle-3"></div>
+            <div class="particle particle-4"></div>
+            <div class="particle particle-5"></div>
+            <div class="particle particle-6"></div>
         </div>
     </section>
 
@@ -1124,16 +1152,52 @@
                 });
             }
             
-            // Параллакс эффект для hero секции
+            // Многослойный параллакс эффект для hero секции
             function parallaxEffect() {
                 const hero = document.querySelector('.hero');
-                if (hero) {
-                    const scrolled = window.pageYOffset;
-                    const heroBackground = hero.querySelector('.hero-background img');
-                    if (heroBackground) {
-                        heroBackground.style.transform = `translateY(${scrolled * 0.5}px)`;
+                if (!hero) return;
+                
+                const scrolled = window.pageYOffset;
+                const heroHeight = hero.offsetHeight;
+                
+                // Останавливаем эффект когда секция вне видимости
+                if (scrolled > heroHeight * 1.5) return;
+                
+                // Получаем все parallax слои
+                const parallaxLayers = hero.querySelectorAll('.parallax-layer');
+                
+                parallaxLayers.forEach(layer => {
+                    const speed = parseFloat(layer.getAttribute('data-speed')) || 0;
+                    const yPos = -(scrolled * speed);
+                    
+                    // Применяем трансформацию в зависимости от скорости
+                    if (speed < 0) {
+                        // Обратное направление (движется вверх при скролле вниз)
+                        layer.style.transform = `translateY(${-yPos}px)`;
+                    } else if (speed === 1.0) {
+                        // Нормальная скорость (контент)
+                        layer.style.transform = `translateY(0)`;
+                    } else {
+                        // Замедленное движение
+                        layer.style.transform = `translateY(${yPos}px)`;
                     }
-                }
+                });
+                
+                // Дополнительные эффекты для плавности
+                const decorativeCircles = hero.querySelectorAll('.parallax-circle');
+                decorativeCircles.forEach((circle, index) => {
+                    const offset = scrolled * (0.1 + index * 0.05);
+                    circle.style.opacity = Math.max(0.2, 0.5 - scrolled / 1000);
+                });
+                
+                const floatingElements = hero.querySelectorAll('.floating-element');
+                floatingElements.forEach((element, index) => {
+                    const rotation = (scrolled * (0.05 + index * 0.02)) % 360;
+                    const currentTransform = element.style.transform || '';
+                    if (!currentTransform.includes('translateY')) {
+                        element.style.transform += ` rotate(${rotation}deg)`;
+                    }
+                });
             }
             
             // Обработчик скролла
@@ -2022,13 +2086,264 @@
         .gallery-thumbnail:nth-child(11) { transition-delay: 0.55s; }
         .gallery-thumbnail:nth-child(12) { transition-delay: 0.6s; }
         
-        /* Parallax Effect for Hero */
+        /* Multi-Layer Parallax Effect for Hero */
         .hero {
+            position: relative;
             overflow: hidden;
+            height: 100vh;
+            min-height: 600px;
         }
         
-        .hero-background {
+        /* Base parallax layer styles */
+        .parallax-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             will-change: transform;
+            transition: transform 0.1s ease-out;
+        }
+        
+        /* Layer 1: Background (slowest) */
+        .hero-background {
+            z-index: 1;
+        }
+        
+        .hero-background img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        /* Layer 2: Decorative circles (reverse direction) */
+        .parallax-decorative {
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        .parallax-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+            backdrop-filter: blur(2px);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+        
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+        
+        .circle-3 {
+            width: 150px;
+            height: 150px;
+            bottom: 15%;
+            left: 15%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-30px) scale(1.1);
+                opacity: 0.5;
+            }
+        }
+        
+        /* Layer 3: Floating elements (medium speed) */
+        .parallax-floating {
+            z-index: 3;
+            pointer-events: none;
+        }
+        
+        .floating-element {
+            position: absolute;
+            font-size: 3rem;
+            animation: floatRotate 8s ease-in-out infinite;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+        
+        .element-1 {
+            top: 15%;
+            right: 15%;
+            animation-delay: 0s;
+        }
+        
+        .element-2 {
+            top: 45%;
+            left: 10%;
+            animation-delay: 2s;
+        }
+        
+        .element-3 {
+            bottom: 20%;
+            right: 25%;
+            animation-delay: 4s;
+        }
+        
+        .element-4 {
+            top: 30%;
+            right: 40%;
+            animation-delay: 6s;
+        }
+        
+        @keyframes floatRotate {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+            50% {
+                transform: translateY(-40px) rotate(0deg);
+            }
+            75% {
+                transform: translateY(-20px) rotate(-5deg);
+            }
+        }
+        
+        /* Layer 4: Main content (normal speed) */
+        .hero-content {
+            position: relative;
+            z-index: 4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        /* Layer 5: Foreground particles (fastest) */
+        .parallax-particles {
+            z-index: 5;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: particleFloat 4s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        
+        .particle-1 {
+            top: 20%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+        
+        .particle-2 {
+            top: 40%;
+            right: 30%;
+            animation-delay: 0.5s;
+        }
+        
+        .particle-3 {
+            top: 60%;
+            left: 40%;
+            animation-delay: 1s;
+        }
+        
+        .particle-4 {
+            bottom: 30%;
+            right: 20%;
+            animation-delay: 1.5s;
+        }
+        
+        .particle-5 {
+            top: 80%;
+            left: 60%;
+            animation-delay: 2s;
+        }
+        
+        .particle-6 {
+            top: 25%;
+            right: 50%;
+            animation-delay: 2.5s;
+        }
+        
+        @keyframes particleFloat {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-50px) scale(1.5);
+                opacity: 0.8;
+            }
+        }
+        
+        /* Responsive adjustments for parallax */
+        @media (max-width: 768px) {
+            .hero {
+                height: 100vh;
+                min-height: 500px;
+            }
+            
+            /* Reduce parallax intensity on mobile */
+            .parallax-circle {
+                transform: scale(0.7);
+            }
+            
+            .floating-element {
+                font-size: 2rem;
+            }
+            
+            .particle {
+                width: 5px;
+                height: 5px;
+            }
+            
+            /* Disable some decorative elements on mobile for performance */
+            .circle-3,
+            .element-4,
+            .particle-5,
+            .particle-6 {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* Further reduce effects on small screens */
+            .parallax-decorative,
+            .parallax-particles {
+                opacity: 0.5;
+            }
+        }
+        
+        /* Disable parallax on devices that prefer reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .parallax-layer {
+                transform: none !important;
+            }
+            
+            .parallax-circle,
+            .floating-element,
+            .particle {
+                animation: none;
+            }
         }
         
         /* Body Loaded State */
