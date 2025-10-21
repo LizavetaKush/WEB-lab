@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog - Boosted USA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Financing Banner -->
+    <div class="financing-banner">
+        <p>Financing option available at checkout.</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="images/Rectangle.png" alt="Boosted USA Logo">
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="catalog.html" class="nav-link active">Catalog</a>
+                <a href="#" class="nav-link">Electric Scooters</a>
+                <a href="#" class="nav-link">Accessories</a>
+                <a href="#" class="nav-link">Gift Card</a>
+            </div>
+            <div class="nav-social">
+                <a href="#" class="social-link">
+                    <img src="images/Vector.svg" alt="Facebook">
+                </a>
+                <a href="#" class="social-link">
+                    <img src="images/cart.svg" alt="Cart">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Catalog Header -->
+    <section class="catalog-header">
+        <div class="container">
+            <h1 class="catalog-title">Our Products Catalog</h1>
+            <p class="catalog-subtitle">Explore our full range of electric skateboards, scooters, and accessories</p>
+            <div class="divider-line"></div>
+        </div>
+    </section>
+
+    <!-- Catalog Products -->
+    <section class="catalog-section">
+        <div class="container">
+            <!-- Пустой контейнер для динамической генерации карточек товаров -->
+            <div id="catalog-products" class="catalog-grid"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-logo">
+                    <div class="logo-icon">
+                        <img src="images/Rectangle(29).png" alt="Boosted Logo">
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Explore</h4>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="catalog.html">Catalog</a>
+                        <a href="#">Electric Skateboards</a>
+                        <a href="#">Electric Scooters</a>
+                        <a href="#">Accessories</a>
+                        <a href="#">FAQs</a>
+                        <a href="#">Contact</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>About Boosted USA</h4>
+                    <p>Boosted empowers people everywhere to commute across their cities, campuses, and communities in ways that were never before possible. Boosted is solving one of the biggest problems people face each day: transportation.</p>
+                    <div class="footer-address">
+                        <p>CaliRides LLC - DBA Boosted USA</p>
+                        <p>1281 Andersen Drive Ste. K</p>
+                        <p>San Rafael, CA 94901</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="footer-copyright">
+                        <span>© 2021 Boosted USA. All Rights Reserved.</span>
+                        <a href="#" class="brand">Terms of Service</a>
+                        <span>. Built by</span>
+                        <a href="#" class="brand">BH</a>
+                    </div>
+                    <div class="footer-payment">
+                        <img src="images/Group.png" alt="American Express">
+                        <img src="images/Frame(1).png" alt="Shop Pay">
+                        <img src="images/Frame(2).png" alt="Google Pay">
+                        <img src="images/Frame(3).png" alt="Klarna">
+                        <img src="images/Frame.png" alt="Mastercard">
+                        <img src="images/Frame-1.png" alt="Apple Pay">
+                        <img src="images/Frame-2.png" alt="Venmo">
+                        <img src="images/Frame-3.png" alt="Visa">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript для генерации карточек товаров -->
+    <script src="catalog.js"></script>
+</body>
+
+</html>
+
