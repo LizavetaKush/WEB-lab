@@ -181,24 +181,7 @@
       "rating": 4.1
     }
   ],
-  "favorites": [
-    {
-      "productId": 2,
-      "name": "Boosted Plus",
-      "price": 1399,
-      "image": "images/skate2.jpg",
-      "category": "Electric Skateboards",
-      "id": 1
-    },
-    {
-      "productId": 3,
-      "name": "Boosted Mini X",
-      "price": 999,
-      "image": "images/skate3.jpg",
-      "category": "Electric Skateboards",
-      "id": 2
-    }
-  ],
+  "favorites": [],
   "cart": [
     {
       "productId": 2,
@@ -208,33 +191,6 @@
       "category": "Electric Skateboards",
       "quantity": 1,
       "id": 1
-    },
-    {
-      "productId": 3,
-      "name": "Boosted Mini X",
-      "price": 999,
-      "image": "images/skate3.jpg",
-      "category": "Electric Skateboards",
-      "quantity": 4,
-      "id": 2
-    },
-    {
-      "productId": 9,
-      "name": "Skid Plates",
-      "price": 20,
-      "image": "images/skid-plates.jpg",
-      "category": "Accessories",
-      "quantity": 1,
-      "id": 3
-    },
-    {
-      "productId": 12,
-      "name": "Extended Battery",
-      "price": 299,
-      "image": "images/Extended Battery.jpg",
-      "category": "Accessories",
-      "quantity": 1,
-      "id": 4
     }
   ],
   "users": [
