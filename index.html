@@ -494,6 +494,68 @@
         </div>
     </section>
 
+    <!-- Interactive Media Gallery Section -->
+    <section class="media-gallery-section">
+        <div class="container">
+            <h2 class="section-title">Интерактивная галерея</h2>
+            <p class="section-subtitle">Нажмите на кнопки или изображение для просмотра коллекции с озвучкой</p>
+            
+            <div class="gallery-container">
+                <!-- Main Display -->
+                <div class="gallery-main">
+                    <div class="gallery-image-container" id="galleryImageContainer">
+                        <img id="galleryMainImage" src="images/skate1.jpg" alt="Gallery Image">
+                        <div class="gallery-overlay">
+                            <button class="gallery-play-btn" id="galleryPlayBtn">
+                                <span class="play-icon">▶️</span>
+                                <span class="pause-icon" style="display: none;">⏸️</span>
+                            </button>
+                        </div>
+                        <div class="gallery-info">
+                            <h3 id="galleryImageTitle">Boosted Stealth</h3>
+                            <p id="galleryImageDesc">Премиальный электрический скейтборд</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Controls -->
+                <div class="gallery-controls">
+                    <div class="gallery-action-buttons">
+                        <button class="gallery-btn gallery-btn-primary" id="randomImageBtn">
+                            🎲 Случайное изображение
+                        </button>
+                        <button class="gallery-btn gallery-btn-secondary" id="nextImageBtn">
+                            ➡️ Следующее
+                        </button>
+                        <button class="gallery-btn gallery-btn-tertiary" id="prevImageBtn">
+                            ⬅️ Предыдущее
+                        </button>
+                    </div>
+                    
+                    <!-- Volume Control -->
+                    <div class="volume-control">
+                        <label for="volumeSlider">
+                            <span id="volumeIcon">🔊</span> Громкость
+                        </label>
+                        <input type="range" id="volumeSlider" min="0" max="100" value="50">
+                        <span id="volumeValue">50%</span>
+                    </div>
+                    
+                    <!-- Player Status -->
+                    <div class="player-status">
+                        <span class="status-indicator" id="statusIndicator">⏹️</span>
+                        <span id="statusText">Остановлено</span>
+                    </div>
+                </div>
+                
+                <!-- Thumbnails -->
+                <div class="gallery-thumbnails" id="galleryThumbnails">
+                    <!-- Thumbnails will be generated dynamically -->
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Store Locations Section -->
     <section class="stores-section">
         <div class="container">
@@ -888,6 +950,239 @@
         });
     </script>
 
+    <!-- Interactive Media Gallery Script -->
+    <script>
+        // Gallery data with 10+ images
+        const galleryData = [
+            { id: 1, image: 'images/skate1.jpg', title: 'Boosted Stealth', desc: 'Премиальный электрический скейтборд', freq: 440 },
+            { id: 2, image: 'images/skate2.jpg', title: 'Boosted Plus', desc: 'Универсальный электроскейт', freq: 523 },
+            { id: 3, image: 'images/skate3.jpg', title: 'Boosted Mini X', desc: 'Компактный и мощный', freq: 659 },
+            { id: 4, image: 'images/skoot1.jpg', title: 'Boosted Rev', desc: 'Электрический самокат', freq: 784 },
+            { id: 5, image: 'images/motor-kits.jpg', title: 'Motor Kits', desc: 'Комплекты двигателей', freq: 330 },
+            { id: 6, image: 'images/kit.jpg', title: 'Service Kit', desc: 'Набор для обслуживания', freq: 392 },
+            { id: 7, image: 'images/kit2.png', title: 'Belt Drive Kit', desc: 'Комплект ременной передачи', freq: 494 },
+            { id: 8, image: 'images/shred-lights.jpg', title: 'Shred Lights', desc: 'Освещение для доски', freq: 587 },
+            { id: 9, image: 'images/skid-plates.jpg', title: 'Skid Plates', desc: 'Защитные пластины', freq: 698 },
+            { id: 10, image: 'images/pulley-belt-upgrade.jpg', title: 'Pulley & Belt', desc: 'Шкивы и ремни', freq: 880 },
+            { id: 11, image: 'images/boosted-mini.jpg', title: 'Boosted Mini S', desc: 'Легкий и маневренный', freq: 740 },
+            { id: 12, image: 'images/Extended Battery.jpg', title: 'Extended Battery', desc: 'Увеличенная батарея', freq: 622 }
+        ];
+        
+        let currentIndex = 0;
+        let audioContext;
+        let oscillator = null;
+        let gainNode;
+        let isPlaying = false;
+        let currentVolume = 0.5;
+        
+        // Initialize Audio Context
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                gainNode = audioContext.createGain();
+                gainNode.connect(audioContext.destination);
+                gainNode.gain.value = currentVolume;
+            }
+        }
+        
+        // Play sound with specific frequency
+        function playSound(frequency) {
+            initAudio();
+            
+            // Stop previous sound
+            if (oscillator) {
+                oscillator.stop();
+                oscillator = null;
+            }
+            
+            // Create new oscillator
+            oscillator = audioContext.createOscillator();
+            oscillator.type = 'sine'; // Soft sine wave
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+            
+            // Create envelope for smooth sound
+            const envelope = audioContext.createGain();
+            envelope.gain.setValueAtTime(0, audioContext.currentTime);
+            envelope.gain.linearRampToValueAtTime(currentVolume, audioContext.currentTime + 0.1);
+            envelope.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1.5);
+            
+            oscillator.connect(envelope);
+            envelope.connect(audioContext.destination);
+            
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 1.5);
+            
+            updatePlayerStatus(true);
+            
+            setTimeout(() => {
+                updatePlayerStatus(false);
+            }, 1500);
+        }
+        
+        // Update player status indicator
+        function updatePlayerStatus(playing) {
+            isPlaying = playing;
+            const statusIndicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            const playIcon = document.querySelector('.play-icon');
+            const pauseIcon = document.querySelector('.pause-icon');
+            
+            if (playing) {
+                statusIndicator.textContent = '▶️';
+                statusText.textContent = 'Воспроизведение';
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline';
+            } else {
+                statusIndicator.textContent = '⏹️';
+                statusText.textContent = 'Остановлено';
+                playIcon.style.display = 'inline';
+                pauseIcon.style.display = 'none';
+            }
+        }
+        
+        // Show image with animation
+        function showImage(index, playAudio = true) {
+            const item = galleryData[index];
+            const mainImage = document.getElementById('galleryMainImage');
+            const imageTitle = document.getElementById('galleryImageTitle');
+            const imageDesc = document.getElementById('galleryImageDesc');
+            const container = document.getElementById('galleryImageContainer');
+            
+            // Fade out
+            container.style.opacity = '0';
+            
+            setTimeout(() => {
+                mainImage.src = item.image;
+                imageTitle.textContent = item.title;
+                imageDesc.textContent = item.desc;
+                currentIndex = index;
+                
+                // Fade in
+                container.style.opacity = '1';
+                
+                // Play sound
+                if (playAudio) {
+                    playSound(item.freq);
+                }
+                
+                // Update active thumbnail
+                updateActiveThumbnail(index);
+            }, 300);
+        }
+        
+        // Update active thumbnail
+        function updateActiveThumbnail(index) {
+            const thumbnails = document.querySelectorAll('.gallery-thumbnail');
+            thumbnails.forEach((thumb, i) => {
+                if (i === index) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
+        }
+        
+        // Show random image
+        function showRandomImage() {
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * galleryData.length);
+            } while (randomIndex === currentIndex && galleryData.length > 1);
+            
+            showImage(randomIndex);
+        }
+        
+        // Show next image
+        function showNextImage() {
+            const nextIndex = (currentIndex + 1) % galleryData.length;
+            showImage(nextIndex);
+        }
+        
+        // Show previous image
+        function showPrevImage() {
+            const prevIndex = (currentIndex - 1 + galleryData.length) % galleryData.length;
+            showImage(prevIndex);
+        }
+        
+        // Update volume
+        function updateVolume(value) {
+            currentVolume = value / 100;
+            if (gainNode) {
+                gainNode.gain.value = currentVolume;
+            }
+            
+            const volumeValue = document.getElementById('volumeValue');
+            const volumeIcon = document.getElementById('volumeIcon');
+            volumeValue.textContent = value + '%';
+            
+            if (value == 0) {
+                volumeIcon.textContent = '🔇';
+            } else if (value < 30) {
+                volumeIcon.textContent = '🔈';
+            } else if (value < 70) {
+                volumeIcon.textContent = '🔉';
+            } else {
+                volumeIcon.textContent = '🔊';
+            }
+        }
+        
+        // Generate thumbnails
+        function generateThumbnails() {
+            const container = document.getElementById('galleryThumbnails');
+            container.innerHTML = '';
+            
+            galleryData.forEach((item, index) => {
+                const thumb = document.createElement('div');
+                thumb.className = 'gallery-thumbnail' + (index === 0 ? ' active' : '');
+                thumb.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}">
+                    <div class="thumbnail-overlay">
+                        <span>${item.title}</span>
+                    </div>
+                `;
+                thumb.addEventListener('click', () => showImage(index));
+                container.appendChild(thumb);
+            });
+        }
+        
+        // Initialize gallery
+        document.addEventListener('DOMContentLoaded', () => {
+            // Generate thumbnails
+            generateThumbnails();
+            
+            // Event listeners
+            document.getElementById('randomImageBtn').addEventListener('click', showRandomImage);
+            document.getElementById('nextImageBtn').addEventListener('click', showNextImage);
+            document.getElementById('prevImageBtn').addEventListener('click', showPrevImage);
+            
+            document.getElementById('galleryPlayBtn').addEventListener('click', () => {
+                const item = galleryData[currentIndex];
+                playSound(item.freq);
+            });
+            
+            document.getElementById('galleryImageContainer').addEventListener('click', (e) => {
+                if (e.target.id === 'galleryMainImage') {
+                    showRandomImage();
+                }
+            });
+            
+            document.getElementById('volumeSlider').addEventListener('input', (e) => {
+                updateVolume(e.target.value);
+            });
+            
+            // Keyboard controls
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') showNextImage();
+                if (e.key === 'ArrowLeft') showPrevImage();
+                if (e.key === ' ') {
+                    e.preventDefault();
+                    const item = galleryData[currentIndex];
+                    playSound(item.freq);
+                }
+            });
+        });
+    </script>
+
     <!-- Yandex Maps API -->
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script>
@@ -1023,6 +1318,313 @@
     </script>
 
     <style>
+        /* Interactive Media Gallery Section */
+        .media-gallery-section {
+            background: #fff;
+            padding: 80px 0;
+        }
+        
+        .media-gallery-section .section-title {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .media-gallery-section .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 50px;
+        }
+        
+        .gallery-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        .gallery-main {
+            width: 100%;
+        }
+        
+        .gallery-image-container {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            transition: opacity 0.3s ease;
+            background: #000;
+        }
+        
+        #galleryMainImage {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            display: block;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        #galleryMainImage:hover {
+            transform: scale(1.02);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-image-container:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-play-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-play-btn:hover {
+            transform: scale(1.1);
+            background: white;
+        }
+        
+        .gallery-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 40px 30px 30px;
+            color: white;
+        }
+        
+        .gallery-info h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .gallery-info p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .gallery-controls {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+        
+        .gallery-action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .gallery-btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .gallery-btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .gallery-btn-secondary {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+        }
+        
+        .gallery-btn-tertiary {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+        }
+        
+        .gallery-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .volume-control label {
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        #volumeSlider {
+            flex: 1;
+            height: 6px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+        
+        #volumeSlider::-webkit-slider-thumb {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.5);
+        }
+        
+        #volumeSlider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.5);
+        }
+        
+        #volumeValue {
+            font-weight: 700;
+            color: #667eea;
+            min-width: 45px;
+        }
+        
+        .player-status {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 20px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        
+        .status-indicator {
+            font-size: 24px;
+        }
+        
+        #statusText {
+            color: #666;
+        }
+        
+        .gallery-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .gallery-thumbnail {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+        
+        .gallery-thumbnail:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .gallery-thumbnail.active {
+            border-color: #667eea;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.5);
+        }
+        
+        .gallery-thumbnail img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .thumbnail-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 15px 10px 10px;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .media-gallery-section {
+                padding: 50px 0;
+            }
+            
+            .media-gallery-section .section-title {
+                font-size: 32px;
+            }
+            
+            #galleryMainImage {
+                height: 400px;
+            }
+            
+            .gallery-action-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-thumbnails {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 10px;
+            }
+            
+            .gallery-thumbnail img {
+                height: 80px;
+            }
+            
+            .volume-control {
+                flex-wrap: wrap;
+            }
+        }
+        
         /* Store Locations Section */
         .stores-section {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
