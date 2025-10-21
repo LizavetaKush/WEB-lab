@@ -164,6 +164,61 @@
             font-size: 14px;
         }
 
+        .btn-generate {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .agreement-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .agreement-modal.show {
+            display: flex;
+        }
+
+        .agreement-content {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .agreement-content h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .agreement-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #666;
+        }
+
         .user-status {
             position: fixed;
             top: 70px;
@@ -340,43 +395,108 @@
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label class="form-label" for="register-firstname">Имя</label>
+                        <label class="form-label" for="register-firstname">Имя <span style="color: red;">*</span></label>
                         <input type="text" id="register-firstname" class="form-input" placeholder="Иван" required>
                         <span class="error-message" id="register-firstname-error">Введите имя</span>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="register-lastname">Фамилия</label>
+                        <label class="form-label" for="register-lastname">Фамилия <span style="color: red;">*</span></label>
                         <input type="text" id="register-lastname" class="form-input" placeholder="Иванов" required>
                         <span class="error-message" id="register-lastname-error">Введите фамилию</span>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="register-username">Имя пользователя</label>
-                    <input type="text" id="register-username" class="form-input" placeholder="username" required>
-                    <span class="error-message" id="register-username-error">Введите имя пользователя</span>
+                    <label class="form-label" for="register-middlename">Отчество</label>
+                    <input type="text" id="register-middlename" class="form-input" placeholder="Петрович">
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="register-email">Email</label>
+                    <label class="form-label" for="register-phone">Телефон РБ <span style="color: red;">*</span></label>
+                    <input type="tel" id="register-phone" class="form-input" placeholder="+375 (29) 123-45-67" required>
+                    <span class="error-message" id="register-phone-error">Введите корректный номер РБ</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="register-birthdate">Дата рождения <span style="color: red;">*</span></label>
+                    <input type="date" id="register-birthdate" class="form-input" required>
+                    <span class="error-message" id="register-birthdate-error">Вам должно быть минимум 16 лет</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="register-email">Email <span style="color: red;">*</span></label>
                     <input type="email" id="register-email" class="form-input" placeholder="your@email.com" required>
                     <span class="error-message" id="register-email-error">Введите корректный email</span>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="register-password">Пароль</label>
-                    <input type="password" id="register-password" class="form-input" placeholder="••••••••" required>
-                    <span class="error-message" id="register-password-error">Пароль должен быть не менее 6 символов</span>
+                    <label class="form-label">Никнейм <span style="color: red;">*</span></label>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="text" id="register-username" class="form-input" placeholder="username" required readonly style="flex: 1;">
+                        <button type="button" class="btn-generate" id="btn-generate-nickname">🔄 Сгенерировать</button>
+                    </div>
+                    <div style="font-size: 12px; color: #666; margin-top: 5px;">
+                        Попыток: <span id="nickname-attempts">0</span>/5
+                    </div>
+                    <span class="error-message" id="register-username-error">Никнейм уже занят или некорректен</span>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="register-password-confirm">Подтвердите пароль</label>
-                    <input type="password" id="register-password-confirm" class="form-input" placeholder="••••••••" required>
-                    <span class="error-message" id="register-password-confirm-error">Пароли не совпадают</span>
+                    <label class="form-label">Способ задания пароля <span style="color: red;">*</span></label>
+                    <div style="display: flex; gap: 15px; margin-bottom: 10px;">
+                        <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                            <input type="radio" name="password-mode" value="manual" checked onchange="togglePasswordMode()">
+                            <span>Ввести самостоятельно</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                            <input type="radio" name="password-mode" value="auto" onchange="togglePasswordMode()">
+                            <span>Сгенерировать автоматически</span>
+                        </label>
+                    </div>
                 </div>
 
-                <button type="submit" class="btn-submit">
+                <div id="manual-password-fields">
+                    <div class="form-group">
+                        <label class="form-label" for="register-password">Пароль <span style="color: red;">*</span></label>
+                        <input type="password" id="register-password" class="form-input" placeholder="••••••••">
+                        <div style="font-size: 11px; color: #666; margin-top: 5px;">
+                            8-20 символов, заглавные, строчные, цифры, спецсимволы
+                        </div>
+                        <span class="error-message" id="register-password-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="register-password-confirm">Подтвердите пароль <span style="color: red;">*</span></label>
+                        <input type="password" id="register-password-confirm" class="form-input" placeholder="••••••••" onpaste="return false;">
+                        <span class="error-message" id="register-password-confirm-error">Пароли не совпадают</span>
+                    </div>
+                </div>
+
+                <div id="auto-password-field" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">Сгенерированный пароль</label>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <input type="text" id="generated-password" class="form-input" readonly style="flex: 1;">
+                            <button type="button" class="btn-generate" onclick="generatePassword()">🔄</button>
+                        </div>
+                        <div style="font-size: 12px; color: #e74c3c; margin-top: 5px;">
+                            ⚠️ Сохраните пароль! Он не будет показан повторно.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 20px;">
+                    <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
+                        <input type="checkbox" id="register-agreement" required style="margin-top: 4px;">
+                        <span style="font-size: 14px;">
+                            Я прочитал и согласен с <a href="#" style="color: #667eea; text-decoration: underline;" onclick="showAgreement(); return false;">Соглашением пользователя</a> <span style="color: red;">*</span>
+                        </span>
+                    </label>
+                    <span class="error-message" id="register-agreement-error">Необходимо принять соглашение</span>
+                </div>
+
+                <button type="submit" class="btn-submit" id="btn-register" disabled>
                     ✨ Зарегистрироваться
                 </button>
 
@@ -386,6 +506,29 @@
             </form>
         </div>
     </section>
+
+    <!-- Agreement Modal -->
+    <div id="agreement-modal" class="agreement-modal">
+        <div class="agreement-content">
+            <h2>Соглашение пользователя</h2>
+            <p><strong>1. Общие положения</strong></p>
+            <p>Настоящее соглашение определяет условия использования сервиса Boosted USA.</p>
+            
+            <p><strong>2. Сбор и использование данных</strong></p>
+            <p>Мы собираем и обрабатываем ваши персональные данные в соответствии с законодательством РБ.</p>
+            
+            <p><strong>3. Права и обязанности пользователя</strong></p>
+            <p>Пользователь обязуется предоставлять достоверную информацию и не нарушать права других пользователей.</p>
+            
+            <p><strong>4. Ответственность</strong></p>
+            <p>Администрация не несет ответственности за действия пользователей на платформе.</p>
+            
+            <p><strong>5. Заключительные положения</strong></p>
+            <p>Администрация оставляет за собой право изменять условия соглашения.</p>
+            
+            <button class="btn-submit" onclick="closeAgreement()" style="margin-top: 20px;">Закрыть</button>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">

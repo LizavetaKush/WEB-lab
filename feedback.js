@@ -1,5 +1,5 @@
 // ============================================
-// FEEDBACK PAGE - JavaScript
+// FEEDBACK PAGE - JavaScript (UPDATED)
 // ============================================
 
 const API_BASE_URL = 'http://localhost:3000';
@@ -7,13 +7,17 @@ const API_ENDPOINTS = {
     products: `${API_BASE_URL}/products`,
     feedback: `${API_BASE_URL}/feedback`,
     favorites: `${API_BASE_URL}/favorites`,
-    cart: `${API_BASE_URL}/cart`
+    cart: `${API_BASE_URL}/cart`,
+    orders: `${API_BASE_URL}/orders`
 };
+
+const MIN_COMMENT_LENGTH = 20; // Минимальное количество символов для отзыва
 
 let currentUser = null;
 let selectedRating = 0;
 let products = [];
 let feedbackList = [];
+let userOrders = [];
 
 // ============================================
 // ИНИЦИАЛИЗАЦИЯ
@@ -52,16 +56,86 @@ function checkAuth() {
         }
     }
     
-    // Показываем/скрываем уведомление о входе
     const loginNotice = document.getElementById('login-notice');
     const feedbackForm = document.getElementById('feedback-form');
     
     if (!currentUser) {
         loginNotice.style.display = 'block';
         feedbackForm.style.display = 'none';
+    } else if (currentUser.role === 'admin') {
+        // Администратор не может оставлять отзывы
+        loginNotice.innerHTML = '<strong>⚠️ Администраторы не могут оставлять отзывы</strong>';
+        loginNotice.style.display = 'block';
+        feedbackForm.style.display = 'none';
     } else {
         loginNotice.style.display = 'none';
         feedbackForm.style.display = 'block';
+        // Загружаем заказы пользователя
+        loadUserOrders();
+    }
+}
+
+// ============================================
+// ЗАГРУЗКА ЗАКАЗОВ ПОЛЬЗОВАТЕЛЯ
+// ============================================
+
+async function loadUserOrders() {
+    if (!currentUser) return;
+    
+    try {
+        const response = await fetch(`${API_ENDPOINTS.orders}?userId=${currentUser.id}`);
+        if (!response.ok) {
+            throw new Error('Не удалось загрузить заказы');
+        }
+        
+        userOrders = await response.json();
+        console.log('✅ Заказы пользователя загружены:', userOrders.length);
+        
+        // Обновляем список товаров в селекте (только купленные)
+        updateProductSelect();
+        
+    } catch (error) {
+        console.error('❌ Ошибка загрузки заказов:', error);
+    }
+}
+
+function updateProductSelect() {
+    const productSelect = document.getElementById('product-select');
+    productSelect.innerHTML = '<option value="">Выберите товар...</option>';
+    
+    if (userOrders.length === 0) {
+        const option = document.createElement('option');
+        option.value = '';
+        option.textContent = 'У вас пока нет купленных товаров';
+        option.disabled = true;
+        productSelect.appendChild(option);
+        return;
+    }
+    
+    // Собираем уникальные товары из заказов
+    const purchasedProductIds = new Set();
+    userOrders.forEach(order => {
+        order.items.forEach(item => {
+            purchasedProductIds.add(item.productId);
+        });
+    });
+    
+    // Добавляем только купленные товары
+    products.forEach(product => {
+        if (purchasedProductIds.has(product.id)) {
+            const option = document.createElement('option');
+            option.value = product.id;
+            option.textContent = `${product.name} - $${product.price}`;
+            productSelect.appendChild(option);
+        }
+    });
+    
+    if (purchasedProductIds.size === 0) {
+        const option = document.createElement('option');
+        option.value = '';
+        option.textContent = 'У вас пока нет купленных товаров';
+        option.disabled = true;
+        productSelect.appendChild(option);
     }
 }
 
@@ -79,35 +153,23 @@ async function loadProducts() {
         products = await response.json();
         console.log('✅ Товары загружены:', products.length);
         
-        // Заполняем селекты
-        populateProductSelects();
+        // Заполняем фильтр товаров (все товары)
+        populateProductFilter();
         
     } catch (error) {
         console.error('❌ Ошибка загрузки товаров:', error);
     }
 }
 
-function populateProductSelects() {
-    const productSelect = document.getElementById('product-select');
+function populateProductFilter() {
     const productFilter = document.getElementById('product-filter');
-    
-    // Очищаем опции
-    productSelect.innerHTML = '<option value="">Выберите товар...</option>';
     productFilter.innerHTML = '<option value="">Все товары</option>';
     
-    // Добавляем товары
     products.forEach(product => {
-        // Для формы отзыва
-        const option1 = document.createElement('option');
-        option1.value = product.id;
-        option1.textContent = `${product.name} - $${product.price}`;
-        productSelect.appendChild(option1);
-        
-        // Для фильтра
-        const option2 = document.createElement('option');
-        option2.value = product.id;
-        option2.textContent = product.name;
-        productFilter.appendChild(option2);
+        const option = document.createElement('option');
+        option.value = product.id;
+        option.textContent = product.name;
+        productFilter.appendChild(option);
     });
 }
 
@@ -125,7 +187,6 @@ async function loadFeedback() {
         feedbackList = await response.json();
         console.log('✅ Отзывы загружены:', feedbackList.length);
         
-        // Применяем фильтры
         applyFilters();
         
     } catch (error) {
@@ -140,17 +201,17 @@ function applyFilters() {
     
     let filtered = [...feedbackList];
     
-    // Фильтр по товару
+    // Показываем только одобренные отзывы
+    filtered = filtered.filter(f => f.approved);
+    
     if (productFilter) {
         filtered = filtered.filter(f => f.productId == productFilter);
     }
     
-    // Фильтр по рейтингу
     if (ratingFilter) {
         filtered = filtered.filter(f => f.rating == ratingFilter);
     }
     
-    // Сортируем по дате (новые первые)
     filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     
     renderFeedback(filtered);
@@ -240,16 +301,56 @@ function setupEventHandlers() {
     });
     
     const starRating = document.getElementById('star-rating');
-    starRating.addEventListener('mouseleave', () => {
-        highlightStars(selectedRating);
-    });
+    if (starRating) {
+        starRating.addEventListener('mouseleave', () => {
+            highlightStars(selectedRating);
+        });
+    }
     
     // Форма отзыва
     const feedbackForm = document.getElementById('feedback-form');
-    feedbackForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        await submitFeedback();
-    });
+    if (feedbackForm) {
+        feedbackForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await submitFeedback();
+        });
+    }
+    
+    // Валидация длины комментария
+    const commentField = document.getElementById('comment');
+    if (commentField) {
+        commentField.addEventListener('input', () => {
+            validateComment();
+            updateCommentCount();
+        });
+    }
+}
+
+function updateCommentCount() {
+    const comment = document.getElementById('comment').value;
+    const countEl = document.getElementById('comment-count');
+    if (countEl) {
+        countEl.textContent = comment.length;
+        
+        if (comment.length >= MIN_COMMENT_LENGTH) {
+            countEl.style.color = '#28a745';
+        } else {
+            countEl.style.color = '#e74c3c';
+        }
+    }
+}
+
+function validateComment() {
+    const comment = document.getElementById('comment').value.trim();
+    const commentField = document.getElementById('comment');
+    
+    if (comment.length > 0 && comment.length < MIN_COMMENT_LENGTH) {
+        commentField.style.borderColor = '#e74c3c';
+        return false;
+    } else {
+        commentField.style.borderColor = '#e0e0e0';
+        return true;
+    }
 }
 
 function setRating(rating) {
@@ -283,6 +384,12 @@ async function submitFeedback() {
         return;
     }
     
+    // Проверка роли
+    if (currentUser.role === 'admin') {
+        alert('Администраторы не могут оставлять отзывы');
+        return;
+    }
+    
     const productId = parseInt(document.getElementById('product-select').value);
     const rating = selectedRating;
     const comment = document.getElementById('comment').value.trim();
@@ -298,8 +405,18 @@ async function submitFeedback() {
         return;
     }
     
-    if (!comment) {
-        alert('Пожалуйста, напишите отзыв');
+    if (comment.length < MIN_COMMENT_LENGTH) {
+        alert(`Отзыв должен содержать минимум ${MIN_COMMENT_LENGTH} символов`);
+        return;
+    }
+    
+    // Проверка, что товар был куплен
+    const isPurchased = userOrders.some(order => 
+        order.items.some(item => item.productId === productId)
+    );
+    
+    if (!isPurchased) {
+        alert('Вы можете оставить отзыв только на купленный товар');
         return;
     }
     
@@ -311,7 +428,7 @@ async function submitFeedback() {
             rating: rating,
             comment: comment,
             createdAt: new Date().toISOString(),
-            approved: true // В реальном приложении требуется модерация
+            approved: true
         };
         
         const response = await fetch(API_ENDPOINTS.feedback, {
@@ -329,7 +446,6 @@ async function submitFeedback() {
         const savedFeedback = await response.json();
         console.log('✅ Отзыв отправлен:', savedFeedback);
         
-        // Показываем сообщение об успехе
         showSuccessMessage('Спасибо за ваш отзыв! 🎉');
         
         // Очищаем форму
@@ -393,4 +509,3 @@ async function updateCounters() {
 }
 
 console.log('💬 Страница отзывов инициализирована');
-

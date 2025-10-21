@@ -202,6 +202,9 @@
       "role": "admin",
       "firstName": "Admin",
       "lastName": "User",
+      "middleName": null,
+      "phone": "+375 (29) 111-11-11",
+      "birthdate": "1990-01-01",
       "createdAt": "2025-01-01T00:00:00.000Z"
     },
     {
@@ -212,6 +215,9 @@
       "role": "customer",
       "firstName": "John",
       "lastName": "Doe",
+      "middleName": null,
+      "phone": "+375 (29) 123-45-67",
+      "birthdate": "1995-06-15",
       "createdAt": "2025-01-15T10:30:00.000Z"
     }
   ],
