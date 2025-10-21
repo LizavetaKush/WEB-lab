@@ -2,7 +2,7 @@
 // КОНФИГУРАЦИЯ API
 // ============================================
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = 'http://localhost:3001';
 const API_ENDPOINTS = {
     products: `${API_BASE_URL}/products`,
     favorites: `${API_BASE_URL}/favorites`,
@@ -334,7 +334,7 @@ function createProductCard(product) {
     const isInFavorites = favoritesData.some(fav => fav.productId === product.id);
     
     card.innerHTML = `
-        <div class="product-catalog-image">
+        <div class="product-catalog-image" data-product-id="${product.id}">
             <img src="${product.image}" alt="${product.name}" onerror="this.src='images/Rectangle.png'">
             ${product.inStock ? 
                 '<span class="catalog-badge in-stock">В наличии</span>' : 
@@ -343,8 +343,8 @@ function createProductCard(product) {
         </div>
         <div class="product-catalog-content">
             <span class="product-catalog-category">${product.category}</span>
-            <h3 class="product-catalog-title">${product.name}</h3>
-            <p class="product-catalog-description">${product.description}</p>
+            <h3 class="product-catalog-title" data-product-id="${product.id}">${product.name}</h3>
+            <p class="product-catalog-description" data-product-id="${product.id}">${product.description}</p>
             <div class="product-catalog-specs">
                 ${product.maxSpeed !== 'N/A' ? `<span class="spec-item">⚡ ${product.maxSpeed}</span>` : ''}
                 ${product.range !== 'N/A' && product.range !== 'Extended' ? `<span class="spec-item">🔋 ${product.range}</span>` : ''}
@@ -356,12 +356,12 @@ function createProductCard(product) {
             </div>
             <div class="product-actions">
                 <button class="btn-favorite ${isInFavorites ? 'added' : ''}" 
-                        onclick="toggleFavorite(${product.id}, this)"
+                        onclick="event.stopPropagation(); toggleFavorite(${product.id}, this)"
                         title="${isInFavorites ? 'Удалить из избранного' : 'Добавить в избранное'}">
                     ${isInFavorites ? '❤️ В избранном' : '🤍 В избранное'}
                 </button>
                 <button class="btn-cart" 
-                        onclick="addToCart(${product.id})"
+                        onclick="event.stopPropagation(); addToCart(${product.id})"
                         ${!product.inStock ? 'disabled' : ''}
                         title="Добавить в корзину">
                     🛒 ${product.inStock ? 'В корзину' : 'Недоступно'}
@@ -370,7 +370,40 @@ function createProductCard(product) {
         </div>
     `;
     
+    // Add click handler to open modal when clicking on card
+    card.addEventListener('click', (e) => {
+        // Don't open modal if clicking on buttons
+        if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+            return;
+        }
+        openProductDetailModal(product);
+    });
+    
+    // Make card look clickable
+    card.style.cursor = 'pointer';
+    
     return card;
+}
+
+// Open product detail modal
+function openProductDetailModal(product) {
+    const productData = {
+        id: product.id,
+        name: product.name,
+        category: product.category,
+        description: product.description,
+        price: product.price,
+        image: product.image,
+        inStock: product.inStock,
+        specs: {
+            speed: product.maxSpeed !== 'N/A' ? product.maxSpeed : null,
+            range: product.range !== 'N/A' ? product.range : null,
+            power: product.motor || null,
+            weight: product.weight || null
+        }
+    };
+    
+    modalManager.showProductDetail(productData);
 }
 
 // ============================================

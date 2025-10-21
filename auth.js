@@ -2,7 +2,7 @@
 // AUTH PAGE - JavaScript (UPDATED)
 // ============================================
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = 'http://localhost:3001';
 const API_ENDPOINTS = {
     users: `${API_BASE_URL}/users`,
     favorites: `${API_BASE_URL}/favorites`,

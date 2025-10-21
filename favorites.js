@@ -2,7 +2,7 @@
 // FAVORITES PAGE - JavaScript
 // ============================================
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = 'http://localhost:3001';
 const API_ENDPOINTS = {
     favorites: `${API_BASE_URL}/favorites`,
     cart: `${API_BASE_URL}/cart`,

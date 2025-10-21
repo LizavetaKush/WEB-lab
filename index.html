@@ -782,7 +782,7 @@
         // Обновление счетчиков корзины и избранного
         async function updateCounters() {
             try {
-                const API_BASE_URL = 'http://localhost:3000';
+                const API_BASE_URL = 'http://localhost:3001';
                 const [favResponse, cartResponse] = await Promise.all([
                     fetch(`${API_BASE_URL}/favorites`),
                     fetch(`${API_BASE_URL}/cart`)

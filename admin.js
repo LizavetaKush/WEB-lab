@@ -2,7 +2,7 @@
 // ADMIN PANEL - JavaScript (UPDATED)
 // ============================================
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = 'http://localhost:3001';
 const API_ENDPOINTS = {
     products: `${API_BASE_URL}/products`,
     feedback: `${API_BASE_URL}/feedback`,
@@ -261,19 +261,14 @@ function renderProducts() {
 
 function openProductModal() {
     editingProductId = null;
-    document.getElementById('product-modal-title').textContent = 'Добавить товар';
-    document.getElementById('product-form').reset();
-    document.getElementById('product-id').value = '';
-    document.getElementById('product-category').value = '';
-    clearProductFormErrors();
-    document.getElementById('btn-save-product').disabled = true;
-    document.getElementById('product-modal').classList.add('show');
+    modalManager.showProductForm(null, async (formData) => {
+        await handleProductSubmit(formData);
+    });
 }
 
 function closeProductModal() {
-    document.getElementById('product-modal').classList.remove('show');
+    // No longer needed with modalManager
     editingProductId = null;
-    clearProductFormErrors();
 }
 
 async function editProduct(productId) {
@@ -282,47 +277,101 @@ async function editProduct(productId) {
     
     editingProductId = productId;
     
-    document.getElementById('product-modal-title').textContent = 'Редактировать товар';
-    document.getElementById('product-id').value = product.id;
-    document.getElementById('product-name').value = product.name;
-    document.getElementById('product-price').value = product.price;
-    document.getElementById('product-category').value = product.category;
-    document.getElementById('product-image').value = product.image;
-    document.getElementById('product-description').value = product.description;
-    document.getElementById('product-max-speed').value = product.maxSpeed || '';
-    document.getElementById('product-range').value = product.range || '';
-    document.getElementById('product-rating').value = product.rating || '';
-    document.getElementById('product-in-stock').value = product.inStock ? 'true' : 'false';
+    const productData = {
+        id: product.id,
+        name: product.name,
+        category: product.category,
+        price: product.price,
+        description: product.description,
+        image: product.image,
+        specs: {
+            speed: product.maxSpeed || '',
+            range: product.range || '',
+            power: product.motor || '',
+            weight: product.weight || ''
+        },
+        inStock: product.inStock
+    };
     
-    clearProductFormErrors();
-    validateProductForm();
-    
-    document.getElementById('product-modal').classList.add('show');
+    modalManager.showProductForm(productData, async (formData) => {
+        await handleProductSubmit(formData);
+    });
+}
+
+async function handleProductSubmit(formData) {
+    try {
+        const productData = {
+            name: formData.name,
+            category: formData.category,
+            price: formData.price,
+            description: formData.description,
+            image: formData.image || 'images/placeholder.jpg',
+            maxSpeed: formData.specs.speed || 'N/A',
+            range: formData.specs.range || 'N/A',
+            motor: formData.specs.power || 'N/A',
+            weight: formData.specs.weight || 'N/A',
+            rating: 5,
+            inStock: formData.inStock
+        };
+        
+        let response;
+        if (formData.id) {
+            // Update existing product
+            response = await fetch(`${API_ENDPOINTS.products}/${formData.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ...productData, id: formData.id })
+            });
+            console.log('✅ Товар обновлен');
+        } else {
+            // Create new product
+            response = await fetch(API_ENDPOINTS.products, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(productData)
+            });
+            console.log('✅ Товар добавлен');
+        }
+        
+        if (!response.ok) {
+            throw new Error('Ошибка сохранения товара');
+        }
+        
+        await loadAllData();
+        editingProductId = null;
+        
+    } catch (error) {
+        console.error('❌ Ошибка сохранения товара:', error);
+        alert('Не удалось сохранить товар. Попробуйте еще раз.');
+    }
 }
 
 async function deleteProduct(productId) {
-    if (!confirm('Вы уверены, что хотите удалить этот товар?')) {
-        return;
-    }
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
     
-    try {
-        const response = await fetch(`${API_ENDPOINTS.products}/${productId}`, {
-            method: 'DELETE'
-        });
-        
-        if (!response.ok) {
-            throw new Error('Не удалось удалить товар');
+    modalManager.showDeleteConfirmation(product, async (id) => {
+        try {
+            const response = await fetch(`${API_ENDPOINTS.products}/${id}`, {
+                method: 'DELETE'
+            });
+            
+            if (!response.ok) {
+                throw new Error('Не удалось удалить товар');
+            }
+            
+            console.log(`✅ Товар #${id} удален`);
+            await loadAllData();
+            
+        } catch (error) {
+            console.error('❌ Ошибка удаления товара:', error);
+            alert('Не удалось удалить товар. Попробуйте еще раз.');
         }
-        
-        console.log(`✅ Товар #${productId} удален`);
-        alert('Товар успешно удален!');
-        
-        await loadAllData();
-        
-    } catch (error) {
-        console.error('❌ Ошибка удаления товара:', error);
-        alert('Не удалось удалить товар. Попробуйте еще раз.');
-    }
+    });
 }
 
 // ============================================

@@ -2,7 +2,7 @@
 // FEEDBACK PAGE - JavaScript (UPDATED)
 // ============================================
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = 'http://localhost:3001';
 const API_ENDPOINTS = {
     products: `${API_BASE_URL}/products`,
     feedback: `${API_BASE_URL}/feedback`,
