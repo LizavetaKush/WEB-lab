@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CV Лизаветы Кушнерс - Разработчик ПО">
+    <meta name="author" content="Лизавета Кушнерс">
+    <title>Лизавета Кушнерс - Разработчик ПО</title>
+</head>
+<body>
+    <center>
+    <header>
+        <h1>Лизавета Кушнерс</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">О себе</a></li>
+                <li><a href="#skills">Навыки</a></li>
+                <li><a href="#projects">Проекты</a></li>
+                <li><a href="#education">Образование</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about">
+            <h2>О себе</h2>
+            <figure>
+                <img src="https://i.pinimg.com/1200x/23/dd/4b/23dd4bbd8e9898b1d60f5232288e22a8.jpg" alt="Фото Лизаветы Кушнерс" width="150" height="150">
+                <figcaption>Профессиональное фото</figcaption>
+            </figure>
+            <p>
+                Увлеченный разработчик программного обеспечения с прочной основой в области компьютерных наук 
+                и живым интересом к современным веб-технологиям. Моя цель - вносить вклад в инновационные проекты, 
+                постоянно изучая и развиваясь в области разработки ПО. Я стремлюсь писать чистый, эффективный код 
+                и эффективно сотрудничать с командами разработчиков.
+            </p>
+        </section>
+
+        <section id="contact">
+            <h2>Контактная информация</h2>
+            <ul>
+                <li><strong>Телефон:</strong> <a href="tel:+79161234567">+375 (33) 333-33-33</a></li>
+                <li><strong>Email:</strong> <a href="mailto:lizaveta.kushners@email.com">lizaveta.kushners@email.com</a></li>
+                <li><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/lizavetakushners" target="_blank">linkedin.com/in/lizavetakushners</a></li>
+                <li><strong>GitHub:</strong> <a href="https://github.com/lizavetakushners" target="_blank">github.com/lizavetakushners</a></li>
+                <li><strong>Местоположение:</strong> <address>Москва, Россия</address></li>
+            </ul>
+        </section>
+
+        <section id="skills">
+            <h2>Технические навыки</h2>
+            <h3>Языки программирования</h3>
+            <ul>
+                <li>JavaScript (ES6+)</li>
+                <li>Python</li>
+                <li>Java</li>
+                <li>HTML5</li>
+                <li>CSS3</li>
+                <li>SQL</li>
+            </ul>
+            
+            <h3>Фреймворки и библиотеки</h3>
+            <ol>
+                <li>React.js</li>
+                <li>Node.js</li>
+                <li>Express.js</li>
+                <li>Django</li>
+                <li>Bootstrap</li>
+            </ol>
+
+            <h3>Инструменты разработки</h3>
+            <ul>
+                <li>Git & GitHub</li>
+                <li>Visual Studio Code</li>
+                <li>Docker</li>
+                <li>Postman</li>
+                <li>MongoDB</li>
+                <li>MySQL</li>
+            </ul>
+        </section>
+
+        <section id="code-examples">
+            <h2>Примеры кода</h2>
+            <h3>Функция JavaScript</h3>
+            <pre><code>function fibonacci(n) {
+    if (n <= 1) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+// Example usage
+const result = fibonacci(10);
+console.log(`Fibonacci of 10 is: ${result}`);</code></pre>
+
+            <h3>Класс Python</h3>
+            <pre><code>class Calculator:
+    def __init__(self):
+        self.history = []
+    
+    def add(self, a, b):
+        result = a + b
+        self.history.append(f"{a} + {b} = {result}")
+        return result
+    
+    def get_history(self):
+        return self.history
+
+calc = Calculator()
+print(calc.add(5, 3))  # Output: 8</code></pre>
+
+            <h3>Компонент React</h3>
+            <pre><code>import React, { useState } from 'react';
+
+const Counter = () => {
+    const [count, setCount] = useState(0);
+    
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;Count: {count}&lt;/h2&gt;
+            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+                Increment
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default Counter;</code></pre>
+        </section>
+
+        <section id="projects">
+            <h2>Проекты и опыт работы</h2>
+            
+            <article>
+                <h3>Личный сайт-резюме</h3>
+                <p>
+                    <strong>Описание:</strong> Адаптивный сайт-резюме, созданный с использованием семантических элементов HTML5.
+                    <br>
+                    <strong>Технологии:</strong> HTML5, Семантическая разметка
+                    <br>
+                    <strong>Ссылка:</strong> <a href="https://github.com/lizavetakushners/cv-website" target="_blank">Посмотреть на GitHub</a>
+                </p>
+            </article>
+
+            <article>
+                <h3>Приложение "Список дел"</h3>
+                <p>
+                    <strong>Описание:</strong> Полнофункциональное приложение для управления задачами с аутентификацией пользователей и обновлениями в реальном времени.
+                    <br>
+                    <strong>Технологии:</strong> React.js, Node.js, MongoDB, Express.js
+                    <br>
+                    <strong>Ссылка:</strong> <a href="https://github.com/lizavetakushners/todo-app" target="_blank">Посмотреть на GitHub</a>
+                </p>
+            </article>
+
+            <article>
+                <h3>Панель погоды</h3>
+                <p>
+                    <strong>Описание:</strong> Адаптивная панель погоды, отображающая текущую погоду и прогнозы.
+                    <br>
+                    <strong>Технологии:</strong> JavaScript, HTML5, CSS3, Weather API
+                    <br>
+                    <strong>Ссылка:</strong> <a href="https://lizavetakushners.github.io/weather-dashboard" target="_blank">Живая демонстрация</a>
+                </p>
+            </article>
+        </section>
+
+        <section id="education">
+            <h2>Образование и обучение</h2>
+            
+            <h3>Пройденные курсы</h3>
+            <ol>
+                <li>
+                    <strong>Буткемп Full Stack веб-разработки</strong>
+                    <br>
+                    <em>Техническая академия</em> - 2023
+                    <br>
+                    <small>Продолжительность: 6 месяцев</small>
+                </li>
+                <li>
+                    <strong>Алгоритмы и структуры данных JavaScript</strong>
+                    <br>
+                    <em>FreeCodeCamp</em> - 2023
+                    <br>
+                    <small>Получен сертификат</small>
+                </li>
+                <li>
+                    <strong>Курс разработки на React</strong>
+                    <br>
+                    <em>Codecademy</em> - 2022
+                    <br>
+                    <small>Интерактивная платформа обучения</small>
+                </li>
+                <li>
+                    <strong>Python для науки о данных</strong>
+                    <br>
+                    <em>Coursera</em> - 2022
+                    <br>
+                    <small>Мичиганский университет</small>
+                </li>
+            </ol>
+
+            <h3>Академическое образование</h3>
+            <dl>
+                <dt>Бакалавр</dt>
+                <dd>БРУ - 2025</dd>
+                <dd><mark>Средний балл: 4.8/5.0</mark></dd>
+            </dl>
+        </section>
+
+        <section id="languages">
+            <h2>Языковые навыки</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Язык</th>
+                        <th>Уровень</th>
+                        <th>Опыт</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Русский</td>
+                        <td>Родной</td>
+                        <td>Родной язык</td>
+                    </tr>
+                    <tr>
+                        <td>Английский</td>
+                        <td>Продвинутый (C1)</td>
+                        <td>Изучала за границей 1 год, работала в международных командах</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <details>
+                <summary>Опыт работы с английским языком</summary>
+                <p>
+                    У меня обширный опыт работы с английским языком в профессиональной среде. Во время обучения 
+                    за границей я участвовала в международных конференциях и сотрудничала с многонациональными 
+                    командами над различными программистскими проектами. Мне комфортно работать с технической 
+                    документацией, проводить ревью кода и общаться с клиентами на английском языке.
+                </p>
+            </details>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Лизавета Кушнерс. Все права защищены.</p>
+        <p>Последнее обновление: <time datetime="2025-01-15">15 января 2024</time></p>
+    </footer>
+    </center>
+</body>
+</html>
