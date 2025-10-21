@@ -143,6 +143,115 @@
         </div>
     </section>
 
+    <!-- Product Slider Section -->
+    <section class="product-slider-section">
+        <div class="container">
+            <h2 class="slider-title">Featured Products</h2>
+            <div class="divider-line"></div>
+            
+            <div class="product-slider" id="productSlider">
+                <!-- Slider Wrapper -->
+                <div class="slider-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="slider-slide active">
+                        <div class="slide-image">
+                            <img src="images/skate1.jpg" alt="Boosted Stealth">
+                        </div>
+                        <div class="slide-content">
+                            <span class="slide-badge">NEW</span>
+                            <h3>Boosted Stealth</h3>
+                            <p class="slide-description">Our top-of-the-line board with the most power, range, and speed. Perfect for experienced riders seeking maximum performance.</p>
+                            <div class="slide-specs">
+                                <span class="spec-item">⚡ 24 mph</span>
+                                <span class="spec-item">🔋 14 miles</span>
+                                <span class="spec-item">⚙️ 2100W</span>
+                            </div>
+                            <div class="slide-price">$1,599</div>
+                            <button class="btn-primary">Shop Now</button>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="slider-slide">
+                        <div class="slide-image">
+                            <img src="images/skate2.jpg" alt="Boosted Plus">
+                        </div>
+                        <div class="slide-content">
+                            <span class="slide-badge">POPULAR</span>
+                            <h3>Boosted Plus</h3>
+                            <p class="slide-description">The perfect balance of power and range. Great for daily commuting and weekend adventures with smooth rides guaranteed.</p>
+                            <div class="slide-specs">
+                                <span class="spec-item">⚡ 22 mph</span>
+                                <span class="spec-item">🔋 14 miles</span>
+                                <span class="spec-item">⚙️ 2000W</span>
+                            </div>
+                            <div class="slide-price">$1,399</div>
+                            <button class="btn-primary">Shop Now</button>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="slider-slide">
+                        <div class="slide-image">
+                            <img src="images/boosted-mini.jpg" alt="Boosted Mini">
+                        </div>
+                        <div class="slide-content">
+                            <span class="slide-badge">COMPACT</span>
+                            <h3>Boosted Mini</h3>
+                            <p class="slide-description">Compact and portable without sacrificing power. Perfect for urban riders who need easy storage and maximum maneuverability.</p>
+                            <div class="slide-specs">
+                                <span class="spec-item">⚡ 20 mph</span>
+                                <span class="spec-item">🔋 7 miles</span>
+                                <span class="spec-item">⚙️ 1800W</span>
+                            </div>
+                            <div class="slide-price">$999</div>
+                            <button class="btn-primary">Shop Now</button>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4 -->
+                    <div class="slider-slide">
+                        <div class="slide-image">
+                            <img src="images/skate3.jpg" alt="Boosted Rev">
+                        </div>
+                        <div class="slide-content">
+                            <span class="slide-badge">SCOOTER</span>
+                            <h3>Boosted Rev</h3>
+                            <p class="slide-description">Revolutionary electric scooter with unmatched performance. Speed past traffic with industry-leading power and range.</p>
+                            <div class="slide-specs">
+                                <span class="spec-item">⚡ 24 mph</span>
+                                <span class="spec-item">🔋 22 miles</span>
+                                <span class="spec-item">⚙️ 1500W</span>
+                            </div>
+                            <div class="slide-price">$1,599</div>
+                            <button class="btn-primary">Shop Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Arrows -->
+                <button class="slider-arrow slider-arrow-left" id="sliderPrev">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <button class="slider-arrow slider-arrow-right" id="sliderNext">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+                <!-- Indicators/Dots -->
+                <div class="slider-indicators" id="sliderIndicators">
+                    <span class="indicator active" data-slide="0"></span>
+                    <span class="indicator" data-slide="1"></span>
+                    <span class="indicator" data-slide="2"></span>
+                    <span class="indicator" data-slide="3"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Electric Skateboards Section -->
     <section class="electric-skateboards">
         <div class="skateboards-background">
@@ -404,6 +513,120 @@
                 }
                 progressBar.style.width = progress + '%';
             }, 100);
+        });
+
+        // Product Slider functionality
+        class ProductSlider {
+            constructor(sliderId) {
+                this.slider = document.getElementById(sliderId);
+                if (!this.slider) return;
+                
+                this.slides = this.slider.querySelectorAll('.slider-slide');
+                this.indicators = this.slider.querySelectorAll('.indicator');
+                this.prevBtn = document.getElementById('sliderPrev');
+                this.nextBtn = document.getElementById('sliderNext');
+                
+                this.currentSlide = 0;
+                this.totalSlides = this.slides.length;
+                this.autoPlayInterval = null;
+                this.autoPlayDelay = 5000; // 5 seconds
+                
+                // Touch events for mobile swipe
+                this.touchStartX = 0;
+                this.touchEndX = 0;
+                
+                this.init();
+            }
+            
+            init() {
+                // Event listeners for buttons
+                this.prevBtn.addEventListener('click', () => this.prevSlide());
+                this.nextBtn.addEventListener('click', () => this.nextSlide());
+                
+                // Event listeners for indicators
+                this.indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => this.goToSlide(index));
+                });
+                
+                // Touch events for swipe
+                this.slider.addEventListener('touchstart', (e) => {
+                    this.touchStartX = e.changedTouches[0].screenX;
+                    this.pauseAutoPlay();
+                }, { passive: true });
+                
+                this.slider.addEventListener('touchend', (e) => {
+                    this.touchEndX = e.changedTouches[0].screenX;
+                    this.handleSwipe();
+                    this.startAutoPlay();
+                }, { passive: true });
+                
+                // Pause autoplay on hover
+                this.slider.addEventListener('mouseenter', () => this.pauseAutoPlay());
+                this.slider.addEventListener('mouseleave', () => this.startAutoPlay());
+                
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') this.prevSlide();
+                    if (e.key === 'ArrowRight') this.nextSlide();
+                });
+                
+                // Start autoplay
+                this.startAutoPlay();
+            }
+            
+            goToSlide(slideIndex) {
+                // Remove active class from current slide and indicator
+                this.slides[this.currentSlide].classList.remove('active');
+                this.indicators[this.currentSlide].classList.remove('active');
+                
+                // Update current slide
+                this.currentSlide = slideIndex;
+                
+                // Add active class to new slide and indicator
+                this.slides[this.currentSlide].classList.add('active');
+                this.indicators[this.currentSlide].classList.add('active');
+            }
+            
+            nextSlide() {
+                const nextIndex = (this.currentSlide + 1) % this.totalSlides;
+                this.goToSlide(nextIndex);
+            }
+            
+            prevSlide() {
+                const prevIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+                this.goToSlide(prevIndex);
+            }
+            
+            handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = this.touchStartX - this.touchEndX;
+                
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0) {
+                        this.nextSlide();
+                    } else {
+                        this.prevSlide();
+                    }
+                }
+            }
+            
+            startAutoPlay() {
+                this.autoPlayInterval = setInterval(() => {
+                    this.nextSlide();
+                }, this.autoPlayDelay);
+            }
+            
+            pauseAutoPlay() {
+                if (this.autoPlayInterval) {
+                    clearInterval(this.autoPlayInterval);
+                    this.autoPlayInterval = null;
+                }
+            }
+        }
+        
+        // Initialize slider when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new ProductSlider('productSlider');
         });
 
         // Обновление счетчиков корзины и избранного
