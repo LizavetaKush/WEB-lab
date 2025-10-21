@@ -22,19 +22,19 @@
                 <img src="images/Rectangle.png" alt="Boosted USA Logo">
             </div>
             <div class="nav-menu">
+                <a href="index.html" class="nav-link active">Home</a>
                 <a href="catalog-server.html" class="nav-link">Catalog</a>
-                <a href="#" class="nav-link">Electric Scooters</a>
-                <a href="#" class="nav-link">Accessories</a>
-                <a href="#" class="nav-link">Electric Skateboards</a>
-                <a href="#" class="nav-link">Gift Card</a>
-                <a href="#" class="nav-link">More Info</a>
+                <a href="favorites.html" class="nav-link">Избранное</a>
+                <a href="cart.html" class="nav-link">Корзина</a>
+                <a href="feedback.html" class="nav-link">Отзывы</a>
+                <a href="auth.html" class="nav-link">Вход</a>
             </div>
             <div class="nav-social">
-                <a href="#" class="social-link">
-                    <img src="images/Vector.svg" alt="Facebook">
+                <a href="favorites.html" class="social-link">
+                    ❤️ <span id="favorites-count">0</span>
                 </a>
-                <a href="#" class="social-link">
-                    <img src="images/cart.svg" alt="Twitter">
+                <a href="cart.html" class="social-link">
+                    🛒 <span id="cart-count">0</span>
                 </a>
             </div>
         </div>
@@ -355,6 +355,34 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Обновление счетчиков корзины и избранного
+        async function updateCounters() {
+            try {
+                const API_BASE_URL = 'http://localhost:3000';
+                const [favResponse, cartResponse] = await Promise.all([
+                    fetch(`${API_BASE_URL}/favorites`),
+                    fetch(`${API_BASE_URL}/cart`)
+                ]);
+                
+                const favorites = await favResponse.json();
+                const cart = await cartResponse.json();
+                
+                const favCountEl = document.getElementById('favorites-count');
+                const cartCountEl = document.getElementById('cart-count');
+                
+                if (favCountEl) favCountEl.textContent = favorites.length;
+                if (cartCountEl) cartCountEl.textContent = cart.length;
+                
+            } catch (error) {
+                console.error('Ошибка обновления счетчиков:', error);
+            }
+        }
+        
+        // Вызываем при загрузке страницы
+        document.addEventListener('DOMContentLoaded', updateCounters);
+    </script>
 </body>
 
 </html>

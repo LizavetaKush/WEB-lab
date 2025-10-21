@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отзывы на товары - Boosted USA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Стили для страницы отзывов */
+        .feedback-header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .feedback-title {
+            font-size: 3em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .feedback-subtitle {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .feedback-content {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .feedback-layout {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+        }
+
+        @media (max-width: 968px) {
+            .feedback-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Форма отзыва */
+        .feedback-form-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .form-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #f5576c;
+            box-shadow: 0 0 0 3px rgba(245, 87, 108, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .rating-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .star-rating {
+            display: flex;
+            gap: 5px;
+            font-size: 30px;
+        }
+
+        .star {
+            cursor: pointer;
+            color: #ddd;
+            transition: all 0.3s;
+        }
+
+        .star.active,
+        .star:hover {
+            color: #ffc107;
+            transform: scale(1.2);
+        }
+
+        .rating-text {
+            font-size: 14px;
+            color: #666;
+            margin-left: 10px;
+        }
+
+        .btn-submit-feedback {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-submit-feedback:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
+        }
+
+        .btn-submit-feedback:active {
+            transform: translateY(0);
+        }
+
+        .btn-submit-feedback:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .login-notice {
+            background: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid #ffeeba;
+        }
+
+        .login-notice a {
+            color: #f5576c;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .login-notice a:hover {
+            text-decoration: underline;
+        }
+
+        /* Список отзывов */
+        .feedback-list {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .list-title {
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .feedback-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Roboto', sans-serif;
+            cursor: pointer;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #f5576c;
+        }
+
+        .feedback-item {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid #f5576c;
+            transition: all 0.3s;
+        }
+
+        .feedback-item:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transform: translateX(5px);
+        }
+
+        .feedback-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .feedback-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 700;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .feedback-date {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .feedback-product {
+            font-size: 13px;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .feedback-rating {
+            display: flex;
+            gap: 3px;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .feedback-rating .star {
+            color: #ffc107;
+        }
+
+        .feedback-comment {
+            color: #555;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .no-feedback {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .no-feedback-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 1.2em;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .feedback-title {
+                font-size: 2em;
+            }
+
+            .feedback-form-container {
+                padding: 20px;
+            }
+
+            .feedback-list {
+                padding: 20px;
+            }
+
+            .feedback-item {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Financing Banner -->
+    <div class="financing-banner">
+        <p>Financing option available at checkout.</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="images/Rectangle.png" alt="Boosted USA Logo">
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="catalog.html" class="nav-link">Catalog (Static)</a>
+                <a href="catalog-server.html" class="nav-link">Catalog (Server)</a>
+                <a href="favorites.html" class="nav-link">Избранное</a>
+                <a href="cart.html" class="nav-link">Корзина</a>
+                <a href="feedback.html" class="nav-link active">Отзывы</a>
+            </div>
+            <div class="nav-social">
+                <a href="favorites.html" class="social-link">
+                    ❤️ <span id="favorites-count">0</span>
+                </a>
+                <a href="cart.html" class="social-link">
+                    🛒 <span id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Feedback Header -->
+    <section class="feedback-header">
+        <div class="container">
+            <h1 class="feedback-title">💬 Отзывы на товары</h1>
+            <p class="feedback-subtitle">Поделитесь своим мнением о наших продуктах</p>
+        </div>
+    </section>
+
+    <!-- Feedback Content -->
+    <section class="feedback-content">
+        <div class="feedback-layout">
+            <!-- Список отзывов -->
+            <div class="feedback-list">
+                <h2 class="list-title">Все отзывы</h2>
+                
+                <div class="feedback-filters">
+                    <select class="filter-select" id="product-filter" onchange="loadFeedback()">
+                        <option value="">Все товары</option>
+                    </select>
+                    <select class="filter-select" id="rating-filter" onchange="loadFeedback()">
+                        <option value="">Все рейтинги</option>
+                        <option value="5">⭐⭐⭐⭐⭐ (5 звезд)</option>
+                        <option value="4">⭐⭐⭐⭐ (4 звезды)</option>
+                        <option value="3">⭐⭐⭐ (3 звезды)</option>
+                        <option value="2">⭐⭐ (2 звезды)</option>
+                        <option value="1">⭐ (1 звезда)</option>
+                    </select>
+                </div>
+
+                <div id="feedback-container">
+                    <div class="loading">⏳ Загрузка отзывов...</div>
+                </div>
+            </div>
+
+            <!-- Форма отзыва -->
+            <div class="feedback-form-container">
+                <h2 class="form-title">Оставить отзыв</h2>
+                
+                <div id="success-message" class="success-message"></div>
+                
+                <div id="login-notice" class="login-notice" style="display: none;">
+                    Пожалуйста, <a href="auth.html">войдите</a>, чтобы оставить отзыв
+                </div>
+
+                <form id="feedback-form">
+                    <div class="form-group">
+                        <label class="form-label" for="product-select">Товар</label>
+                        <select class="form-select" id="product-select" required>
+                            <option value="">Выберите товар...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Ваша оценка</label>
+                        <div class="rating-container">
+                            <div class="star-rating" id="star-rating">
+                                <span class="star" data-rating="1">★</span>
+                                <span class="star" data-rating="2">★</span>
+                                <span class="star" data-rating="3">★</span>
+                                <span class="star" data-rating="4">★</span>
+                                <span class="star" data-rating="5">★</span>
+                            </div>
+                            <span class="rating-text" id="rating-text">Выберите рейтинг</span>
+                        </div>
+                        <input type="hidden" id="rating-value" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="comment">Ваш отзыв</label>
+                        <textarea class="form-textarea" id="comment" placeholder="Расскажите о вашем опыте использования товара..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit-feedback">
+                        ✨ Отправить отзыв
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-logo">
+                    <div class="logo-icon">
+                        <img src="images/Rectangle(29).png" alt="Boosted Logo">
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Navigation</h4>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="catalog-server.html">Catalog</a>
+                        <a href="favorites.html">Избранное</a>
+                        <a href="cart.html">Корзина</a>
+                        <a href="feedback.html">Отзывы</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>About Boosted USA</h4>
+                    <p>Boosted empowers people everywhere to commute across their cities, campuses, and communities in ways that were never before possible.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="feedback.js"></script>
+</body>
+
+</html>
+

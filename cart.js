@@ -6,7 +6,8 @@ const API_BASE_URL = 'http://localhost:3000';
 const API_ENDPOINTS = {
     cart: `${API_BASE_URL}/cart`,
     favorites: `${API_BASE_URL}/favorites`,
-    products: `${API_BASE_URL}/products`
+    products: `${API_BASE_URL}/products`,
+    orders: `${API_BASE_URL}/orders`
 };
 
 let cartData = [];
@@ -247,9 +248,52 @@ async function removeFromCart(cartId) {
 
 async function checkout() {
     try {
-        // Сохраняем данные заказа для модального окна
-        const orderTotal = cartData.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        // Получаем текущего пользователя (если авторизован)
+        const currentUser = getCurrentUser();
+        
+        // Подсчитываем сумму заказа
+        const subtotal = cartData.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const tax = subtotal * 0.1; // 10% налог
+        const shipping = subtotal > 500 ? 0 : 50;
+        const total = subtotal + tax + shipping;
         const orderItems = cartData.length;
+        
+        // Формируем данные заказа
+        const orderData = {
+            userId: currentUser ? currentUser.id : null,
+            userName: currentUser ? `${currentUser.firstName} ${currentUser.lastName}` : 'Guest',
+            userEmail: currentUser ? currentUser.email : 'guest@example.com',
+            items: cartData.map(item => ({
+                productId: item.productId,
+                name: item.name,
+                price: item.price,
+                quantity: item.quantity,
+                image: item.image,
+                category: item.category
+            })),
+            subtotal: subtotal,
+            tax: parseFloat(tax.toFixed(2)),
+            shipping: shipping,
+            total: parseFloat(total.toFixed(2)),
+            status: 'completed',
+            createdAt: new Date().toISOString()
+        };
+        
+        // Сохраняем заказ в коллекцию orders
+        const orderResponse = await fetch(API_ENDPOINTS.orders, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderData)
+        });
+        
+        if (!orderResponse.ok) {
+            throw new Error('Не удалось сохранить заказ');
+        }
+        
+        const savedOrder = await orderResponse.json();
+        console.log('✅ Заказ сохранен:', savedOrder);
         
         // Очищаем корзину на сервере
         const deletePromises = cartData.map(item => 
@@ -261,10 +305,10 @@ async function checkout() {
         await Promise.all(deletePromises);
         
         console.log('✅ Заказ успешно оформлен!');
-        console.log(`Товаров: ${orderItems}, Сумма: $${orderTotal.toFixed(2)}`);
+        console.log(`Товаров: ${orderItems}, Сумма: $${total.toFixed(2)}`);
         
         // Показываем модальное окно успеха
-        showSuccessModal(orderItems, orderTotal);
+        showSuccessModal(orderItems, total, savedOrder.id);
         
         // Обновляем корзину
         await loadCart();
@@ -280,7 +324,7 @@ async function checkout() {
 // МОДАЛЬНОЕ ОКНО УСПЕШНОЙ ПОКУПКИ
 // ============================================
 
-function showSuccessModal(itemsCount, total) {
+function showSuccessModal(itemsCount, total, orderId) {
     const modal = document.createElement('div');
     modal.className = 'modal-overlay';
     modal.innerHTML = `
@@ -289,6 +333,7 @@ function showSuccessModal(itemsCount, total) {
             <h2 class="modal-title">Заказ успешно оформлен!</h2>
             <p class="modal-text">
                 Спасибо за покупку!<br>
+                <strong>Номер заказа: #${orderId}</strong><br>
                 <strong>Товаров: ${itemsCount}</strong><br>
                 <strong>Сумма: $${total.toFixed(2)}</strong><br><br>
                 Мы отправили подтверждение на вашу электронную почту.<br>
@@ -389,6 +434,23 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// ============================================
+// УПРАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯМИ
+// ============================================
+
+function getCurrentUser() {
+    const userDataStr = localStorage.getItem('currentUser');
+    if (userDataStr) {
+        try {
+            return JSON.parse(userDataStr);
+        } catch (e) {
+            console.error('Ошибка при чтении данных пользователя:', e);
+            return null;
+        }
+    }
+    return null;
+}
 
 console.log('🛒 Страница корзины инициализирована');
 
