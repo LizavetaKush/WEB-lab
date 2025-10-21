@@ -227,10 +227,15 @@ async function removeFromCart(cartId) {
             method: 'DELETE'
         });
         
-        if (response.ok) {
-            await loadCart();
+        // JSON Server 0.17.x has a bug where it returns 500 after successful DELETE
+        // We reload the cart regardless and check if the item was actually deleted
+        await loadCart();
+        
+        // Check if item was actually deleted
+        const stillExists = cartData.find(c => c.id === cartId);
+        
+        if (!stillExists) {
             await updateCounters();
-            
             console.log(`✅ Товар #${cartId} удален из корзины`);
         } else {
             throw new Error('Ошибка при удалении');

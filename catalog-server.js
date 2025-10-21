@@ -2,6 +2,8 @@
 // КОНФИГУРАЦИЯ API
 // ============================================
 
+console.log('📦 catalog-server.js ЗАГРУЖЕН (версия 6.0 - добавлены диагностические логи)');
+
 const API_BASE_URL = 'http://localhost:3001';
 const API_ENDPOINTS = {
     products: `${API_BASE_URL}/products`,
@@ -309,7 +311,7 @@ function renderProducts(products) {
                 <div class="no-results-icon">🔍</div>
                 <h2>Товары не найдены</h2>
                 <p>По заданным критериям поиска товары не найдены.<br>Попробуйте изменить параметры фильтрации.</p>
-                <button class="btn-action btn-primary" onclick="resetFilters()">
+                <button type="button" class="btn-action btn-primary" onclick="resetFilters()">
                     🔄 Сбросить фильтры
                 </button>
             </div>
@@ -355,13 +357,15 @@ function createProductCard(product) {
                 <span class="product-catalog-price">$${product.price.toLocaleString()}</span>
             </div>
             <div class="product-actions">
-                <button class="btn-favorite ${isInFavorites ? 'added' : ''}" 
-                        onclick="event.stopPropagation(); toggleFavorite(${product.id}, this)"
+                <button type="button" class="btn-favorite ${isInFavorites ? 'added' : ''}" 
+                        data-product-id="${product.id}"
+                        data-action="favorite"
                         title="${isInFavorites ? 'Удалить из избранного' : 'Добавить в избранное'}">
                     ${isInFavorites ? '❤️ В избранном' : '🤍 В избранное'}
                 </button>
-                <button class="btn-cart" 
-                        onclick="event.stopPropagation(); addToCart(${product.id})"
+                <button type="button" class="btn-cart" 
+                        data-product-id="${product.id}"
+                        data-action="cart"
                         ${!product.inStock ? 'disabled' : ''}
                         title="Добавить в корзину">
                     🛒 ${product.inStock ? 'В корзину' : 'Недоступно'}
@@ -369,6 +373,41 @@ function createProductCard(product) {
             </div>
         </div>
     `;
+    
+    // Add click handlers for action buttons
+    const favoriteBtn = card.querySelector('[data-action="favorite"]');
+    const cartBtn = card.querySelector('[data-action="cart"]');
+    
+    console.log('🔍 Поиск кнопок для товара', product.id, ':', {
+        favoriteBtn: !!favoriteBtn,
+        cartBtn: !!cartBtn
+    });
+    
+    if (favoriteBtn) {
+        favoriteBtn.addEventListener('click', (e) => {
+            console.log('👆 КЛИК по кнопке избранного!');
+            e.stopPropagation();
+            e.preventDefault();
+            const productId = parseInt(e.currentTarget.dataset.productId);
+            toggleFavorite(productId, e.currentTarget);
+        });
+    } else {
+        console.warn('⚠️ Кнопка избранного НЕ найдена для товара', product.id);
+    }
+    
+    if (cartBtn) {
+        cartBtn.addEventListener('click', (e) => {
+            console.log('👆 КЛИК по кнопке корзины! ПЕРВАЯ СТРОКА ОБРАБОТЧИКА');
+            e.stopPropagation();
+            e.preventDefault();
+            console.log('✋ preventDefault вызван');
+            const productId = parseInt(e.currentTarget.dataset.productId);
+            console.log('📦 ID товара:', productId);
+            addToCart(productId);
+        });
+    } else {
+        console.warn('⚠️ Кнопка корзины НЕ найдена для товара', product.id);
+    }
     
     // Add click handler to open modal when clicking on card
     card.addEventListener('click', (e) => {
@@ -426,13 +465,13 @@ function renderPagination() {
     }
     
     container.innerHTML = `
-        <button onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+        <button type="button" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
             ◀ Назад
         </button>
         <span class="page-info">
             Страница ${currentPage} из ${totalPages}
         </span>
-        <button onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+        <button type="button" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
             Вперед ▶
         </button>
     `;
@@ -455,21 +494,31 @@ function goToPage(page) {
 // ============================================
 
 async function toggleFavorite(productId, button) {
+    console.log('❤️ toggleFavorite вызвана для товара:', productId);
     try {
         // Проверяем, есть ли товар в избранном
         const existingFavorite = favoritesData.find(fav => fav.productId === productId);
         
         if (existingFavorite) {
             // Удаляем из избранного
-            await fetch(`${API_ENDPOINTS.favorites}/${existingFavorite.id}`, {
+            const response = await fetch(`${API_ENDPOINTS.favorites}/${existingFavorite.id}`, {
                 method: 'DELETE'
             });
             
-            button.classList.remove('added');
-            button.innerHTML = '🤍 В избранное';
-            button.title = 'Добавить в избранное';
+            // JSON Server 0.17.x has a bug where it returns 500 after successful DELETE
+            // We reload the data to verify deletion
+            await updateCounters();
             
-            console.log(`✅ Товар #${productId} удален из избранного`);
+            // Check if actually deleted
+            const stillExists = favoritesData.find(fav => fav.productId === productId);
+            
+            if (!stillExists) {
+                button.classList.remove('added');
+                button.innerHTML = '🤍 В избранное';
+                button.title = 'Добавить в избранное';
+                
+                console.log(`✅ Товар #${productId} удален из избранного`);
+            }
         } else {
             // Получаем данные товара
             const product = await getProductById(productId);
@@ -495,6 +544,11 @@ async function toggleFavorite(productId, button) {
                 button.title = 'Удалить из избранного';
                 
                 console.log(`✅ Товар #${productId} добавлен в избранное`);
+                
+                // Закрываем модальное окно при добавлении
+                if (window.modalManager && window.modalManager.activeModal) {
+                    window.modalManager.close(window.modalManager.activeModal);
+                }
             }
         }
         
@@ -512,11 +566,14 @@ async function toggleFavorite(productId, button) {
 // ============================================
 
 async function addToCart(productId) {
+    console.log('🛒 addToCart: НАЧАЛО, товар', productId);
     try {
         // Проверяем, есть ли товар уже в корзине
         const existingItem = cartData.find(item => item.productId === productId);
+        console.log('🛒 addToCart: existingItem проверен');
         
         if (existingItem) {
+            console.log('🛒 addToCart: товар УЖЕ в корзине, увеличиваем количество');
             // Увеличиваем количество
             await fetch(`${API_ENDPOINTS.cart}/${existingItem.id}`, {
                 method: 'PATCH',
@@ -530,8 +587,10 @@ async function addToCart(productId) {
             
             console.log(`✅ Количество товара #${productId} увеличено`);
         } else {
+            console.log('🛒 addToCart: НОВЫЙ товар, добавляем');
             // Получаем данные товара
             const product = await getProductById(productId);
+            console.log('🛒 addToCart: данные товара получены');
             
             // Добавляем в корзину
             const response = await fetch(API_ENDPOINTS.cart, {
@@ -548,20 +607,33 @@ async function addToCart(productId) {
                     quantity: 1
                 })
             });
+            console.log('🛒 addToCart: POST запрос выполнен');
             
             if (response.ok) {
                 console.log(`✅ Товар #${productId} добавлен в корзину`);
             }
         }
         
+        console.log('🛒 addToCart: вызываем updateCounters');
         // Обновляем счетчики
         await updateCounters();
+        console.log('🛒 addToCart: updateCounters завершён');
         
-        // Визуальная обратная связь
-        showNotification(`"${(await getProductById(productId)).name}" добавлен в корзину!`);
+        // Визуальная обратная связь (используем имя из existingItem или получаем из cartData)
+        const itemName = existingItem ? existingItem.name : (cartData.find(c => c.productId === productId)?.name || 'Товар');
+        console.log('🛒 addToCart: вызываем showNotification');
+        showNotification(`"${itemName}" добавлен в корзину!`);
+        console.log('🛒 addToCart: showNotification вызван');
         
+        // Закрываем модальное окно, если оно открыто
+        if (window.modalManager && window.modalManager.activeModal) {
+            console.log('🛒 addToCart: закрываем модальное окно');
+            window.modalManager.close(window.modalManager.activeModal);
+        }
+        
+        console.log('🛒 addToCart: ЗАВЕРШЕНО ✅');
     } catch (error) {
-        console.error('❌ Ошибка при добавлении в корзину:', error);
+        console.error('❌ addToCart: ОШИБКА', error);
         alert('Ошибка при добавлении в корзину. Проверьте подключение к серверу.');
     }
 }
@@ -577,16 +649,19 @@ async function getProductById(id) {
 
 async function updateCounters() {
     try {
+        console.log('📊 updateCounters: НАЧАЛО');
         // Загрузка данных избранного и корзины
         const [favResponse, cartResponse, productsResponse] = await Promise.all([
             fetch(API_ENDPOINTS.favorites),
             fetch(API_ENDPOINTS.cart),
             fetch(API_ENDPOINTS.products)
         ]);
+        console.log('📊 updateCounters: fetch завершён');
         
         favoritesData = await favResponse.json();
         cartData = await cartResponse.json();
         const allProducts = await productsResponse.json();
+        console.log('📊 updateCounters: JSON распарсен');
         
         // Обновление счетчиков
         document.getElementById('favorites-badge').textContent = favoritesData.length;
@@ -595,8 +670,9 @@ async function updateCounters() {
         document.getElementById('cart-count').textContent = cartData.length;
         document.getElementById('total-products').textContent = allProducts.length;
         
+        console.log('📊 updateCounters: ЗАВЕРШЕНО ✅');
     } catch (error) {
-        console.error('Ошибка обновления счетчиков:', error);
+        console.error('❌ updateCounters: ОШИБКА', error);
     }
 }
 
@@ -740,10 +816,10 @@ console.log(`
 ║  ✅ Требование 11: Добавление в избранное                 ║
 ║  ✅ Требование 12: Добавление в корзину                   ║
 ╠═══════════════════════════════════════════════════════════╣
-║  🔥 ВАЖНО: ВСЯ ФИЛЬТРАЦИЯ НА СЕРВЕРЕ!                    ║
-║  Данные передаются в параметрах запроса.                  ║
-║  Клиентская фильтрация НЕ используется.                   ║
-║  Множественные категории = множественные запросы.         ║
-╚═══════════════════════════════════════════════════════════╝
+
 `);
+
+// Делаем функции доступными глобально для модального окна
+window.addToCart = addToCart;
+window.toggleFavorite = toggleFavorite;
 

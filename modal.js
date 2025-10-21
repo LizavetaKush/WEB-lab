@@ -3,6 +3,8 @@
  * Handles all modal windows on the site
  */
 
+console.log('🎭 modal.js ЗАГРУЖЕН (версия 4.0 - использован addEventListener)');
+
 class ModalManager {
     constructor() {
         this.modals = new Map();
@@ -220,14 +222,14 @@ class ModalManager {
                     
                     <div class="modal-actions">
                         ${product.inStock ? `
-                            <button class="modal-btn modal-btn-primary" onclick="addToCart(${product.id || 0})">
+                            <button type="button" class="modal-btn modal-btn-primary" data-modal-action="cart" data-product-id="${product.id || 0}">
                                 🛒 Добавить в корзину
                             </button>
-                            <button class="modal-btn modal-btn-secondary" onclick="addToFavorites(${product.id || 0})">
+                            <button type="button" class="modal-btn modal-btn-secondary" data-modal-action="favorite" data-product-id="${product.id || 0}">
                                 ❤️ В избранное
                             </button>
                         ` : `
-                            <button class="modal-btn modal-btn-secondary" disabled>
+                            <button type="button" class="modal-btn modal-btn-secondary" disabled>
                                 Товар отсутствует
                             </button>
                         `}
@@ -244,6 +246,35 @@ class ModalManager {
         });
 
         this.open(modalId);
+        
+        // Add event listeners for action buttons
+        const modal = this.modals.get(modalId);
+        if (modal && modal.element) {
+            const cartBtn = modal.element.querySelector('[data-modal-action="cart"]');
+            const favoriteBtn = modal.element.querySelector('[data-modal-action="favorite"]');
+            
+            if (cartBtn) {
+                cartBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const productId = parseInt(e.currentTarget.dataset.productId);
+                    if (window.addToCart) {
+                        window.addToCart(productId);
+                    }
+                });
+            }
+            
+            if (favoriteBtn) {
+                favoriteBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const productId = parseInt(e.currentTarget.dataset.productId);
+                    if (window.toggleFavorite) {
+                        window.toggleFavorite(productId, e.currentTarget);
+                    }
+                });
+            }
+        }
     }
 
     /**

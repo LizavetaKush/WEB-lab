@@ -494,6 +494,63 @@
         </div>
     </section>
 
+    <!-- Store Locations Section -->
+    <section class="stores-section">
+        <div class="container">
+            <h2 class="section-title">Наши магазины в Минске</h2>
+            <p class="section-subtitle">Посетите один из наших магазинов, чтобы протестировать электротранспорт</p>
+            
+            <div class="stores-container">
+                <!-- Map -->
+                <div class="stores-map">
+                    <div id="map" style="width: 100%; height: 500px; border-radius: 12px;"></div>
+                </div>
+                
+                <!-- Store List -->
+                <div class="stores-list">
+                    <div class="store-card" data-coords="53.9045,27.5615">
+                        <div class="store-icon">📍</div>
+                        <div class="store-info">
+                            <h3>Boosted Центральный</h3>
+                            <p class="store-address">пр-т Независимости, 47</p>
+                            <p class="store-hours">⏰ Пн-Вс: 10:00 - 21:00</p>
+                            <p class="store-phone">📞 +375 (29) 123-45-67</p>
+                            <button class="store-route-btn" onclick="showRoute(53.9045, 27.5615)">
+                                🗺️ Построить маршрут
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="store-card" data-coords="53.9168,27.5921">
+                        <div class="store-icon">📍</div>
+                        <div class="store-info">
+                            <h3>Boosted Комаровка</h3>
+                            <p class="store-address">ул. Веры Хоружей, 3</p>
+                            <p class="store-hours">⏰ Пн-Вс: 10:00 - 22:00</p>
+                            <p class="store-phone">📞 +375 (29) 234-56-78</p>
+                            <button class="store-route-btn" onclick="showRoute(53.9168, 27.5921)">
+                                🗺️ Построить маршрут
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="store-card" data-coords="53.9253,27.4615">
+                        <div class="store-icon">📍</div>
+                        <div class="store-info">
+                            <h3>Boosted Дражня</h3>
+                            <p class="store-address">пр-т Дзержинского, 104</p>
+                            <p class="store-hours">⏰ Пн-Вс: 10:00 - 21:00</p>
+                            <p class="store-phone">📞 +375 (29) 345-67-89</p>
+                            <button class="store-route-btn" onclick="showRoute(53.9253, 27.4615)">
+                                🗺️ Построить маршрут
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -830,6 +887,293 @@
             checkAdminNavLink();
         });
     </script>
+
+    <!-- Yandex Maps API -->
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <script>
+        // Инициализация карты
+        let myMap;
+        let routeControl;
+        
+        ymaps.ready(init);
+        
+        function init() {
+            // Создаём карту с центром в Минске
+            myMap = new ymaps.Map("map", {
+                center: [53.9045, 27.5615], // Координаты центра Минска
+                zoom: 11,
+                controls: ['zoomControl', 'typeSelector', 'fullscreenControl']
+            });
+            
+            // Данные магазинов
+            const stores = [
+                {
+                    coords: [53.9045, 27.5615],
+                    name: 'Boosted Центральный',
+                    address: 'пр-т Независимости, 47',
+                    hours: 'Пн-Вс: 10:00 - 21:00',
+                    phone: '+375 (29) 123-45-67'
+                },
+                {
+                    coords: [53.9168, 27.5921],
+                    name: 'Boosted Комаровка',
+                    address: 'ул. Веры Хоружей, 3',
+                    hours: 'Пн-Вс: 10:00 - 22:00',
+                    phone: '+375 (29) 234-56-78'
+                },
+                {
+                    coords: [53.9253, 27.4615],
+                    name: 'Boosted Дражня',
+                    address: 'пр-т Дзержинского, 104',
+                    hours: 'Пн-Вс: 10:00 - 21:00',
+                    phone: '+375 (29) 345-67-89'
+                }
+            ];
+            
+            // Добавляем метки для каждого магазина
+            stores.forEach((store, index) => {
+                const placemark = new ymaps.Placemark(store.coords, {
+                    balloonContentHeader: `<strong>${store.name}</strong>`,
+                    balloonContentBody: `
+                        <p><b>Адрес:</b> ${store.address}</p>
+                        <p><b>Время работы:</b> ${store.hours}</p>
+                        <p><b>Телефон:</b> ${store.phone}</p>
+                    `,
+                    balloonContentFooter: `<button onclick="showRoute(${store.coords[0]}, ${store.coords[1]})" style="padding: 8px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">🗺️ Построить маршрут</button>`,
+                    hintContent: store.name
+                }, {
+                    preset: 'islands#blueElectricIcon',
+                    iconColor: '#667eea'
+                });
+                
+                // Добавляем обработчик клика на карточку магазина
+                const storeCards = document.querySelectorAll('.store-card');
+                if (storeCards[index]) {
+                    storeCards[index].addEventListener('click', function(e) {
+                        if (!e.target.classList.contains('store-route-btn')) {
+                            myMap.setCenter(store.coords, 15, { duration: 500 });
+                            placemark.balloon.open();
+                        }
+                    });
+                    storeCards[index].style.cursor = 'pointer';
+                }
+                
+                myMap.geoObjects.add(placemark);
+            });
+        }
+        
+        // Функция построения маршрута
+        function showRoute(lat, lon) {
+            // Удаляем предыдущий маршрут, если есть
+            if (routeControl) {
+                myMap.controls.remove(routeControl);
+            }
+            
+            // Получаем геолокацию пользователя
+            ymaps.geolocation.get({
+                provider: 'yandex',
+                mapStateAutoApply: true
+            }).then(function (result) {
+                const userCoords = result.geoObjects.position;
+                
+                // Создаём мультимаршрут
+                const multiRoute = new ymaps.multiRouter.MultiRoute({
+                    referencePoints: [
+                        userCoords,
+                        [lat, lon]
+                    ],
+                    params: {
+                        routingMode: 'pedestrian' // пешком
+                    }
+                }, {
+                    boundsAutoApply: true,
+                    wayPointStartIconColor: "#43e97b",
+                    wayPointFinishIconColor: "#667eea",
+                    routeActiveStrokeColor: "#667eea",
+                    routeActiveStrokeWidth: 6
+                });
+                
+                myMap.geoObjects.add(multiRoute);
+                routeControl = multiRoute;
+                
+            }).catch(function (err) {
+                // Если не удалось получить геолокацию, строим маршрут от центра
+                alert('Не удалось определить ваше местоположение. Попробуйте разрешить доступ к геолокации.');
+                
+                const multiRoute = new ymaps.multiRouter.MultiRoute({
+                    referencePoints: [
+                        [53.9045, 27.5615], // центр Минска
+                        [lat, lon]
+                    ],
+                    params: {
+                        routingMode: 'pedestrian'
+                    }
+                }, {
+                    boundsAutoApply: true,
+                    wayPointStartIconColor: "#43e97b",
+                    wayPointFinishIconColor: "#667eea",
+                    routeActiveStrokeColor: "#667eea",
+                    routeActiveStrokeWidth: 6
+                });
+                
+                myMap.geoObjects.add(multiRoute);
+                routeControl = multiRoute;
+            });
+        }
+    </script>
+
+    <style>
+        /* Store Locations Section */
+        .stores-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 80px 0;
+        }
+        
+        .stores-section .section-title {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stores-section .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 50px;
+        }
+        
+        .stores-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .stores-map {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .stores-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .store-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .store-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.25);
+        }
+        
+        .store-icon {
+            font-size: 32px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+        
+        .store-info {
+            flex: 1;
+        }
+        
+        .store-info h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .store-address {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .store-hours,
+        .store-phone {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+        
+        .store-route-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .store-route-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .stores-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .stores-map {
+                position: relative;
+                top: 0;
+            }
+            
+            #map {
+                height: 400px !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .stores-section {
+                padding: 50px 0;
+            }
+            
+            .stores-section .section-title {
+                font-size: 32px;
+            }
+            
+            .store-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            #map {
+                height: 300px !important;
+            }
+        }
+    </style>
 </body>
 
 </html>

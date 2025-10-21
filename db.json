@@ -189,6 +189,14 @@
       "image": "images/skate2.jpg",
       "category": "Electric Skateboards",
       "id": 1
+    },
+    {
+      "productId": 3,
+      "name": "Boosted Mini X",
+      "price": 999,
+      "image": "images/skate3.jpg",
+      "category": "Electric Skateboards",
+      "id": 2
     }
   ],
   "cart": [
@@ -200,6 +208,33 @@
       "category": "Electric Skateboards",
       "quantity": 1,
       "id": 1
+    },
+    {
+      "productId": 3,
+      "name": "Boosted Mini X",
+      "price": 999,
+      "image": "images/skate3.jpg",
+      "category": "Electric Skateboards",
+      "quantity": 4,
+      "id": 2
+    },
+    {
+      "productId": 9,
+      "name": "Skid Plates",
+      "price": 20,
+      "image": "images/skid-plates.jpg",
+      "category": "Accessories",
+      "quantity": 1,
+      "id": 3
+    },
+    {
+      "productId": 12,
+      "name": "Extended Battery",
+      "price": 299,
+      "image": "images/Extended Battery.jpg",
+      "category": "Accessories",
+      "quantity": 1,
+      "id": 4
     }
   ],
   "users": [
@@ -230,6 +265,7 @@
       "createdAt": "2025-01-15T10:30:00.000Z"
     },
     {
+      "id": 3,
       "username": "rinatik__gay",
       "email": "wombokombo@tut.by",
       "password": "(O6sGu(h$(sT",
@@ -239,8 +275,7 @@
       "middleName": "Маркович",
       "phone": "+375 33 614 62 23",
       "birthdate": "2003-10-17",
-      "createdAt": "2025-10-21T12:20:58.172Z",
-      "id": 3
+      "createdAt": "2025-10-21T12:20:58.172Z"
     }
   ],
   "feedback": [
@@ -267,7 +302,6 @@
   ],
   "orders": [
     {
-      "id": 1,
       "userId": 2,
       "userName": "John Doe",
       "userEmail": "customer@example.com",
@@ -285,7 +319,8 @@
       "shipping": 0,
       "total": 1758.9,
       "status": "completed",
-      "createdAt": "2025-02-10T12:00:00.000Z"
+      "createdAt": "2025-02-10T12:00:00.000Z",
+      "id": 1
     },
     {
       "userId": null,

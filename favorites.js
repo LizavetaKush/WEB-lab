@@ -121,11 +121,16 @@ async function removeFromFavorites(favoriteId) {
             method: 'DELETE'
         });
         
-        if (response.ok) {
+        // JSON Server 0.17.x has a bug where it returns 500 after successful DELETE
+        // We reload the favorites regardless and check if the item was actually deleted
+        await loadFavorites();
+        
+        // Check if item was actually deleted
+        const stillExists = favoritesData.find(f => f.id === favoriteId);
+        
+        if (!stillExists) {
             showNotification(`"${item.name}" удален из избранного`);
-            await loadFavorites();
             await updateCounters();
-            
             console.log(`✅ Товар #${favoriteId} удален из избранного`);
         } else {
             throw new Error('Ошибка при удалении');
