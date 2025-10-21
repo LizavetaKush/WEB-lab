@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Server API Demo - Boosted USA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .api-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .api-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .output-container {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 15px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .output-container pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .status-success {
+            background: #43e97b;
+            color: white;
+        }
+
+        .status-error {
+            background: #fa709a;
+            color: white;
+        }
+
+        .endpoint-url {
+            background: #e9ecef;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin: 10px 0;
+            border-left: 3px solid #667eea;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .input-group input,
+        .input-group select {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 JSON Server API Demo</h1>
+        <p class="subtitle">Интерактивная демонстрация работы с REST API для Boosted USA</p>
+
+        <!-- Статистика -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value" id="product-count">-</div>
+                <div class="stat-label">Всего товаров</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="favorites-count">-</div>
+                <div class="stat-label">В избранном</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="cart-count">-</div>
+                <div class="stat-label">В корзине</div>
+            </div>
+        </div>
+
+        <!-- GET Запросы -->
+        <div class="api-section">
+            <h2>📥 GET Запросы</h2>
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="getAllProducts()">Получить все товары</button>
+                <button class="btn btn-primary" onclick="getProduct(1)">Получить товар #1</button>
+                <button class="btn btn-primary" onclick="filterByCategory('Accessories')">Только аксессуары</button>
+                <button class="btn btn-primary" onclick="filterInStock()">Только в наличии</button>
+                <button class="btn btn-primary" onclick="sortByPrice()">Сортировка по цене</button>
+                <button class="btn btn-primary" onclick="getFavorites()">Показать избранное</button>
+                <button class="btn btn-primary" onclick="getCart()">Показать корзину</button>
+            </div>
+        </div>
+
+        <!-- POST Запросы -->
+        <div class="api-section">
+            <h2>➕ POST Запросы (Добавление)</h2>
+            <div class="input-group">
+                <input type="number" id="add-product-id" placeholder="ID товара" min="1" max="15" value="1">
+                <button class="btn btn-success" onclick="addToFavorites()">Добавить в избранное</button>
+                <button class="btn btn-success" onclick="addToCart()">Добавить в корзину</button>
+            </div>
+        </div>
+
+        <!-- DELETE Запросы -->
+        <div class="api-section">
+            <h2>🗑️ DELETE Запросы (Удаление)</h2>
+            <div class="input-group">
+                <input type="number" id="delete-item-id" placeholder="ID записи для удаления" min="1" value="1">
+                <button class="btn btn-danger" onclick="removeFromFavorites()">Удалить из избранного</button>
+                <button class="btn btn-danger" onclick="removeFromCart()">Удалить из корзины</button>
+            </div>
+        </div>
+
+        <!-- Специальные запросы -->
+        <div class="api-section">
+            <h2>🔍 Расширенные запросы</h2>
+            <div class="btn-group">
+                <button class="btn btn-info" onclick="searchProducts()">Поиск "Boosted"</button>
+                <button class="btn btn-info" onclick="priceRange()">Цена $50-$500</button>
+                <button class="btn btn-info" onclick="topRated()">Лучшие по рейтингу</button>
+                <button class="btn btn-info" onclick="pagination()">Первые 5 товаров</button>
+            </div>
+        </div>
+
+        <!-- Вывод результатов -->
+        <div class="api-section">
+            <h2>📄 Результат запроса <span id="status"></span></h2>
+            <div class="endpoint-url" id="endpoint-display">Выберите действие выше...</div>
+            <div class="output-container" id="output">
+                <pre>Здесь будет отображаться результат запросов к API...</pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3001';
+        
+        // Функция для отображения результата
+        function displayResult(data, endpoint, status = 'success') {
+            const output = document.getElementById('output');
+            const endpointDisplay = document.getElementById('endpoint-display');
+            const statusEl = document.getElementById('status');
+            
+            endpointDisplay.textContent = endpoint;
+            output.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            
+            statusEl.innerHTML = status === 'success' 
+                ? '<span class="status status-success">✓ Успешно</span>'
+                : '<span class="status status-error">✗ Ошибка</span>';
+            
+            updateStats();
+        }
+
+        // Функция для обработки ошибок
+        function handleError(error, endpoint) {
+            displayResult({ error: error.message }, endpoint, 'error');
+        }
+
+        // Обновление статистики
+        async function updateStats() {
+            try {
+                const [products, favorites, cart] = await Promise.all([
+                    fetch(`${API_BASE}/products`).then(r => r.json()),
+                    fetch(`${API_BASE}/favorites`).then(r => r.json()),
+                    fetch(`${API_BASE}/cart`).then(r => r.json())
+                ]);
+                
+                document.getElementById('product-count').textContent = products.length;
+                document.getElementById('favorites-count').textContent = favorites.length;
+                document.getElementById('cart-count').textContent = cart.length;
+            } catch (error) {
+                console.error('Error updating stats:', error);
+            }
+        }
+
+        // ========== GET ЗАПРОСЫ ==========
+
+        async function getAllProducts() {
+            const endpoint = `${API_BASE}/products`;
+            try {
+                const response = await fetch(endpoint);
+                const data = await response.json();
+                displayResult(data, endpoint);
+            } catch (error) {
+                handleError(error, endpoint);
+            }
+        }
+
+        async function getProduct(id) {
+            const endpoint = `${API_BASE}/products/${id}`;
+            try {
+                const response = await fetch(endpoint);
+                const data = await response.json();
+                displayResult(data, endpoint);
+            } catch (error) {
+                handleError(error, endpoint);
+            }
+        }
+
+        async function filterByCategory(category) {
+            const endpoint = `${API_BASE}/products?category=${category}`;
+            try {
+                const response = await fetch(endpoint);
+                const data = await response.json();
+                displayResult(data, endpoint);
+            } catch (error) {
+                handleError(error, endpoint);
+            }
+        }
+
+        async function filterInStock() {
+            const endpoint = `${API_BASE}/products?inStock=true`;
+            try {
+                const response = await fetch(endpoint);
+                const data = await response.json();
+                displayResult(data, endpoint);
+            } catch (error) {
+                handleError(error, endpoint);
+            }
+        }
+
+        async function sortByPrice() {
+            const endpoint = `${API_BASE}/products?_sort=price&_order=asc`;
+            try {
+                const response = await fetch(endpoint);
+                const data = await response.json();
+                displayResult(data, endpoint);
+            } catch (error) {
+                handleError(error, endpoint);
+            }
+        }
+
+        async function getFavorites() {
+            const endpoint = `${API_BASE}/favorites`;
+            try {
+                const response = await fetch(endpoint);
+                const data = await response.json();
+                displayResult(data, endpoint);
+            } catch (error) {
+                handleError(error, endpoint);
+            }
+        }
+
+        async function getCart() {
+            const endpoint = `${API_BASE}/cart`;
+            try {
+                const response = await fetch(endpoint);
+                const data = await response.json();
+                displayResult(data, endpoint);
+            } catch (error) {
+                handleError(error, endpoint);
+            }
+        }
+
+        // ========== POST ЗАПРОСЫ ==========
+
+        async function addToFavorites() {
+            const productId = parseInt(document.getElementById('add-product-id').value);
+            const endpoint = `${API_BASE}/favorites`;
+            
+            try {
+                // Сначала получаем данные товара
+                const productResponse = await fetch(`${API_BASE}/products/${productId}`);
+                const product = await productResponse.json();
+                
+                // Добавляем в избранное
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        productId: product.id,
+                        name: product.name,
+                        price: product.price,
+                        image: product.image
+                    })
+                });
+                
+                const data = await response.json();
+                displayResult(data, `POST ${endpoint}`);
+            } catch (error) {
+                handleError(error, endpoint);
+            }
+        }
+
+        async function addToCart() {
+            const productId = parseInt(document.getElementById('add-product-id').value);
+            const endpoint = `${API_BASE}/cart`;
+            
+            try {
+                // Сначала получаем данные товара
+                const productResponse = await fetch(`${API_BASE}/products/${productId}`);
+                const product = await productResponse.json();
+                
+                // Добавляем в корзину
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        productId: product.id,
+                        name: product.name,
+                        price: product.price,
+                        image: product.image,
+                        quantity: 1
+                    })
+                });
+                
+                const data = await response.json();
+                displayResult(data, `POST ${endpoint}`);
+            } catch (error) {
+                handleError(error, endpoint);
+            }
+        }
+
+        // ========== DELETE ЗАПРОСЫ ==========
+
+        async function removeFromFavorites() {
+            const itemId = parseInt(document.getElementById('delete-item-id').value);
+            const endpoint = `${API_BASE}/favorites/${itemId}`;
+            
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'DELETE'
+                });
+                
+                displayResult({ message: 'Успешно удалено из избранного', id: itemId }, `DELETE ${endpoint}`);
+            } catch (error) {
+                handleError(error, endpoint);
+            }
+        }
+
+        async function removeFromCart() {
+            const itemId = parseInt(document.getElementById('delete-item-id').value);
+            const endpoint = `${API_BASE}/cart/${itemId}`;
+            
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'DELETE'
+                });
+                
+                displayResult({ message: 'Успешно удалено из корзины', id: itemId }, `DELETE ${endpoint}`);
+            } catch (error) {
+                handleError(error, endpoint);
+            }
+        }
+
+        // ========== РАСШИРЕННЫЕ ЗАПРОСЫ ==========
+
+        async function searchProducts() {
+            const endpoint = `${API_BASE}/products?name_like=Boosted`;
+            try {
+                const response = await fetch(endpoint);
+                const data = await response.json();
+                displayResult(data, endpoint);
+            } catch (error) {
+                handleError(error, endpoint);
+            }
+        }
+
+        async function priceRange() {
+            const endpoint = `${API_BASE}/products?price_gte=50&price_lte=500`;
+            try {
+                const response = await fetch(endpoint);
+                const data = await response.json();
+                displayResult(data, endpoint);
+            } catch (error) {
+                handleError(error, endpoint);
+            }
+        }
+
+        async function topRated() {
+            const endpoint = `${API_BASE}/products?_sort=rating&_order=desc`;
+            try {
+                const response = await fetch(endpoint);
+                const data = await response.json();
+                displayResult(data, endpoint);
+            } catch (error) {
+                handleError(error, endpoint);
+            }
+        }
+
+        async function pagination() {
+            const endpoint = `${API_BASE}/products?_page=1&_limit=5`;
+            try {
+                const response = await fetch(endpoint);
+                const data = await response.json();
+                displayResult(data, endpoint);
+            } catch (error) {
+                handleError(error, endpoint);
+            }
+        }
+
+        // Загрузка начальной статистики
+        window.addEventListener('DOMContentLoaded', () => {
+            updateStats();
+        });
+    </script>
+</body>
+</html>
+

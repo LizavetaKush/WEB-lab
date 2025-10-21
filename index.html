@@ -1,0 +1,3097 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boosted USA - Electric Skateboards & Scooters</title>
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/boosted-logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/boosted-logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/boosted-logo.png">
+    <link rel="shortcut icon" href="favicon.svg">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Meta tags for better SEO and appearance -->
+    <meta name="description" content="Boosted USA - Premium electric skateboards and scooters. The Holy Grail of Electric Skateboards and One REVolutionary Scooter">
+    <meta name="keywords" content="electric skateboard, boosted board, electric scooter, boosted rev, e-skateboard">
+    <meta name="author" content="Boosted USA">
+    <meta name="theme-color" content="#667eea">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Boosted USA - Electric Skateboards & Scooters">
+    <meta property="og:description" content="The Holy Grail of Electric Skateboards and One REVolutionary Scooter">
+    <meta property="og:image" content="images/boosted-logo.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Boosted USA - Electric Skateboards & Scooters">
+    <meta name="twitter:description" content="The Holy Grail of Electric Skateboards and One REVolutionary Scooter">
+    <meta name="twitter:image" content="images/boosted-logo.png">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">
+                <div class="skateboard-animation">
+                    <div class="skateboard-deck"></div>
+                    <div class="skateboard-wheel wheel-1"></div>
+                    <div class="skateboard-wheel wheel-2"></div>
+                    <div class="electric-spark spark-1"></div>
+                    <div class="electric-spark spark-2"></div>
+                    <div class="electric-spark spark-3"></div>
+                </div>
+            </div>
+            <div class="preloader-text">
+                <h2>BOOSTED USA</h2>
+                <p>Загрузка...</p>
+            </div>
+            <div class="preloader-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Financing Banner -->
+    <div class="financing-banner">
+        <p>Financing option available at checkout.</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="images/Rectangle.png" alt="Boosted USA Logo">
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="nav-menu nav-menu-desktop">
+                <a href="#home" class="nav-link active smooth-scroll">Home</a>
+                <a href="#products" class="nav-link smooth-scroll">Products</a>
+                <a href="#gallery" class="nav-link smooth-scroll">Gallery</a>
+                <a href="#stores" class="nav-link smooth-scroll">Stores</a>
+                <a href="catalog-server.html" class="nav-link">Catalog</a>
+                <a href="favorites.html" class="nav-link">Избранное</a>
+                <a href="cart.html" class="nav-link">Корзина</a>
+                <a href="feedback.html" class="nav-link">Отзывы</a>
+                <a href="admin.html" class="nav-link" id="admin-nav-link" style="display: none;">Admin</a>
+                <a href="auth.html" class="nav-link">Вход</a>
+            </div>
+            
+            <div class="nav-social">
+                <a href="favorites.html" class="social-link">
+                    ❤️ <span id="favorites-count">0</span>
+                </a>
+                <a href="cart.html" class="social-link">
+                    🛒 <span id="cart-count">0</span>
+                </a>
+            </div>
+            
+            <!-- Burger Menu Button -->
+            <button class="burger-menu-btn" id="burgerMenuBtn" aria-label="Toggle menu">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Mobile Burger Menu -->
+    <div class="burger-menu-overlay" id="burgerMenuOverlay"></div>
+    <div class="burger-menu" id="burgerMenu">
+        <div class="burger-menu-header">
+            <div class="burger-menu-logo">
+                <img src="images/Rectangle.png" alt="Boosted USA Logo">
+            </div>
+            <button class="burger-menu-close" id="burgerMenuClose" aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+        <nav class="burger-menu-nav">
+            <a href="#home" class="burger-menu-link active smooth-scroll">
+                <span class="link-icon">🏠</span>
+                <span>Home</span>
+            </a>
+            <a href="#products" class="burger-menu-link smooth-scroll">
+                <span class="link-icon">🛹</span>
+                <span>Products</span>
+            </a>
+            <a href="#gallery" class="burger-menu-link smooth-scroll">
+                <span class="link-icon">🎨</span>
+                <span>Gallery</span>
+            </a>
+            <a href="#stores" class="burger-menu-link smooth-scroll">
+                <span class="link-icon">📍</span>
+                <span>Stores</span>
+            </a>
+            <a href="catalog-server.html" class="burger-menu-link">
+                <span class="link-icon">📦</span>
+                <span>Catalog</span>
+            </a>
+            <a href="favorites.html" class="burger-menu-link">
+                <span class="link-icon">❤️</span>
+                <span>Избранное</span>
+                <span class="link-badge" id="burger-favorites-count">0</span>
+            </a>
+            <a href="cart.html" class="burger-menu-link">
+                <span class="link-icon">🛒</span>
+                <span>Корзина</span>
+                <span class="link-badge" id="burger-cart-count">0</span>
+            </a>
+            <a href="feedback.html" class="burger-menu-link">
+                <span class="link-icon">💬</span>
+                <span>Отзывы</span>
+            </a>
+            <a href="admin.html" class="burger-menu-link" id="burger-admin-link" style="display: none;">
+                <span class="link-icon">⚙️</span>
+                <span>Admin</span>
+            </a>
+            <a href="auth.html" class="burger-menu-link">
+                <span class="link-icon">👤</span>
+                <span>Вход</span>
+            </a>
+        </nav>
+        <div class="burger-menu-footer">
+            <p>© 2024 Boosted USA</p>
+            <p>All Rights Reserved</p>
+        </div>
+    </div>
+
+    <!-- Hero Section with Multi-Layer Parallax -->
+    <section class="hero" id="home">
+        <!-- Layer 1: Background (slowest - 0.2x speed) -->
+        <div class="hero-background parallax-layer" data-speed="0.2">
+            <img src="images/Rectangle(1).png" alt="Boosted Products">
+        </div>
+        
+        <!-- Layer 2: Decorative circles (reverse direction - moves up on scroll) -->
+        <div class="parallax-layer parallax-decorative" data-speed="-0.3">
+            <div class="parallax-circle circle-1"></div>
+            <div class="parallax-circle circle-2"></div>
+            <div class="parallax-circle circle-3"></div>
+        </div>
+        
+        <!-- Layer 3: Floating elements (medium speed - 0.5x) -->
+        <div class="parallax-layer parallax-floating" data-speed="0.5">
+            <div class="floating-element element-1">⚡</div>
+            <div class="floating-element element-2">🛹</div>
+            <div class="floating-element element-3">🚀</div>
+            <div class="floating-element element-4">⭐</div>
+        </div>
+        
+        <!-- Layer 4: Main content (normal speed - 1.0x) -->
+        <div class="hero-content parallax-layer" data-speed="1.0">
+            <h1 class="hero-title">Welcome to Boosted USA</h1>
+            <p class="hero-subtitle">The Holy Grail of Electric Skateboards and One REVolutionary Scooter</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="window.location.href='catalog.html'">VIEW CATALOG</button>
+                <button class="btn-primary">BOOSTED REVS</button>
+                <button class="btn-primary">BOOSTED BOARDS</button>
+            </div>
+        </div>
+        
+        <!-- Layer 5: Foreground particles (fastest - 1.5x speed) -->
+        <div class="parallax-layer parallax-particles" data-speed="1.5">
+            <div class="particle particle-1"></div>
+            <div class="particle particle-2"></div>
+            <div class="particle particle-3"></div>
+            <div class="particle particle-4"></div>
+            <div class="particle particle-5"></div>
+            <div class="particle particle-6"></div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners">
+        <div class="container">
+            <div class="partners-grid">
+                <div class="partner-logo">
+                    <img src="images/Rectangle(3).png" alt="electrek">
+                </div>
+                <div class="partner-logo">
+                    <img src="images/Rectangle(8).png" alt="TechCrunch">
+                </div>
+                <div class="partner-logo">
+                    <img src="images/Rectangle(9).png" alt="Popular Mechanics">
+                </div>
+                <div class="partner-logo">
+                    <img src="images/Rectangle(10).png" alt="WIRED">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Animated Statistics Section -->
+    <section class="stats-section scroll-reveal" id="stats">
+        <div class="container">
+            <h2 class="section-title">Наши достижения</h2>
+            <p class="section-subtitle">Цифры, которые говорят сами за себя</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🛹</div>
+                    <div class="stat-number" data-target="15000" data-suffix="+">0</div>
+                    <div class="stat-label">Довольных клиентов</div>
+                    <div class="stat-progress">
+                        <div class="stat-progress-bar"></div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-number" data-target="25000" data-suffix="+">0</div>
+                    <div class="stat-label">Проданных устройств</div>
+                    <div class="stat-progress">
+                        <div class="stat-progress-bar"></div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-number" data-target="4.9" data-suffix="" data-decimals="1">0</div>
+                    <div class="stat-label">Средний рейтинг</div>
+                    <div class="stat-progress">
+                        <div class="stat-progress-bar"></div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">🌍</div>
+                    <div class="stat-number" data-target="50" data-suffix="+">0</div>
+                    <div class="stat-label">Стран доставки</div>
+                    <div class="stat-progress">
+                        <div class="stat-progress-bar"></div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Looking for Section -->
+    <section class="looking-for-section">
+        <div class="looking-for-content">
+            <h2 class="looking-for-title">Looking for Boosted Boards, or Boosted Revs?</h2>
+            <p class="looking-for-description">Boosted USA acquired all of the remaining inventory directly from
+                Boosted. This means we have the electric skateboards and scooter you all love and have been looking for.
+                Get your hands on these highly sought after products while supplies last.</p>
+            <div class="divider-line"></div>
+        </div>
+    </section>
+
+    <!-- Product Showcase Section -->
+    <section class="product-showcase scroll-reveal" id="products">
+        <div class="container">
+            <div class="showcase-grid">
+                <div class="product-card boards-card">
+                    <div class="product-image">
+                        <img src="images/Rectangle(12).png" alt="Boosted Boards">
+                    </div>
+                    <div class="product-overlay">
+                        <div class="product-icon">
+                            <img src="images/Vector(1).svg" alt="Lightning Icon">
+                        </div>
+                        <h3>Shop Boosted Boards</h3>
+                        <span class="stock-status">In Stock</span>
+                    </div>
+                </div>
+                <div class="product-card revs-card">
+                    <div class="product-image">
+                        <img src="images/Rectangle(11).png " alt="Boosted Revs">
+                    </div>
+                    <div class="product-overlay">
+                        <div class="product-icon">
+                            <img src="images/Vector(1).svg" alt="Lightning Icon">
+                        </div>
+                        <h3>Shop Boosted Revs</h3>
+                        <span class="stock-status">In Stock</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Slider Section -->
+    <section class="product-slider-section">
+        <div class="container">
+            <h2 class="slider-title">Featured Products</h2>
+            <div class="divider-line"></div>
+            
+            <div class="product-slider" id="productSlider">
+                <!-- Slider Wrapper -->
+                <div class="slider-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="slider-slide active">
+                        <div class="slide-image">
+                            <img src="images/skate1.jpg" alt="Boosted Stealth">
+                        </div>
+                        <div class="slide-content">
+                            <span class="slide-badge">NEW</span>
+                            <h3>Boosted Stealth</h3>
+                            <p class="slide-description">Our top-of-the-line board with the most power, range, and speed. Perfect for experienced riders seeking maximum performance.</p>
+                            <div class="slide-specs">
+                                <span class="spec-item">⚡ 24 mph</span>
+                                <span class="spec-item">🔋 14 miles</span>
+                                <span class="spec-item">⚙️ 2100W</span>
+                            </div>
+                            <div class="slide-price">$1,599</div>
+                            <button class="btn-primary">Shop Now</button>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="slider-slide">
+                        <div class="slide-image">
+                            <img src="images/skate2.jpg" alt="Boosted Plus">
+                        </div>
+                        <div class="slide-content">
+                            <span class="slide-badge">POPULAR</span>
+                            <h3>Boosted Plus</h3>
+                            <p class="slide-description">The perfect balance of power and range. Great for daily commuting and weekend adventures with smooth rides guaranteed.</p>
+                            <div class="slide-specs">
+                                <span class="spec-item">⚡ 22 mph</span>
+                                <span class="spec-item">🔋 14 miles</span>
+                                <span class="spec-item">⚙️ 2000W</span>
+                            </div>
+                            <div class="slide-price">$1,399</div>
+                            <button class="btn-primary">Shop Now</button>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="slider-slide">
+                        <div class="slide-image">
+                            <img src="images/boosted-mini.jpg" alt="Boosted Mini">
+                        </div>
+                        <div class="slide-content">
+                            <span class="slide-badge">COMPACT</span>
+                            <h3>Boosted Mini</h3>
+                            <p class="slide-description">Compact and portable without sacrificing power. Perfect for urban riders who need easy storage and maximum maneuverability.</p>
+                            <div class="slide-specs">
+                                <span class="spec-item">⚡ 20 mph</span>
+                                <span class="spec-item">🔋 7 miles</span>
+                                <span class="spec-item">⚙️ 1800W</span>
+                            </div>
+                            <div class="slide-price">$999</div>
+                            <button class="btn-primary">Shop Now</button>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4 -->
+                    <div class="slider-slide">
+                        <div class="slide-image">
+                            <img src="images/skate3.jpg" alt="Boosted Rev">
+                        </div>
+                        <div class="slide-content">
+                            <span class="slide-badge">SCOOTER</span>
+                            <h3>Boosted Rev</h3>
+                            <p class="slide-description">Revolutionary electric scooter with unmatched performance. Speed past traffic with industry-leading power and range.</p>
+                            <div class="slide-specs">
+                                <span class="spec-item">⚡ 24 mph</span>
+                                <span class="spec-item">🔋 22 miles</span>
+                                <span class="spec-item">⚙️ 1500W</span>
+                            </div>
+                            <div class="slide-price">$1,599</div>
+                            <button class="btn-primary">Shop Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Arrows -->
+                <button class="slider-arrow slider-arrow-left" id="sliderPrev">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <button class="slider-arrow slider-arrow-right" id="sliderNext">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+                <!-- Indicators/Dots -->
+                <div class="slider-indicators" id="sliderIndicators">
+                    <span class="indicator active" data-slide="0"></span>
+                    <span class="indicator" data-slide="1"></span>
+                    <span class="indicator" data-slide="2"></span>
+                    <span class="indicator" data-slide="3"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Electric Skateboards Section -->
+    <section class="electric-skateboards">
+        <div class="skateboards-background">
+            <img src="images/Rectangle(13).png" alt="Electric Skateboards">
+        </div>
+        <div class="skateboards-content">
+            <p class="skateboards-subtitle">High-performance</p>
+            <h2>Electric Skateboards</h2>
+            <p class="skateboards-description">Cruising campus, going to work or getting through that long list of
+                errands has never been easier or more fun.</p>
+            <button class="btn-primary small">Shop Now</button>
+        </div>
+    </section>
+
+    <!-- Boosted Rev Section -->
+    <section class="boosted-rev">
+        <div class="container">
+            <div class="rev-grid">
+                <div class="rev-images">
+                    <div class="rev-image-top">
+                        <img src="images/Rectangle(16).png" alt="Woman on Boosted Rev">
+                    </div>
+                    <div class="rev-image-bottom">
+                        <img src="images/Rectangle(15).png" alt="Boosted Rev Handlebars">
+                    </div>
+                </div>
+                <div class="rev-content">
+                    <h2>Boosted Rev</h2>
+                    <p>There's never been an electric scooter quite like this. Speed past traffic at 24 mph. Go up to 22 miles
+                        on a single charge. You'll get there in no time at all. Stop and go with the roll of your thumb. Its
+                        intuitive design means there's almost no learning curve.</p>
+                    <button class="btn-primary small">Shop Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Models Section -->
+    <section class="product-models">
+        <div class="container">
+            <div class="models-grid">
+                <div class="model-card stealth">
+                    <div class="model-image">
+                        <img src="images/Rectangle(17).png" alt="Boosted Stealth">
+                    </div>
+                    <div class="model-content">
+                        <h3>Shop Boosted Stealth</h3>
+                        <span class="stock-status">IN STOCK</span>
+                    </div>
+                </div>
+                <div class="model-card plus">
+                    <div class="model-image">
+                        <img src="images/Rectangle(18).png" alt="Boosted Plus">
+                    </div>
+                    <div class="model-content">
+                        <h3>Shop Boosted Plus</h3>
+                        <span class="stock-status">IN STOCK</span>
+                    </div>
+                </div>
+                <div class="model-card mini">
+                    <div class="model-image">
+                        <img src="images/Rectangle(19).png" alt="Boosted Mini">
+                    </div>
+                    <div class="model-content">
+                        <h3>Shop Boosted Mini</h3>
+                        <span class="stock-status">IN STOCK</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section class="videos">
+        <div class="container">
+            <div class="videos-grid">
+                <div class="video-card">
+                    <img src="images/Rectangle(20).png" alt="Introducing Boosted Rev">
+                </div>
+                <div class="video-card">
+                    <img src="images/Rectangle(21).png" alt="Boosted Boards Meet the Fam">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accessories Section -->
+    <section class="accessories">
+        <div class="container">
+            <h2 class="accessories-title">Looking for Accessories?</h2>
+            <div class="divider-line"></div>
+            <div class="accessories-grid">
+                <div class="accessory-item">
+                    <img src="images/Rectangle(22).png" alt="Rev Tube">
+                    <h4>Rev Tube</h4>
+                    <div class="price-container">
+                        <span class="sale-price">$16.00</span>
+                        <span class="original-price">$19.00</span>
+                    </div>
+                </div>
+                <div class="accessory-item">
+                    <img src="images/Rectangle(23).png" alt="Boosted Rev Stem Catch">
+                    <h4>Boosted Rev Stem Catch</h4>
+                    <div class="price-container">
+                        <span class="sale-price">$19.00</span>
+                        <span class="original-price">$29.00</span>
+                    </div>
+                </div>
+                <div class="accessory-item">
+                    <img src="images/Rectangle(24).png" alt="Stomp Brake Fender">
+                    <h4>Stomp Brake Fender</h4>
+                    <span class="price sold-out">Sold Out</span>
+                </div>
+                <div class="accessory-item">
+                    <img src="images/Rectangle(25).png" alt="Boosted Belt Kit">
+                    <h4>Boosted Belt Kit</h4>
+                    <span class="price">$25.00</span>
+                </div>
+                <div class="accessory-item">
+                    <img src="images/Rectangle(26).png" alt="Bearing Service Kit">
+                    <h4>Bearing Service Kit</h4>
+                    <span class="price">$50.00</span>
+                </div>
+                <div class="accessory-item">
+                    <img src="images/Rectangle(27).png" alt="Boosted Pulley / Belt Upgrade Kit">
+                    <h4>Boosted Pulley / Belt Upgrade Kit</h4>
+                    <span class="price">$75.00</span>
+                </div>
+                <div class="accessory-item">
+                    <img src="images/Rectangle(28).png" alt="Boosted Skid Plates">
+                    <h4>Boosted Skid Plates</h4>
+                    <span class="price">$20.00</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="images/Rectangle(4).png" alt="Go Fast">
+                    </div>
+                    <div class="feature-content">
+                        <h3>Go Fast</h3>
+                        <p>Boosted is known for its premium performance boards offering a next-level experience.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="images/Rectangle(5).png" alt="Go Safe">
+                    </div>
+                    <div class="feature-content">
+                        <h3>Go Safe</h3>
+                        <p>Safety is a #1 priority for Boosted, always wear a helmet when riding.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="images/Rectangle(6).png" alt="Go Far">
+                    </div>
+                    <div class="feature-content">
+                        <h3>Go Far</h3>
+                        <p>With optional extended battery life, you can get wherever you need to go reliably.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="images/Rectangle(7).png" alt="Built to Last">
+                    </div>
+                    <div class="feature-content">
+                        <h3>Built to Last!</h3>
+                        <p>Boosted products are engineered to last for years and are extremely reliable.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Media Gallery Section -->
+    <section class="media-gallery-section scroll-reveal" id="gallery">
+        <div class="container">
+            <h2 class="section-title scroll-fade-in">Интерактивная галерея</h2>
+            <p class="section-subtitle">Нажмите на кнопки или изображение для просмотра коллекции с озвучкой</p>
+            
+            <div class="gallery-container">
+                <!-- Main Display -->
+                <div class="gallery-main">
+                    <div class="gallery-image-container" id="galleryImageContainer">
+                        <img id="galleryMainImage" src="images/skate1.jpg" alt="Gallery Image">
+                        <div class="gallery-overlay">
+                            <button class="gallery-play-btn" id="galleryPlayBtn">
+                                <span class="play-icon">▶️</span>
+                                <span class="pause-icon" style="display: none;">⏸️</span>
+                            </button>
+                        </div>
+                        <div class="gallery-info">
+                            <h3 id="galleryImageTitle">Boosted Stealth</h3>
+                            <p id="galleryImageDesc">Премиальный электрический скейтборд</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Controls -->
+                <div class="gallery-controls">
+                    <div class="gallery-action-buttons">
+                        <button class="gallery-btn gallery-btn-primary" id="randomImageBtn">
+                            🎲 Случайное изображение
+                        </button>
+                        <button class="gallery-btn gallery-btn-secondary" id="nextImageBtn">
+                            ➡️ Следующее
+                        </button>
+                        <button class="gallery-btn gallery-btn-tertiary" id="prevImageBtn">
+                            ⬅️ Предыдущее
+                        </button>
+                    </div>
+                    
+                    <!-- Volume Control -->
+                    <div class="volume-control">
+                        <label for="volumeSlider">
+                            <span id="volumeIcon">🔊</span> Громкость
+                        </label>
+                        <input type="range" id="volumeSlider" min="0" max="100" value="50">
+                        <span id="volumeValue">50%</span>
+                    </div>
+                    
+                    <!-- Player Status -->
+                    <div class="player-status">
+                        <span class="status-indicator" id="statusIndicator">⏹️</span>
+                        <span id="statusText">Остановлено</span>
+                    </div>
+                </div>
+                
+                <!-- Thumbnails -->
+                <div class="gallery-thumbnails" id="galleryThumbnails">
+                    <!-- Thumbnails will be generated dynamically -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="scroll-to-top" title="Наверх">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-content">
+            <button class="video-modal-close" id="closeVideoModal">✕</button>
+            <h2 class="video-modal-title">Boosted Stealth - Обзор</h2>
+            <div class="video-container">
+                <video id="galleryVideo" controls>
+                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
+            </div>
+            <p class="video-modal-desc">Премиальный электрический скейтборд Boosted Stealth - максимальная производительность и стиль</p>
+        </div>
+    </div>
+
+    <!-- Store Locations Section -->
+    <section class="stores-section scroll-reveal" id="stores">
+        <div class="container">
+            <h2 class="section-title scroll-fade-in">Наши магазины в Минске</h2>
+            <p class="section-subtitle">Посетите один из наших магазинов, чтобы протестировать электротранспорт</p>
+            
+            <div class="stores-container">
+                <!-- Map -->
+                <div class="stores-map">
+                    <div id="map" style="width: 100%; height: 500px; border-radius: 12px;"></div>
+                </div>
+                
+                <!-- Store List -->
+                <div class="stores-list">
+                    <div class="store-card" data-coords="53.9045,27.5615">
+                        <div class="store-icon">📍</div>
+                        <div class="store-info">
+                            <h3>Boosted Центральный</h3>
+                            <p class="store-address">пр-т Независимости, 47</p>
+                            <p class="store-hours">⏰ Пн-Вс: 10:00 - 21:00</p>
+                            <p class="store-phone">📞 +375 (29) 123-45-67</p>
+                            <button class="store-route-btn" onclick="showRoute(53.9045, 27.5615)">
+                                🗺️ Построить маршрут
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="store-card" data-coords="53.9168,27.5921">
+                        <div class="store-icon">📍</div>
+                        <div class="store-info">
+                            <h3>Boosted Комаровка</h3>
+                            <p class="store-address">ул. Веры Хоружей, 3</p>
+                            <p class="store-hours">⏰ Пн-Вс: 10:00 - 22:00</p>
+                            <p class="store-phone">📞 +375 (29) 234-56-78</p>
+                            <button class="store-route-btn" onclick="showRoute(53.9168, 27.5921)">
+                                🗺️ Построить маршрут
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="store-card" data-coords="53.9253,27.4615">
+                        <div class="store-icon">📍</div>
+                        <div class="store-info">
+                            <h3>Boosted Дражня</h3>
+                            <p class="store-address">пр-т Дзержинского, 104</p>
+                            <p class="store-hours">⏰ Пн-Вс: 10:00 - 21:00</p>
+                            <p class="store-phone">📞 +375 (29) 345-67-89</p>
+                            <button class="store-route-btn" onclick="showRoute(53.9253, 27.4615)">
+                                🗺️ Построить маршрут
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-logo">
+                    <div class="logo-icon">
+                        <img src="images/Rectangle(29).png" alt="Boosted Logo">
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Explore</h4>
+                    <div class="footer-links">
+                        <a href="#">Electric Skateboards</a>
+                        <a href="#">Electric Scooters</a>
+                        <a href="#">Accessories</a>
+                        <a href="#">FAQs</a>
+                        <a href="#">Warranty</a>
+                        <a href="#">Quick Start Guide</a>
+                        <a href="#">Contact</a>
+                        <a href="#">Gift Card</a>
+                        <a href="#">Accessibility Statement</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>About Boosted USA</h4>
+                    <p>Boosted empowers people everywhere to commute across their cities, campuses, and communities in ways that were never before possible. Boosted is solving one of the biggest problems people face each day: transportation.</p>
+                    <div class="footer-address">
+                        <p>CaliRides LLC - DBA Boosted USA</p>
+                        <p>1281 Andersen Drive Ste. K</p>
+                        <p>San Rafael, CA 94901</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="footer-copyright">
+                        <span>© 2021 Boosted USA. All Rights Reserved.</span>
+                        <a href="#" class="brand">Terms of Service</a>
+                        <span>. Built by</span>
+                        <a href="#" class="brand">BH</a>
+                    </div>
+                    <div class="footer-payment">
+                        <img src="images/Group.png" alt="American Express">
+                        <img src="images/Frame(1).png" alt="Shop Pay">
+                        <img src="images/Frame(2).png" alt="Google Pay">
+                        <img src="images/Frame(3).png" alt="Klarna">
+                        <img src="images/Frame.png" alt="Mastercard">
+                        <img src="images/Frame-1.png" alt="Apple Pay">
+                        <img src="images/Frame-2.png" alt="Venmo">
+                        <img src="images/Frame-3.png" alt="Visa">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Preloader functionality
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            const progressBar = document.querySelector('.progress-bar');
+            
+            // Simulate loading progress
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 30;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(progressInterval);
+                    
+                    // Hide preloader after progress reaches 100%
+                    setTimeout(() => {
+                        preloader.classList.add('preloader-hidden');
+                        setTimeout(() => {
+                            preloader.style.display = 'none';
+                        }, 600);
+                    }, 300);
+                }
+                progressBar.style.width = progress + '%';
+            }, 100);
+        });
+
+        // Product Slider functionality
+        class ProductSlider {
+            constructor(sliderId) {
+                this.slider = document.getElementById(sliderId);
+                if (!this.slider) return;
+                
+                this.slides = this.slider.querySelectorAll('.slider-slide');
+                this.indicators = this.slider.querySelectorAll('.indicator');
+                this.prevBtn = document.getElementById('sliderPrev');
+                this.nextBtn = document.getElementById('sliderNext');
+                
+                this.currentSlide = 0;
+                this.totalSlides = this.slides.length;
+                this.autoPlayInterval = null;
+                this.autoPlayDelay = 5000; // 5 seconds
+                
+                // Touch events for mobile swipe
+                this.touchStartX = 0;
+                this.touchEndX = 0;
+                
+                this.init();
+            }
+            
+            init() {
+                // Event listeners for buttons
+                this.prevBtn.addEventListener('click', () => this.prevSlide());
+                this.nextBtn.addEventListener('click', () => this.nextSlide());
+                
+                // Event listeners for indicators
+                this.indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => this.goToSlide(index));
+                });
+                
+                // Touch events for swipe
+                this.slider.addEventListener('touchstart', (e) => {
+                    this.touchStartX = e.changedTouches[0].screenX;
+                    this.pauseAutoPlay();
+                }, { passive: true });
+                
+                this.slider.addEventListener('touchend', (e) => {
+                    this.touchEndX = e.changedTouches[0].screenX;
+                    this.handleSwipe();
+                    this.startAutoPlay();
+                }, { passive: true });
+                
+                // Pause autoplay on hover
+                this.slider.addEventListener('mouseenter', () => this.pauseAutoPlay());
+                this.slider.addEventListener('mouseleave', () => this.startAutoPlay());
+                
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') this.prevSlide();
+                    if (e.key === 'ArrowRight') this.nextSlide();
+                });
+                
+                // Start autoplay
+                this.startAutoPlay();
+            }
+            
+            goToSlide(slideIndex) {
+                // Remove active class from current slide and indicator
+                this.slides[this.currentSlide].classList.remove('active');
+                this.indicators[this.currentSlide].classList.remove('active');
+                
+                // Update current slide
+                this.currentSlide = slideIndex;
+                
+                // Add active class to new slide and indicator
+                this.slides[this.currentSlide].classList.add('active');
+                this.indicators[this.currentSlide].classList.add('active');
+            }
+            
+            nextSlide() {
+                const nextIndex = (this.currentSlide + 1) % this.totalSlides;
+                this.goToSlide(nextIndex);
+            }
+            
+            prevSlide() {
+                const prevIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+                this.goToSlide(prevIndex);
+            }
+            
+            handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = this.touchStartX - this.touchEndX;
+                
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0) {
+                        this.nextSlide();
+                    } else {
+                        this.prevSlide();
+                    }
+                }
+            }
+            
+            startAutoPlay() {
+                this.autoPlayInterval = setInterval(() => {
+                    this.nextSlide();
+                }, this.autoPlayDelay);
+            }
+            
+            pauseAutoPlay() {
+                if (this.autoPlayInterval) {
+                    clearInterval(this.autoPlayInterval);
+                    this.autoPlayInterval = null;
+                }
+            }
+        }
+        
+        // Initialize slider when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new ProductSlider('productSlider');
+        });
+
+        // Burger Menu functionality
+        class BurgerMenu {
+            constructor() {
+                this.burgerBtn = document.getElementById('burgerMenuBtn');
+                this.burgerMenu = document.getElementById('burgerMenu');
+                this.burgerOverlay = document.getElementById('burgerMenuOverlay');
+                this.burgerClose = document.getElementById('burgerMenuClose');
+                this.burgerLinks = document.querySelectorAll('.burger-menu-link');
+                this.body = document.body;
+                this.isOpen = false;
+                
+                this.init();
+            }
+            
+            init() {
+                // Open menu
+                this.burgerBtn.addEventListener('click', () => this.toggleMenu());
+                
+                // Close menu via close button
+                this.burgerClose.addEventListener('click', () => this.closeMenu());
+                
+                // Close menu via overlay click
+                this.burgerOverlay.addEventListener('click', () => this.closeMenu());
+                
+                // Close menu when clicking on links
+                this.burgerLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        // Small delay to allow navigation
+                        setTimeout(() => this.closeMenu(), 100);
+                    });
+                });
+                
+                // Close menu on ESC key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.isOpen) {
+                        this.closeMenu();
+                    }
+                });
+                
+                // Prevent menu close when clicking inside menu
+                this.burgerMenu.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            }
+            
+            toggleMenu() {
+                if (this.isOpen) {
+                    this.closeMenu();
+                } else {
+                    this.openMenu();
+                }
+            }
+            
+            openMenu() {
+                this.isOpen = true;
+                this.burgerMenu.classList.add('active');
+                this.burgerOverlay.classList.add('active');
+                this.burgerBtn.classList.add('active');
+                this.body.classList.add('menu-open');
+                
+                // Animate menu links
+                const links = this.burgerMenu.querySelectorAll('.burger-menu-link');
+                links.forEach((link, index) => {
+                    setTimeout(() => {
+                        link.style.animation = `slideInRight 0.4s ease-out forwards`;
+                    }, index * 50);
+                });
+            }
+            
+            closeMenu() {
+                this.isOpen = false;
+                this.burgerMenu.classList.remove('active');
+                this.burgerOverlay.classList.remove('active');
+                this.burgerBtn.classList.remove('active');
+                this.body.classList.remove('menu-open');
+                
+                // Reset animations
+                const links = this.burgerMenu.querySelectorAll('.burger-menu-link');
+                links.forEach(link => {
+                    link.style.animation = '';
+                });
+            }
+        }
+        
+        // Initialize burger menu
+        document.addEventListener('DOMContentLoaded', () => {
+            new BurgerMenu();
+        });
+
+        // Обновление счетчиков корзины и избранного
+        async function updateCounters() {
+            try {
+                const API_BASE_URL = 'http://localhost:3001';
+                const [favResponse, cartResponse] = await Promise.all([
+                    fetch(`${API_BASE_URL}/favorites`),
+                    fetch(`${API_BASE_URL}/cart`)
+                ]);
+                
+                const favorites = await favResponse.json();
+                const cart = await cartResponse.json();
+                
+                const favCountEl = document.getElementById('favorites-count');
+                const cartCountEl = document.getElementById('cart-count');
+                const burgerFavCountEl = document.getElementById('burger-favorites-count');
+                const burgerCartCountEl = document.getElementById('burger-cart-count');
+                
+                if (favCountEl) favCountEl.textContent = favorites.length;
+                if (cartCountEl) cartCountEl.textContent = cart.length;
+                if (burgerFavCountEl) burgerFavCountEl.textContent = favorites.length;
+                if (burgerCartCountEl) burgerCartCountEl.textContent = cart.length;
+                
+            } catch (error) {
+                console.error('Ошибка обновления счетчиков:', error);
+            }
+        }
+        
+        // Показать кнопку админ-панели для администраторов
+        function checkAdminNavLink() {
+            const userDataStr = localStorage.getItem('currentUser');
+            if (userDataStr) {
+                try {
+                    const userData = JSON.parse(userDataStr);
+                    const adminNavLink = document.getElementById('admin-nav-link');
+                    const burgerAdminLink = document.getElementById('burger-admin-link');
+                    if (userData.role === 'admin') {
+                        if (adminNavLink) adminNavLink.style.display = 'block';
+                        if (burgerAdminLink) burgerAdminLink.style.display = 'flex';
+                    }
+                } catch (e) {
+                    console.error('Ошибка чтения данных пользователя:', e);
+                }
+            }
+        }
+        
+        // Вызываем при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCounters();
+            checkAdminNavLink();
+        });
+    </script>
+
+    <!-- Smooth Scroll Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Плавная прокрутка для всех якорных ссылок
+            const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
+            
+            smoothScrollLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    
+                    // Игнорируем пустые якоря
+                    if (href === '#' || href === '#!') {
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    const targetId = href.substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        e.preventDefault();
+                        
+                        // Закрываем бургер-меню если оно открыто
+                        const burgerMenu = document.getElementById('burgerMenu');
+                        const burgerOverlay = document.getElementById('burgerMenuOverlay');
+                        if (burgerMenu && burgerMenu.classList.contains('active')) {
+                            burgerMenu.classList.remove('active');
+                            burgerOverlay.classList.remove('active');
+                            document.body.style.overflow = '';
+                        }
+                        
+                        // Плавная прокрутка
+                        const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                        const targetPosition = targetElement.offsetTop - navbarHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Обновляем активную ссылку в навигации
+                        document.querySelectorAll('.nav-link').forEach(navLink => {
+                            navLink.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                    }
+                });
+            });
+            
+            // Кнопка "Наверх"
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            
+            // Показываем/скрываем кнопку при прокрутке
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.classList.add('visible');
+                } else {
+                    scrollToTopBtn.classList.remove('visible');
+                }
+                
+                // Подсветка активного раздела в навигации
+                highlightActiveSection();
+            });
+            
+            // Клик по кнопке "Наверх"
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Функция подсветки активного раздела
+            function highlightActiveSection() {
+                const sections = document.querySelectorAll('section[id]');
+                const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                const scrollPosition = window.pageYOffset + navbarHeight + 100;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        document.querySelectorAll('.nav-link').forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${sectionId}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+
+    <!-- Scroll Effects Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navbar = document.querySelector('.navbar');
+            const scrollProgressBar = document.getElementById('scrollProgressBar');
+            
+            // Обновление прогресс-бара и navbar при скролле
+            function updateScrollEffects() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                
+                // Обновляем прогресс-бар
+                scrollProgressBar.style.width = scrollPercent + '%';
+                
+                // Добавляем/убираем класс для navbar при скролле
+                if (scrollTop > 100) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            }
+            
+            // Reveal анимация для элементов
+            function revealOnScroll() {
+                const revealElements = document.querySelectorAll('.scroll-reveal, .scroll-fade-in, .product-card, .store-card, .gallery-thumbnail, .stat-card');
+                const windowHeight = window.innerHeight;
+                
+                revealElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < windowHeight - elementVisible) {
+                        if (!element.classList.contains('revealed')) {
+                            element.classList.add('revealed');
+                            
+                            // Запускаем анимацию счетчика для stat-card
+                            if (element.classList.contains('stat-card')) {
+                                const statNumber = element.querySelector('.stat-number');
+                                if (statNumber && !statNumber.dataset.animated) {
+                                    animateCounter(statNumber);
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Многослойный параллакс эффект для hero секции
+            function parallaxEffect() {
+                const hero = document.querySelector('.hero');
+                if (!hero) return;
+                
+                const scrolled = window.pageYOffset;
+                const heroHeight = hero.offsetHeight;
+                
+                // Останавливаем эффект когда секция вне видимости
+                if (scrolled > heroHeight * 1.5) return;
+                
+                // Получаем все parallax слои
+                const parallaxLayers = hero.querySelectorAll('.parallax-layer');
+                
+                parallaxLayers.forEach(layer => {
+                    const speed = parseFloat(layer.getAttribute('data-speed')) || 0;
+                    const yPos = -(scrolled * speed);
+                    
+                    // Применяем трансформацию в зависимости от скорости
+                    if (speed < 0) {
+                        // Обратное направление (движется вверх при скролле вниз)
+                        layer.style.transform = `translateY(${-yPos}px)`;
+                    } else if (speed === 1.0) {
+                        // Нормальная скорость (контент)
+                        layer.style.transform = `translateY(0)`;
+                    } else {
+                        // Замедленное движение
+                        layer.style.transform = `translateY(${yPos}px)`;
+                    }
+                });
+                
+                // Дополнительные эффекты для плавности
+                const decorativeCircles = hero.querySelectorAll('.parallax-circle');
+                decorativeCircles.forEach((circle, index) => {
+                    const offset = scrolled * (0.1 + index * 0.05);
+                    circle.style.opacity = Math.max(0.2, 0.5 - scrolled / 1000);
+                });
+                
+                const floatingElements = hero.querySelectorAll('.floating-element');
+                floatingElements.forEach((element, index) => {
+                    const rotation = (scrolled * (0.05 + index * 0.02)) % 360;
+                    const currentTransform = element.style.transform || '';
+                    if (!currentTransform.includes('translateY')) {
+                        element.style.transform += ` rotate(${rotation}deg)`;
+                    }
+                });
+            }
+            
+            // Обработчик скролла
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        updateScrollEffects();
+                        revealOnScroll();
+                        parallaxEffect();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+            
+            // Функция анимированного счетчика
+            function animateCounter(element) {
+                const target = parseFloat(element.dataset.target);
+                const suffix = element.dataset.suffix || '';
+                const decimals = parseInt(element.dataset.decimals) || 0;
+                const duration = 2000; // 2 секунды
+                const steps = 60;
+                const increment = target / steps;
+                const stepDuration = duration / steps;
+                let current = 0;
+                
+                element.dataset.animated = 'true';
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    
+                    const displayValue = decimals > 0 ? current.toFixed(decimals) : Math.floor(current);
+                    element.textContent = displayValue + suffix;
+                }, stepDuration);
+            }
+            
+            // Функция обновления счетчиков в navbar с анимацией
+            window.updateNavCounters = function(favCount, cartCount) {
+                const favCounters = document.querySelectorAll('#favorites-count, #burger-favorites-count');
+                const cartCounters = document.querySelectorAll('#cart-count, #burger-cart-count');
+                
+                favCounters.forEach(counter => {
+                    const oldValue = parseInt(counter.textContent) || 0;
+                    if (oldValue !== favCount) {
+                        counter.classList.add('counter-update');
+                        animateCounterValue(counter, oldValue, favCount);
+                        setTimeout(() => counter.classList.remove('counter-update'), 500);
+                    }
+                });
+                
+                cartCounters.forEach(counter => {
+                    const oldValue = parseInt(counter.textContent) || 0;
+                    if (oldValue !== cartCount) {
+                        counter.classList.add('counter-update');
+                        animateCounterValue(counter, oldValue, cartCount);
+                        setTimeout(() => counter.classList.remove('counter-update'), 500);
+                    }
+                });
+                
+                // Обновляем динамические stat-card если они есть
+                const favStatCard = document.querySelector('[data-dynamic="favorites"]');
+                const cartStatCard = document.querySelector('[data-dynamic="cart"]');
+                
+                if (favStatCard) {
+                    favStatCard.dataset.target = favCount;
+                    if (favStatCard.dataset.animated) {
+                        animateCounterValue(favStatCard, parseInt(favStatCard.textContent) || 0, favCount);
+                    }
+                }
+                
+                if (cartStatCard) {
+                    cartStatCard.dataset.target = cartCount;
+                    if (cartStatCard.dataset.animated) {
+                        animateCounterValue(cartStatCard, parseInt(cartStatCard.textContent) || 0, cartCount);
+                    }
+                }
+            };
+            
+            // Вспомогательная функция для анимации изменения значения
+            function animateCounterValue(element, start, end) {
+                const duration = 300;
+                const steps = 20;
+                const increment = (end - start) / steps;
+                const stepDuration = duration / steps;
+                let current = start;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+                        current = end;
+                        clearInterval(timer);
+                    }
+                    element.textContent = Math.round(current);
+                }, stepDuration);
+            }
+            
+            // Начальная проверка при загрузке
+            updateScrollEffects();
+            revealOnScroll();
+            
+            // Добавляем класс для анимации при загрузке
+            setTimeout(() => {
+                document.body.classList.add('loaded');
+            }, 100);
+        });
+    </script>
+
+    <!-- API Counters Script -->
+    <script>
+        // Загрузка и обновление счетчиков из API
+        async function loadCounters() {
+            try {
+                const [favResponse, cartResponse] = await Promise.all([
+                    fetch('http://localhost:3001/favorites'),
+                    fetch('http://localhost:3001/cart')
+                ]);
+                
+                const favorites = await favResponse.json();
+                const cart = await cartResponse.json();
+                
+                // Обновляем счетчики с анимацией
+                if (window.updateNavCounters) {
+                    window.updateNavCounters(favorites.length, cart.length);
+                }
+            } catch (error) {
+                console.log('API не доступен, используем значения по умолчанию');
+                // Если API недоступен, устанавливаем 0
+                if (window.updateNavCounters) {
+                    window.updateNavCounters(0, 0);
+                }
+            }
+        }
+        
+        // Загружаем счетчики при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCounters();
+            // Обновляем каждые 5 секунд
+            setInterval(loadCounters, 5000);
+        });
+        
+        // Делаем функцию глобально доступной
+        window.loadCounters = loadCounters;
+    </script>
+
+    <!-- Interactive Media Gallery Script -->
+    <script>
+        // Gallery data with 10+ images
+        const galleryData = [
+            { id: 1, image: 'images/skate1.jpg', title: 'Boosted Stealth', desc: 'Премиальный электрический скейтборд', freq: 440, hasVideo: true },
+            { id: 2, image: 'images/skate2.jpg', title: 'Boosted Plus', desc: 'Универсальный электроскейт', freq: 523 },
+            { id: 3, image: 'images/skate3.jpg', title: 'Boosted Mini X', desc: 'Компактный и мощный', freq: 659 },
+            { id: 4, image: 'images/skoot1.jpg', title: 'Boosted Rev', desc: 'Электрический самокат', freq: 784 },
+            { id: 5, image: 'images/motor-kits.jpg', title: 'Motor Kits', desc: 'Комплекты двигателей', freq: 330 },
+            { id: 6, image: 'images/kit.jpg', title: 'Service Kit', desc: 'Набор для обслуживания', freq: 392 },
+            { id: 7, image: 'images/kit2.png', title: 'Belt Drive Kit', desc: 'Комплект ременной передачи', freq: 494 },
+            { id: 8, image: 'images/shred-lights.jpg', title: 'Shred Lights', desc: 'Освещение для доски', freq: 587 },
+            { id: 9, image: 'images/skid-plates.jpg', title: 'Skid Plates', desc: 'Защитные пластины', freq: 698 },
+            { id: 10, image: 'images/pulley-belt-upgrade.jpg', title: 'Pulley & Belt', desc: 'Шкивы и ремни', freq: 880 },
+            { id: 11, image: 'images/boosted-mini.jpg', title: 'Boosted Mini S', desc: 'Легкий и маневренный', freq: 740 },
+            { id: 12, image: 'images/Extended Battery.jpg', title: 'Extended Battery', desc: 'Увеличенная батарея', freq: 622 }
+        ];
+        
+        let currentIndex = 0;
+        let audioContext;
+        let oscillator = null;
+        let gainNode;
+        let isPlaying = false;
+        let currentVolume = 0.5;
+        
+        // Initialize Audio Context
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                gainNode = audioContext.createGain();
+                gainNode.connect(audioContext.destination);
+                gainNode.gain.value = currentVolume;
+            }
+        }
+        
+        // Play sound with specific frequency
+        function playSound(frequency) {
+            initAudio();
+            
+            // Stop previous sound
+            if (oscillator) {
+                oscillator.stop();
+                oscillator = null;
+            }
+            
+            // Create new oscillator
+            oscillator = audioContext.createOscillator();
+            oscillator.type = 'sine'; // Soft sine wave
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+            
+            // Create envelope for smooth sound
+            const envelope = audioContext.createGain();
+            envelope.gain.setValueAtTime(0, audioContext.currentTime);
+            envelope.gain.linearRampToValueAtTime(currentVolume, audioContext.currentTime + 0.1);
+            envelope.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1.5);
+            
+            oscillator.connect(envelope);
+            envelope.connect(audioContext.destination);
+            
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 1.5);
+            
+            updatePlayerStatus(true);
+            
+            setTimeout(() => {
+                updatePlayerStatus(false);
+            }, 1500);
+        }
+        
+        // Update player status indicator
+        function updatePlayerStatus(playing) {
+            isPlaying = playing;
+            const statusIndicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            const playIcon = document.querySelector('.play-icon');
+            const pauseIcon = document.querySelector('.pause-icon');
+            
+            if (playing) {
+                statusIndicator.textContent = '▶️';
+                statusText.textContent = 'Воспроизведение';
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline';
+            } else {
+                statusIndicator.textContent = '⏹️';
+                statusText.textContent = 'Остановлено';
+                playIcon.style.display = 'inline';
+                pauseIcon.style.display = 'none';
+            }
+        }
+        
+        // Show image with animation
+        function showImage(index, playAudio = true) {
+            const item = galleryData[index];
+            const mainImage = document.getElementById('galleryMainImage');
+            const imageTitle = document.getElementById('galleryImageTitle');
+            const imageDesc = document.getElementById('galleryImageDesc');
+            const container = document.getElementById('galleryImageContainer');
+            
+            // Fade out
+            container.style.opacity = '0';
+            
+            setTimeout(() => {
+                mainImage.src = item.image;
+                imageTitle.textContent = item.title;
+                imageDesc.textContent = item.desc + (item.hasVideo ? ' 🎬 (нажмите для просмотра видео)' : '');
+                currentIndex = index;
+                
+                // Fade in
+                container.style.opacity = '1';
+                
+                // Play sound
+                if (playAudio) {
+                    playSound(item.freq);
+                }
+                
+                // Update active thumbnail
+                updateActiveThumbnail(index);
+            }, 300);
+        }
+        
+        // Update active thumbnail
+        function updateActiveThumbnail(index) {
+            const thumbnails = document.querySelectorAll('.gallery-thumbnail');
+            thumbnails.forEach((thumb, i) => {
+                if (i === index) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
+        }
+        
+        // Show random image
+        function showRandomImage() {
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * galleryData.length);
+            } while (randomIndex === currentIndex && galleryData.length > 1);
+            
+            showImage(randomIndex);
+        }
+        
+        // Show next image
+        function showNextImage() {
+            const nextIndex = (currentIndex + 1) % galleryData.length;
+            showImage(nextIndex);
+        }
+        
+        // Show previous image
+        function showPrevImage() {
+            const prevIndex = (currentIndex - 1 + galleryData.length) % galleryData.length;
+            showImage(prevIndex);
+        }
+        
+        // Update volume
+        function updateVolume(value) {
+            currentVolume = value / 100;
+            if (gainNode) {
+                gainNode.gain.value = currentVolume;
+            }
+            
+            const volumeValue = document.getElementById('volumeValue');
+            const volumeIcon = document.getElementById('volumeIcon');
+            volumeValue.textContent = value + '%';
+            
+            if (value == 0) {
+                volumeIcon.textContent = '🔇';
+            } else if (value < 30) {
+                volumeIcon.textContent = '🔈';
+            } else if (value < 70) {
+                volumeIcon.textContent = '🔉';
+            } else {
+                volumeIcon.textContent = '🔊';
+            }
+        }
+        
+        // Generate thumbnails
+        function generateThumbnails() {
+            const container = document.getElementById('galleryThumbnails');
+            container.innerHTML = '';
+            
+            galleryData.forEach((item, index) => {
+                const thumb = document.createElement('div');
+                thumb.className = 'gallery-thumbnail' + (index === 0 ? ' active' : '');
+                thumb.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}">
+                    ${item.hasVideo ? '<div class="video-badge">🎬</div>' : ''}
+                    <div class="thumbnail-overlay">
+                        <span>${item.title}</span>
+                    </div>
+                `;
+                thumb.addEventListener('click', () => showImage(index));
+                container.appendChild(thumb);
+            });
+        }
+        
+        // Initialize gallery
+        document.addEventListener('DOMContentLoaded', () => {
+            // Generate thumbnails
+            generateThumbnails();
+            
+            // Event listeners
+            document.getElementById('randomImageBtn').addEventListener('click', showRandomImage);
+            document.getElementById('nextImageBtn').addEventListener('click', showNextImage);
+            document.getElementById('prevImageBtn').addEventListener('click', showPrevImage);
+            
+            document.getElementById('galleryPlayBtn').addEventListener('click', () => {
+                const item = galleryData[currentIndex];
+                playSound(item.freq);
+            });
+            
+            document.getElementById('galleryImageContainer').addEventListener('click', (e) => {
+                if (e.target.id === 'galleryMainImage') {
+                    const currentItem = galleryData[currentIndex];
+                    if (currentItem.hasVideo) {
+                        openVideoModal();
+                    } else {
+                        showRandomImage();
+                    }
+                }
+            });
+            
+            document.getElementById('volumeSlider').addEventListener('input', (e) => {
+                updateVolume(e.target.value);
+            });
+            
+            // Keyboard controls
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') showNextImage();
+                if (e.key === 'ArrowLeft') showPrevImage();
+                if (e.key === ' ') {
+                    e.preventDefault();
+                    const item = galleryData[currentIndex];
+                    playSound(item.freq);
+                }
+            });
+            
+            // Video modal controls
+            const videoModal = document.getElementById('videoModal');
+            const closeVideoBtn = document.getElementById('closeVideoModal');
+            const galleryVideo = document.getElementById('galleryVideo');
+            
+            closeVideoBtn.addEventListener('click', closeVideoModal);
+            
+            videoModal.addEventListener('click', (e) => {
+                if (e.target === videoModal) {
+                    closeVideoModal();
+                }
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+                    closeVideoModal();
+                }
+            });
+        });
+        
+        // Video modal functions
+        function openVideoModal() {
+            const videoModal = document.getElementById('videoModal');
+            const galleryVideo = document.getElementById('galleryVideo');
+            videoModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Auto play video
+            setTimeout(() => {
+                galleryVideo.play().catch(err => {
+                    console.log('Автовоспроизведение заблокировано:', err);
+                });
+            }, 300);
+        }
+        
+        function closeVideoModal() {
+            const videoModal = document.getElementById('videoModal');
+            const galleryVideo = document.getElementById('galleryVideo');
+            videoModal.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // Pause video
+            galleryVideo.pause();
+            galleryVideo.currentTime = 0;
+        }
+    </script>
+
+    <!-- Yandex Maps API -->
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <script>
+        // Инициализация карты
+        let myMap;
+        let routeControl;
+        
+        ymaps.ready(init);
+        
+        function init() {
+            // Создаём карту с центром в Минске
+            myMap = new ymaps.Map("map", {
+                center: [53.9045, 27.5615], // Координаты центра Минска
+                zoom: 11,
+                controls: ['zoomControl', 'typeSelector', 'fullscreenControl']
+            });
+            
+            // Данные магазинов
+            const stores = [
+                {
+                    coords: [53.9045, 27.5615],
+                    name: 'Boosted Центральный',
+                    address: 'пр-т Независимости, 47',
+                    hours: 'Пн-Вс: 10:00 - 21:00',
+                    phone: '+375 (29) 123-45-67'
+                },
+                {
+                    coords: [53.9168, 27.5921],
+                    name: 'Boosted Комаровка',
+                    address: 'ул. Веры Хоружей, 3',
+                    hours: 'Пн-Вс: 10:00 - 22:00',
+                    phone: '+375 (29) 234-56-78'
+                },
+                {
+                    coords: [53.9253, 27.4615],
+                    name: 'Boosted Дражня',
+                    address: 'пр-т Дзержинского, 104',
+                    hours: 'Пн-Вс: 10:00 - 21:00',
+                    phone: '+375 (29) 345-67-89'
+                }
+            ];
+            
+            // Добавляем метки для каждого магазина
+            stores.forEach((store, index) => {
+                const placemark = new ymaps.Placemark(store.coords, {
+                    balloonContentHeader: `<strong>${store.name}</strong>`,
+                    balloonContentBody: `
+                        <p><b>Адрес:</b> ${store.address}</p>
+                        <p><b>Время работы:</b> ${store.hours}</p>
+                        <p><b>Телефон:</b> ${store.phone}</p>
+                    `,
+                    balloonContentFooter: `<button onclick="showRoute(${store.coords[0]}, ${store.coords[1]})" style="padding: 8px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">🗺️ Построить маршрут</button>`,
+                    hintContent: store.name
+                }, {
+                    preset: 'islands#blueElectricIcon',
+                    iconColor: '#667eea'
+                });
+                
+                // Добавляем обработчик клика на карточку магазина
+                const storeCards = document.querySelectorAll('.store-card');
+                if (storeCards[index]) {
+                    storeCards[index].addEventListener('click', function(e) {
+                        if (!e.target.classList.contains('store-route-btn')) {
+                            myMap.setCenter(store.coords, 15, { duration: 500 });
+                            placemark.balloon.open();
+                        }
+                    });
+                    storeCards[index].style.cursor = 'pointer';
+                }
+                
+                myMap.geoObjects.add(placemark);
+            });
+        }
+        
+        // Функция построения маршрута
+        function showRoute(lat, lon) {
+            // Удаляем предыдущий маршрут, если есть
+            if (routeControl) {
+                myMap.controls.remove(routeControl);
+            }
+            
+            // Получаем геолокацию пользователя
+            ymaps.geolocation.get({
+                provider: 'yandex',
+                mapStateAutoApply: true
+            }).then(function (result) {
+                const userCoords = result.geoObjects.position;
+                
+                // Создаём мультимаршрут
+                const multiRoute = new ymaps.multiRouter.MultiRoute({
+                    referencePoints: [
+                        userCoords,
+                        [lat, lon]
+                    ],
+                    params: {
+                        routingMode: 'pedestrian' // пешком
+                    }
+                }, {
+                    boundsAutoApply: true,
+                    wayPointStartIconColor: "#43e97b",
+                    wayPointFinishIconColor: "#667eea",
+                    routeActiveStrokeColor: "#667eea",
+                    routeActiveStrokeWidth: 6
+                });
+                
+                myMap.geoObjects.add(multiRoute);
+                routeControl = multiRoute;
+                
+            }).catch(function (err) {
+                // Если не удалось получить геолокацию, строим маршрут от центра
+                alert('Не удалось определить ваше местоположение. Попробуйте разрешить доступ к геолокации.');
+                
+                const multiRoute = new ymaps.multiRouter.MultiRoute({
+                    referencePoints: [
+                        [53.9045, 27.5615], // центр Минска
+                        [lat, lon]
+                    ],
+                    params: {
+                        routingMode: 'pedestrian'
+                    }
+                }, {
+                    boundsAutoApply: true,
+                    wayPointStartIconColor: "#43e97b",
+                    wayPointFinishIconColor: "#667eea",
+                    routeActiveStrokeColor: "#667eea",
+                    routeActiveStrokeWidth: 6
+                });
+                
+                myMap.geoObjects.add(multiRoute);
+                routeControl = multiRoute;
+            });
+        }
+    </script>
+
+    <style>
+        /* Interactive Media Gallery Section */
+        .media-gallery-section {
+            background: #fff;
+            padding: 80px 0;
+        }
+        
+        .media-gallery-section .section-title {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .media-gallery-section .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 50px;
+        }
+        
+        .gallery-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        .gallery-main {
+            width: 100%;
+        }
+        
+        .gallery-image-container {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            transition: opacity 0.3s ease;
+            background: #000;
+        }
+        
+        #galleryMainImage {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            display: block;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        #galleryMainImage:hover {
+            transform: scale(1.02);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-image-container:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-play-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-play-btn:hover {
+            transform: scale(1.1);
+            background: white;
+        }
+        
+        .gallery-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 40px 30px 30px;
+            color: white;
+        }
+        
+        .gallery-info h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .gallery-info p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .gallery-controls {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+        
+        .gallery-action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .gallery-btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .gallery-btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .gallery-btn-secondary {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+        }
+        
+        .gallery-btn-tertiary {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+        }
+        
+        .gallery-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .volume-control label {
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        #volumeSlider {
+            flex: 1;
+            height: 6px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+        
+        #volumeSlider::-webkit-slider-thumb {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.5);
+        }
+        
+        #volumeSlider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.5);
+        }
+        
+        #volumeValue {
+            font-weight: 700;
+            color: #667eea;
+            min-width: 45px;
+        }
+        
+        .player-status {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 20px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        
+        .status-indicator {
+            font-size: 24px;
+        }
+        
+        #statusText {
+            color: #666;
+        }
+        
+        .gallery-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .gallery-thumbnail {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+        
+        .gallery-thumbnail:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .gallery-thumbnail.active {
+            border-color: #667eea;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.5);
+        }
+        
+        .gallery-thumbnail img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .thumbnail-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 15px 10px 10px;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .video-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.5);
+            animation: videoPulse 2s ease-in-out infinite;
+            z-index: 2;
+        }
+        
+        @keyframes videoPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 4px 12px rgba(255, 107, 107, 0.5);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 6px 16px rgba(255, 107, 107, 0.7);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .media-gallery-section {
+                padding: 50px 0;
+            }
+            
+            .media-gallery-section .section-title {
+                font-size: 32px;
+            }
+            
+            #galleryMainImage {
+                height: 400px;
+            }
+            
+            .gallery-action-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-thumbnails {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 10px;
+            }
+            
+            .gallery-thumbnail img {
+                height: 80px;
+            }
+            
+            .volume-control {
+                flex-wrap: wrap;
+            }
+        }
+        
+        /* Scroll Progress Bar */
+        .scroll-progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            width: 0%;
+            z-index: 10001;
+            transition: width 0.1s ease;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.5);
+        }
+        
+        /* Navbar Scroll Effect */
+        .navbar {
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Scroll Reveal Animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .scroll-fade-in {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.6s ease;
+        }
+        
+        .scroll-fade-in.revealed {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Product Cards Animation */
+        .product-card {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: all 0.6s ease;
+        }
+        
+        .product-card.revealed {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .product-card:nth-child(1) { transition-delay: 0.1s; }
+        .product-card:nth-child(2) { transition-delay: 0.2s; }
+        .product-card:nth-child(3) { transition-delay: 0.3s; }
+        .product-card:nth-child(4) { transition-delay: 0.4s; }
+        .product-card:nth-child(5) { transition-delay: 0.5s; }
+        .product-card:nth-child(6) { transition-delay: 0.6s; }
+        
+        /* Store Cards Animation */
+        .store-card {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s ease;
+        }
+        
+        .store-card.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .store-card:nth-child(1) { transition-delay: 0.1s; }
+        .store-card:nth-child(2) { transition-delay: 0.3s; }
+        .store-card:nth-child(3) { transition-delay: 0.5s; }
+        
+        /* Gallery Thumbnails Animation */
+        .gallery-thumbnail {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.4s ease;
+        }
+        
+        .gallery-thumbnail.revealed {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .gallery-thumbnail:nth-child(1) { transition-delay: 0.05s; }
+        .gallery-thumbnail:nth-child(2) { transition-delay: 0.1s; }
+        .gallery-thumbnail:nth-child(3) { transition-delay: 0.15s; }
+        .gallery-thumbnail:nth-child(4) { transition-delay: 0.2s; }
+        .gallery-thumbnail:nth-child(5) { transition-delay: 0.25s; }
+        .gallery-thumbnail:nth-child(6) { transition-delay: 0.3s; }
+        .gallery-thumbnail:nth-child(7) { transition-delay: 0.35s; }
+        .gallery-thumbnail:nth-child(8) { transition-delay: 0.4s; }
+        .gallery-thumbnail:nth-child(9) { transition-delay: 0.45s; }
+        .gallery-thumbnail:nth-child(10) { transition-delay: 0.5s; }
+        .gallery-thumbnail:nth-child(11) { transition-delay: 0.55s; }
+        .gallery-thumbnail:nth-child(12) { transition-delay: 0.6s; }
+        
+        /* Multi-Layer Parallax Effect for Hero */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            height: 100vh;
+            min-height: 600px;
+        }
+        
+        /* Base parallax layer styles */
+        .parallax-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            will-change: transform;
+            transition: transform 0.1s ease-out;
+        }
+        
+        /* Layer 1: Background (slowest) */
+        .hero-background {
+            z-index: 1;
+        }
+        
+        .hero-background img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        /* Layer 2: Decorative circles (reverse direction) */
+        .parallax-decorative {
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        .parallax-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+            backdrop-filter: blur(2px);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+        
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+        
+        .circle-3 {
+            width: 150px;
+            height: 150px;
+            bottom: 15%;
+            left: 15%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-30px) scale(1.1);
+                opacity: 0.5;
+            }
+        }
+        
+        /* Layer 3: Floating elements (medium speed) */
+        .parallax-floating {
+            z-index: 3;
+            pointer-events: none;
+        }
+        
+        .floating-element {
+            position: absolute;
+            font-size: 3rem;
+            animation: floatRotate 8s ease-in-out infinite;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+        
+        .element-1 {
+            top: 15%;
+            right: 15%;
+            animation-delay: 0s;
+        }
+        
+        .element-2 {
+            top: 45%;
+            left: 10%;
+            animation-delay: 2s;
+        }
+        
+        .element-3 {
+            bottom: 20%;
+            right: 25%;
+            animation-delay: 4s;
+        }
+        
+        .element-4 {
+            top: 30%;
+            right: 40%;
+            animation-delay: 6s;
+        }
+        
+        @keyframes floatRotate {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+            50% {
+                transform: translateY(-40px) rotate(0deg);
+            }
+            75% {
+                transform: translateY(-20px) rotate(-5deg);
+            }
+        }
+        
+        /* Layer 4: Main content (normal speed) */
+        .hero-content {
+            position: relative;
+            z-index: 4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        /* Layer 5: Foreground particles (fastest) */
+        .parallax-particles {
+            z-index: 5;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: particleFloat 4s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        
+        .particle-1 {
+            top: 20%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+        
+        .particle-2 {
+            top: 40%;
+            right: 30%;
+            animation-delay: 0.5s;
+        }
+        
+        .particle-3 {
+            top: 60%;
+            left: 40%;
+            animation-delay: 1s;
+        }
+        
+        .particle-4 {
+            bottom: 30%;
+            right: 20%;
+            animation-delay: 1.5s;
+        }
+        
+        .particle-5 {
+            top: 80%;
+            left: 60%;
+            animation-delay: 2s;
+        }
+        
+        .particle-6 {
+            top: 25%;
+            right: 50%;
+            animation-delay: 2.5s;
+        }
+        
+        @keyframes particleFloat {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-50px) scale(1.5);
+                opacity: 0.8;
+            }
+        }
+        
+        /* Responsive adjustments for parallax */
+        @media (max-width: 768px) {
+            .hero {
+                height: 100vh;
+                min-height: 500px;
+            }
+            
+            /* Reduce parallax intensity on mobile */
+            .parallax-circle {
+                transform: scale(0.7);
+            }
+            
+            .floating-element {
+                font-size: 2rem;
+            }
+            
+            .particle {
+                width: 5px;
+                height: 5px;
+            }
+            
+            /* Disable some decorative elements on mobile for performance */
+            .circle-3,
+            .element-4,
+            .particle-5,
+            .particle-6 {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* Further reduce effects on small screens */
+            .parallax-decorative,
+            .parallax-particles {
+                opacity: 0.5;
+            }
+        }
+        
+        /* Disable parallax on devices that prefer reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .parallax-layer {
+                transform: none !important;
+            }
+            
+            .parallax-circle,
+            .floating-element,
+            .particle {
+                animation: none;
+            }
+        }
+        
+        /* Animated Statistics Section */
+        .stats-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="%23667eea" opacity="0.1"/></svg>');
+            pointer-events: none;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+        }
+        
+        .stat-card.revealed {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 1s ease;
+        }
+        
+        .stat-card.revealed::before {
+            transform: scaleX(1);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+        }
+        
+        .stat-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.2;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: #666;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 15px;
+        }
+        
+        .stat-progress {
+            width: 100%;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        
+        .stat-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 2s ease-out;
+        }
+        
+        .stat-card.revealed .stat-progress-bar {
+            width: 100%;
+        }
+        
+        /* Animated counters in navbar */
+        #favorites-count,
+        #cart-count,
+        #burger-favorites-count,
+        #burger-cart-count {
+            display: inline-block;
+            min-width: 20px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        
+        .counter-update {
+            animation: counterPulse 0.5s ease;
+        }
+        
+        @keyframes counterPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.3);
+                color: #667eea;
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .stats-section {
+                padding: 60px 0;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+            
+            .stat-card {
+                padding: 30px 20px;
+            }
+            
+            .stat-icon {
+                font-size: 2.5rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .stat-label {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Body Loaded State */
+        body.loaded .hero {
+            animation: fadeInHero 1s ease;
+        }
+        
+        @keyframes fadeInHero {
+            from {
+                opacity: 0;
+                transform: scale(1.05);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        /* Pulse Animation for Interactive Elements */
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+            }
+        }
+        
+        .scroll-reveal.revealed .gallery-play-btn {
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+        
+        /* Smooth transitions for all elements */
+        * {
+            scroll-behavior: smooth;
+        }
+        
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            z-index: 9999;
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .scroll-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .scroll-to-top:active {
+            transform: translateY(-2px) scale(1.05);
+        }
+        
+        .scroll-to-top svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        @media (max-width: 768px) {
+            .scroll-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+        
+        /* Video Modal */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .video-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+        
+        .video-modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .video-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .video-modal-close:hover {
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+        }
+        
+        .video-modal-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .video-modal-desc {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .video-modal-content {
+                padding: 20px;
+                width: 95%;
+            }
+            
+            .video-modal-title {
+                font-size: 22px;
+            }
+        }
+        
+        /* Store Locations Section */
+        .stores-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 80px 0;
+        }
+        
+        .stores-section .section-title {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stores-section .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 50px;
+        }
+        
+        .stores-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .stores-map {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .stores-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .store-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .store-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.25);
+        }
+        
+        .store-icon {
+            font-size: 32px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+        
+        .store-info {
+            flex: 1;
+        }
+        
+        .store-info h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .store-address {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .store-hours,
+        .store-phone {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+        
+        .store-route-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .store-route-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .stores-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .stores-map {
+                position: relative;
+                top: 0;
+            }
+            
+            #map {
+                height: 400px !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .stores-section {
+                padding: 50px 0;
+            }
+            
+            .stores-section .section-title {
+                font-size: 32px;
+            }
+            
+            .store-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            #map {
+                height: 300px !important;
+            }
+        }
+    </style>
+</body>
+
+</html>

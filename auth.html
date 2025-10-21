@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход / Регистрация - Boosted USA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Стили для страницы авторизации */
+        .auth-header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .auth-title {
+            font-size: 3em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .auth-subtitle {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .auth-content {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 18px;
+            background: white;
+            border: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #666;
+        }
+
+        .auth-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .auth-tab:hover:not(.active) {
+            background: #f5f5f5;
+        }
+
+        .auth-form-container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-input.error {
+            border-color: #e74c3c;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(67, 233, 123, 0.4);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-submit:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .btn-generate {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .agreement-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .agreement-modal.show {
+            display: flex;
+        }
+
+        .agreement-content {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .agreement-content h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .agreement-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .user-status {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+        .user-status.show {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-logout {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid white;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-logout:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .auth-title {
+                font-size: 2em;
+            }
+
+            .auth-form-container {
+                padding: 25px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- User Status Indicator -->
+    <div id="user-status" class="user-status">
+        <span id="user-name"></span>
+        <button class="btn-logout" onclick="logout()">Выйти</button>
+    </div>
+
+    <!-- Financing Banner -->
+    <div class="financing-banner">
+        <p>Financing option available at checkout.</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="images/Rectangle.png" alt="Boosted USA Logo">
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="catalog.html" class="nav-link">Catalog (Static)</a>
+                <a href="catalog-server.html" class="nav-link">Catalog (Server)</a>
+                <a href="favorites.html" class="nav-link">Избранное</a>
+                <a href="cart.html" class="nav-link">Корзина</a>
+                <a href="admin.html" class="nav-link" id="admin-nav-link" style="display: none;">Admin</a>
+                <a href="auth.html" class="nav-link active">Вход</a>
+            </div>
+            <div class="nav-social">
+                <a href="favorites.html" class="social-link">
+                    ❤️ <span id="favorites-count">0</span>
+                </a>
+                <a href="cart.html" class="social-link">
+                    🛒 <span id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Auth Header -->
+    <section class="auth-header">
+        <div class="container">
+            <h1 class="auth-title">🔐 Добро пожаловать!</h1>
+            <p class="auth-subtitle">Войдите или создайте новый аккаунт</p>
+        </div>
+    </section>
+
+    <!-- Auth Content -->
+    <section class="auth-content">
+        <!-- Tabs -->
+        <div class="auth-tabs">
+            <button class="auth-tab active" onclick="switchTab('login')">
+                Вход
+            </button>
+            <button class="auth-tab" onclick="switchTab('register')">
+                Регистрация
+            </button>
+        </div>
+
+        <!-- Forms Container -->
+        <div class="auth-form-container">
+            <!-- Success Message -->
+            <div id="success-message" class="success-message"></div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form active">
+                <h2 style="margin-bottom: 25px; color: #333;">Войти в аккаунт</h2>
+                
+                <div class="form-group">
+                    <label class="form-label" for="login-email">Email</label>
+                    <input type="email" id="login-email" class="form-input" placeholder="your@email.com" required>
+                    <span class="error-message" id="login-email-error">Введите корректный email</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="login-password">Пароль</label>
+                    <input type="password" id="login-password" class="form-input" placeholder="••••••••" required>
+                    <span class="error-message" id="login-password-error">Введите пароль</span>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    🚀 Войти
+                </button>
+
+                <div class="form-footer">
+                    Нет аккаунта? <a href="#" onclick="switchTab('register'); return false;" style="color: #667eea; font-weight: 600;">Зарегистрируйтесь</a>
+                </div>
+            </form>
+
+            <!-- Register Form -->
+            <form id="register-form" class="auth-form">
+                <h2 style="margin-bottom: 25px; color: #333;">Создать аккаунт</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="register-firstname">Имя <span style="color: red;">*</span></label>
+                        <input type="text" id="register-firstname" class="form-input" placeholder="Иван" required>
+                        <span class="error-message" id="register-firstname-error">Введите имя</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="register-lastname">Фамилия <span style="color: red;">*</span></label>
+                        <input type="text" id="register-lastname" class="form-input" placeholder="Иванов" required>
+                        <span class="error-message" id="register-lastname-error">Введите фамилию</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="register-middlename">Отчество</label>
+                    <input type="text" id="register-middlename" class="form-input" placeholder="Петрович">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="register-phone">Телефон РБ <span style="color: red;">*</span></label>
+                    <input type="tel" id="register-phone" class="form-input" placeholder="+375 (29) 123-45-67" required>
+                    <span class="error-message" id="register-phone-error">Введите корректный номер РБ</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="register-birthdate">Дата рождения <span style="color: red;">*</span></label>
+                    <input type="date" id="register-birthdate" class="form-input" required>
+                    <span class="error-message" id="register-birthdate-error">Вам должно быть минимум 16 лет</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="register-email">Email <span style="color: red;">*</span></label>
+                    <input type="email" id="register-email" class="form-input" placeholder="your@email.com" required>
+                    <span class="error-message" id="register-email-error">Введите корректный email</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Никнейм <span style="color: red;">*</span></label>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="text" id="register-username" class="form-input" placeholder="username" required readonly style="flex: 1;">
+                        <button type="button" class="btn-generate" id="btn-generate-nickname">🔄 Сгенерировать</button>
+                    </div>
+                    <div style="font-size: 12px; color: #666; margin-top: 5px;">
+                        Попыток: <span id="nickname-attempts">0</span>/5
+                    </div>
+                    <span class="error-message" id="register-username-error">Никнейм уже занят или некорректен</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Способ задания пароля <span style="color: red;">*</span></label>
+                    <div style="display: flex; gap: 15px; margin-bottom: 10px;">
+                        <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                            <input type="radio" name="password-mode" value="manual" checked onchange="togglePasswordMode()">
+                            <span>Ввести самостоятельно</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                            <input type="radio" name="password-mode" value="auto" onchange="togglePasswordMode()">
+                            <span>Сгенерировать автоматически</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="manual-password-fields">
+                    <div class="form-group">
+                        <label class="form-label" for="register-password">Пароль <span style="color: red;">*</span></label>
+                        <input type="password" id="register-password" class="form-input" placeholder="••••••••">
+                        <div style="font-size: 11px; color: #666; margin-top: 5px;">
+                            8-20 символов, заглавные, строчные, цифры, спецсимволы
+                        </div>
+                        <span class="error-message" id="register-password-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="register-password-confirm">Подтвердите пароль <span style="color: red;">*</span></label>
+                        <input type="password" id="register-password-confirm" class="form-input" placeholder="••••••••" onpaste="return false;">
+                        <span class="error-message" id="register-password-confirm-error">Пароли не совпадают</span>
+                    </div>
+                </div>
+
+                <div id="auto-password-field" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">Сгенерированный пароль</label>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <input type="text" id="generated-password" class="form-input" readonly style="flex: 1;">
+                            <button type="button" class="btn-generate" onclick="generatePassword()">🔄</button>
+                        </div>
+                        <div style="font-size: 12px; color: #e74c3c; margin-top: 5px;">
+                            ⚠️ Сохраните пароль! Он не будет показан повторно.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 20px;">
+                    <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
+                        <input type="checkbox" id="register-agreement" required style="margin-top: 4px;">
+                        <span style="font-size: 14px;">
+                            Я прочитал и согласен с <a href="#" style="color: #667eea; text-decoration: underline;" onclick="showAgreement(); return false;">Соглашением пользователя</a> <span style="color: red;">*</span>
+                        </span>
+                    </label>
+                    <span class="error-message" id="register-agreement-error">Необходимо принять соглашение</span>
+                </div>
+
+                <button type="submit" class="btn-submit" id="btn-register" disabled>
+                    ✨ Зарегистрироваться
+                </button>
+
+                <div class="form-footer">
+                    Уже есть аккаунт? <a href="#" onclick="switchTab('login'); return false;" style="color: #667eea; font-weight: 600;">Войдите</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Agreement Modal -->
+    <div id="agreement-modal" class="agreement-modal">
+        <div class="agreement-content">
+            <h2>Соглашение пользователя</h2>
+            <p><strong>1. Общие положения</strong></p>
+            <p>Настоящее соглашение определяет условия использования сервиса Boosted USA.</p>
+            
+            <p><strong>2. Сбор и использование данных</strong></p>
+            <p>Мы собираем и обрабатываем ваши персональные данные в соответствии с законодательством РБ.</p>
+            
+            <p><strong>3. Права и обязанности пользователя</strong></p>
+            <p>Пользователь обязуется предоставлять достоверную информацию и не нарушать права других пользователей.</p>
+            
+            <p><strong>4. Ответственность</strong></p>
+            <p>Администрация не несет ответственности за действия пользователей на платформе.</p>
+            
+            <p><strong>5. Заключительные положения</strong></p>
+            <p>Администрация оставляет за собой право изменять условия соглашения.</p>
+            
+            <button class="btn-submit" onclick="closeAgreement()" style="margin-top: 20px;">Закрыть</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-logo">
+                    <div class="logo-icon">
+                        <img src="images/Rectangle(29).png" alt="Boosted Logo">
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Navigation</h4>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="catalog-server.html">Catalog</a>
+                        <a href="favorites.html">Избранное</a>
+                        <a href="cart.html">Корзина</a>
+                        <a href="auth.html">Вход</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>About Boosted USA</h4>
+                    <p>Boosted empowers people everywhere to commute across their cities, campuses, and communities in ways that were never before possible.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="auth.js"></script>
+</body>
+
+</html>
+
