@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Boosted USA Electric Skateboards & Scooters - Web Laboratory Project",
   "scripts": {
-    "server": "json-server --watch db.json --port 3000",
-    "server:host": "json-server --watch db.json --port 3000 --host 0.0.0.0"
+    "start": "json-server --watch db.json --port 3001",
+    "server": "json-server --watch db.json --port 3001",
+    "server:host": "json-server --watch db.json --port 3001 --host 0.0.0.0"
   },
   "keywords": [
     "boosted",

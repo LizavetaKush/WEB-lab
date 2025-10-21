@@ -181,7 +181,16 @@
       "rating": 4.1
     }
   ],
-  "favorites": [],
+  "favorites": [
+    {
+      "productId": 2,
+      "name": "Boosted Plus",
+      "price": 1399,
+      "image": "images/skate2.jpg",
+      "category": "Electric Skateboards",
+      "id": 1
+    }
+  ],
   "cart": [
     {
       "productId": 2,
@@ -219,6 +228,19 @@
       "phone": "+375 (29) 123-45-67",
       "birthdate": "1995-06-15",
       "createdAt": "2025-01-15T10:30:00.000Z"
+    },
+    {
+      "username": "rinatik__gay",
+      "email": "wombokombo@tut.by",
+      "password": "(O6sGu(h$(sT",
+      "role": "customer",
+      "firstName": "Иван",
+      "lastName": "Дорн",
+      "middleName": "Маркович",
+      "phone": "+375 33 614 62 23",
+      "birthdate": "2003-10-17",
+      "createdAt": "2025-10-21T12:20:58.172Z",
+      "id": 3
     }
   ],
   "feedback": [
@@ -264,6 +286,28 @@
       "total": 1758.9,
       "status": "completed",
       "createdAt": "2025-02-10T12:00:00.000Z"
+    },
+    {
+      "userId": null,
+      "userName": "Guest",
+      "userEmail": "guest@example.com",
+      "items": [
+        {
+          "productId": 2,
+          "name": "Boosted Plus",
+          "price": 1399,
+          "quantity": 1,
+          "image": "images/skate2.jpg",
+          "category": "Electric Skateboards"
+        }
+      ],
+      "subtotal": 1399,
+      "tax": 139.9,
+      "shipping": 0,
+      "total": 1538.9,
+      "status": "completed",
+      "createdAt": "2025-10-21T12:21:24.550Z",
+      "id": 2
     }
   ]
 }

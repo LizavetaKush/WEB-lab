@@ -31,7 +31,23 @@ document.addEventListener('DOMContentLoaded', () => {
     setupFormHandlers();
     setupValidation();
     updateCounters();
+    checkAdminNavLink();
 });
+
+function checkAdminNavLink() {
+    const userDataStr = localStorage.getItem('currentUser');
+    if (userDataStr) {
+        try {
+            const userData = JSON.parse(userDataStr);
+            const adminNavLink = document.getElementById('admin-nav-link');
+            if (userData.role === 'admin' && adminNavLink) {
+                adminNavLink.style.display = 'block';
+            }
+        } catch (e) {
+            console.error('Ошибка чтения данных пользователя:', e);
+        }
+    }
+}
 
 // ============================================
 // ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
@@ -544,16 +560,21 @@ async function handleLogin() {
         
         localStorage.setItem('currentUser', JSON.stringify(userData));
         
+        // Проверяем что данные действительно сохранились
+        const savedData = localStorage.getItem('currentUser');
         console.log('✅ Успешный вход:', userData);
+        console.log('💾 Данные сохранены в localStorage:', savedData);
         
         showSuccessMessage(`Добро пожаловать, ${user.firstName}!`);
         
         checkUserStatus();
         
+        // Увеличиваем задержку и используем replace вместо href
         setTimeout(() => {
             const redirectUrl = user.role === 'admin' ? 'admin.html' : 'catalog-server.html';
-            window.location.href = redirectUrl;
-        }, 2000);
+            console.log('🔄 Перенаправление на:', redirectUrl);
+            window.location.replace(redirectUrl);
+        }, 1500);
         
     } catch (error) {
         console.error('❌ Ошибка при входе:', error);

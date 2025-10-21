@@ -38,7 +38,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Обновляем счетчики
     updateCounters();
+    
+    // Проверяем кнопку админ-панели
+    checkAdminNavLink();
 });
+
+function checkAdminNavLink() {
+    const adminNavLink = document.getElementById('admin-nav-link');
+    if (currentUser && currentUser.role === 'admin' && adminNavLink) {
+        adminNavLink.style.display = 'block';
+    }
+}
 
 // ============================================
 // ПРОВЕРКА АВТОРИЗАЦИИ

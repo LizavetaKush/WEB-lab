@@ -27,6 +27,7 @@
                 <a href="favorites.html" class="nav-link">Избранное</a>
                 <a href="cart.html" class="nav-link">Корзина</a>
                 <a href="feedback.html" class="nav-link">Отзывы</a>
+                <a href="admin.html" class="nav-link" id="admin-nav-link" style="display: none;">Admin</a>
                 <a href="auth.html" class="nav-link">Вход</a>
             </div>
             <div class="nav-social">
@@ -380,8 +381,27 @@
             }
         }
         
+        // Показать кнопку админ-панели для администраторов
+        function checkAdminNavLink() {
+            const userDataStr = localStorage.getItem('currentUser');
+            if (userDataStr) {
+                try {
+                    const userData = JSON.parse(userDataStr);
+                    const adminNavLink = document.getElementById('admin-nav-link');
+                    if (userData.role === 'admin' && adminNavLink) {
+                        adminNavLink.style.display = 'block';
+                    }
+                } catch (e) {
+                    console.error('Ошибка чтения данных пользователя:', e);
+                }
+            }
+        }
+        
         // Вызываем при загрузке страницы
-        document.addEventListener('DOMContentLoaded', updateCounters);
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCounters();
+            checkAdminNavLink();
+        });
     </script>
 </body>
 

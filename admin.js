@@ -1,5 +1,5 @@
 // ============================================
-// ADMIN PANEL - JavaScript
+// ADMIN PANEL - JavaScript (UPDATED)
 // ============================================
 
 const API_BASE_URL = 'http://localhost:3000';
@@ -15,7 +15,9 @@ const API_ENDPOINTS = {
 let currentUser = null;
 let products = [];
 let feedbackList = [];
+let filteredFeedbackList = [];
 let orders = [];
+let users = [];
 let editingProductId = null;
 
 // ============================================
@@ -30,6 +32,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         showAccessDenied();
         return;
     }
+    
+    // Показываем кнопку админ-панели в навигации
+    showAdminNavLink();
     
     // Показываем админ-панель
     document.getElementById('access-check').style.display = 'none';
@@ -51,20 +56,35 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 function checkAdminAccess() {
     const userDataStr = localStorage.getItem('currentUser');
+    console.log('🔍 Проверка доступа к админ-панели');
+    console.log('localStorage currentUser:', userDataStr);
+    
     if (!userDataStr) {
+        console.log('❌ Данные пользователя не найдены в localStorage');
         return false;
     }
     
     try {
         currentUser = JSON.parse(userDataStr);
+        console.log('👤 Данные пользователя:', currentUser);
+        console.log('🔑 Роль пользователя:', currentUser.role);
+        
         if (currentUser.role !== 'admin') {
+            console.log('❌ Пользователь не является администратором. Роль:', currentUser.role);
             return false;
         }
         console.log('✅ Админ авторизован:', currentUser.firstName);
         return true;
     } catch (e) {
-        console.error('Ошибка при чтении данных пользователя:', e);
+        console.error('❌ Ошибка при чтении данных пользователя:', e);
         return false;
+    }
+}
+
+function showAdminNavLink() {
+    const adminNavLink = document.getElementById('admin-nav-link');
+    if (adminNavLink && currentUser && currentUser.role === 'admin') {
+        adminNavLink.style.display = 'block';
     }
 }
 
@@ -91,25 +111,29 @@ function showAccessDenied() {
 
 async function loadAllData() {
     try {
-        const [productsRes, feedbackRes, ordersRes] = await Promise.all([
+        const [productsRes, feedbackRes, ordersRes, usersRes] = await Promise.all([
             fetch(API_ENDPOINTS.products),
             fetch(API_ENDPOINTS.feedback),
-            fetch(API_ENDPOINTS.orders)
+            fetch(API_ENDPOINTS.orders),
+            fetch(API_ENDPOINTS.users)
         ]);
         
         products = await productsRes.json();
         feedbackList = await feedbackRes.json();
         orders = await ordersRes.json();
+        users = await usersRes.json();
         
         console.log('✅ Данные загружены');
         console.log('Товары:', products.length);
         console.log('Отзывы:', feedbackList.length);
         console.log('Заказы:', orders.length);
+        console.log('Пользователи:', users.length);
         
         // Отображаем данные
         renderDashboard();
         renderProducts();
-        renderFeedback();
+        populateFeedbackFilters();
+        filterFeedback(); // Начальное отображение всех отзывов
         renderOrders();
         
     } catch (error) {
@@ -123,7 +147,6 @@ async function loadAllData() {
 // ============================================
 
 function switchPanel(panelName) {
-    // Переключаем вкладки
     const tabs = document.querySelectorAll('.admin-tab');
     tabs.forEach(tab => {
         if (tab.textContent.toLowerCase().includes(getPanelKeyword(panelName))) {
@@ -133,7 +156,6 @@ function switchPanel(panelName) {
         }
     });
     
-    // Переключаем панели
     const panels = document.querySelectorAll('.admin-panel');
     panels.forEach(panel => {
         if (panel.id === `${panelName}-panel`) {
@@ -234,7 +256,7 @@ function renderProducts() {
 }
 
 // ============================================
-// УПРАВЛЕНИЕ ТОВАРАМИ
+// УПРАВЛЕНИЕ ТОВАРАМИ С ВАЛИДАЦИЕЙ
 // ============================================
 
 function openProductModal() {
@@ -242,12 +264,16 @@ function openProductModal() {
     document.getElementById('product-modal-title').textContent = 'Добавить товар';
     document.getElementById('product-form').reset();
     document.getElementById('product-id').value = '';
+    document.getElementById('product-category').value = '';
+    clearProductFormErrors();
+    document.getElementById('btn-save-product').disabled = true;
     document.getElementById('product-modal').classList.add('show');
 }
 
 function closeProductModal() {
     document.getElementById('product-modal').classList.remove('show');
     editingProductId = null;
+    clearProductFormErrors();
 }
 
 async function editProduct(productId) {
@@ -267,6 +293,9 @@ async function editProduct(productId) {
     document.getElementById('product-range').value = product.range || '';
     document.getElementById('product-rating').value = product.rating || '';
     document.getElementById('product-in-stock').value = product.inStock ? 'true' : 'false';
+    
+    clearProductFormErrors();
+    validateProductForm();
     
     document.getElementById('product-modal').classList.add('show');
 }
@@ -297,14 +326,154 @@ async function deleteProduct(productId) {
 }
 
 // ============================================
-// ПАНЕЛЬ ОТЗЫВОВ
+// ВАЛИДАЦИЯ ФОРМЫ ТОВАРА
 // ============================================
+
+function validateProductForm() {
+    const name = document.getElementById('product-name').value.trim();
+    const price = parseFloat(document.getElementById('product-price').value);
+    const category = document.getElementById('product-category').value;
+    const image = document.getElementById('product-image').value.trim();
+    const description = document.getElementById('product-description').value.trim();
+    const rating = document.getElementById('product-rating').value;
+    
+    let isValid = true;
+    
+    // Валидация названия
+    if (!name) {
+        showProductError('product-name', 'Введите название товара');
+        isValid = false;
+    } else {
+        hideProductError('product-name');
+    }
+    
+    // Валидация цены
+    if (!price || price < 0) {
+        showProductError('product-price', 'Введите корректную цену');
+        isValid = false;
+    } else {
+        hideProductError('product-price');
+    }
+    
+    // Валидация категории
+    if (!category) {
+        showProductError('product-category', 'Выберите категорию');
+        isValid = false;
+    } else {
+        hideProductError('product-category');
+    }
+    
+    // Валидация изображения
+    if (!image) {
+        showProductError('product-image', 'Введите путь к изображению');
+        isValid = false;
+    } else {
+        hideProductError('product-image');
+    }
+    
+    // Валидация описания
+    if (!description) {
+        showProductError('product-description', 'Введите описание товара');
+        isValid = false;
+    } else {
+        hideProductError('product-description');
+    }
+    
+    // Валидация рейтинга (опциональное поле)
+    if (rating && (rating < 0 || rating > 5)) {
+        showProductError('product-rating', 'Рейтинг должен быть от 0 до 5');
+        isValid = false;
+    } else {
+        hideProductError('product-rating');
+    }
+    
+    document.getElementById('btn-save-product').disabled = !isValid;
+    return isValid;
+}
+
+function showProductError(fieldId, message) {
+    const field = document.getElementById(fieldId);
+    const error = document.getElementById(`${fieldId}-error`);
+    
+    if (field) field.classList.add('error');
+    if (error) {
+        error.textContent = message;
+        error.classList.add('show');
+    }
+}
+
+function hideProductError(fieldId) {
+    const field = document.getElementById(fieldId);
+    const error = document.getElementById(`${fieldId}-error`);
+    
+    if (field) field.classList.remove('error');
+    if (error) error.classList.remove('show');
+}
+
+function clearProductFormErrors() {
+    const fields = ['product-name', 'product-price', 'product-category', 'product-image', 'product-description', 'product-rating'];
+    fields.forEach(fieldId => hideProductError(fieldId));
+}
+
+// ============================================
+// ПАНЕЛЬ ОТЗЫВОВ С ФИЛЬТРАМИ
+// ============================================
+
+function populateFeedbackFilters() {
+    const productFilter = document.getElementById('filter-by-product');
+    const userFilter = document.getElementById('filter-by-user');
+    
+    // Заполняем фильтр товаров
+    productFilter.innerHTML = '<option value="">Все товары</option>';
+    products.forEach(product => {
+        const option = document.createElement('option');
+        option.value = product.id;
+        option.textContent = product.name;
+        productFilter.appendChild(option);
+    });
+    
+    // Заполняем фильтр пользователей
+    userFilter.innerHTML = '<option value="">Все пользователи</option>';
+    const uniqueUsers = [...new Set(feedbackList.map(f => f.userId))];
+    uniqueUsers.forEach(userId => {
+        const user = users.find(u => u.id === userId);
+        if (user) {
+            const option = document.createElement('option');
+            option.value = userId;
+            option.textContent = `${user.firstName} ${user.lastName}`;
+            userFilter.appendChild(option);
+        }
+    });
+}
+
+function filterFeedback() {
+    const productFilter = document.getElementById('filter-by-product').value;
+    const userFilter = document.getElementById('filter-by-user').value;
+    
+    filteredFeedbackList = [...feedbackList];
+    
+    if (productFilter) {
+        filteredFeedbackList = filteredFeedbackList.filter(f => f.productId == productFilter);
+    }
+    
+    if (userFilter) {
+        filteredFeedbackList = filteredFeedbackList.filter(f => f.userId == userFilter);
+    }
+    
+    renderFeedback();
+}
+
+function resetFeedbackFilters() {
+    document.getElementById('filter-by-product').value = '';
+    document.getElementById('filter-by-user').value = '';
+    filterFeedback();
+}
 
 function renderFeedback() {
     const tbody = document.getElementById('feedback-tbody');
     tbody.innerHTML = '';
     
-    feedbackList.forEach(feedback => {
+    filteredFeedbackList.forEach(feedback => {
         const product = products.find(p => p.id === feedback.productId);
         const productName = product ? product.name : 'Товар не найден';
         
@@ -399,7 +568,6 @@ function renderOrders() {
     const tbody = document.getElementById('orders-tbody');
     tbody.innerHTML = '';
     
-    // Сортируем по дате (новые первые)
     const sortedOrders = [...orders].sort((a, b) => 
         new Date(b.createdAt) - new Date(a.createdAt)
     );
@@ -435,7 +603,24 @@ function setupEventHandlers() {
     const productForm = document.getElementById('product-form');
     productForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        await saveProduct();
+        if (validateProductForm()) {
+            await saveProduct();
+        }
+    });
+    
+    // Валидация полей в реальном времени
+    const fields = ['product-name', 'product-price', 'product-category', 'product-image', 'product-description', 'product-rating'];
+    fields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            field.addEventListener('input', () => {
+                hideProductError(fieldId);
+                validateProductForm();
+            });
+            field.addEventListener('blur', () => {
+                validateProductForm();
+            });
+        }
     });
     
     // Закрытие модального окна по клику вне его
@@ -464,7 +649,7 @@ async function saveProduct() {
         let response;
         
         if (editingProductId) {
-            // Обновляем существующий товар
+            // PUT запрос - обновление
             response = await fetch(`${API_ENDPOINTS.products}/${editingProductId}`, {
                 method: 'PUT',
                 headers: {
@@ -476,7 +661,7 @@ async function saveProduct() {
                 })
             });
         } else {
-            // Создаем новый товар
+            // POST запрос - создание
             response = await fetch(API_ENDPOINTS.products, {
                 method: 'POST',
                 headers: {
@@ -530,4 +715,3 @@ async function updateCounters() {
 }
 
 console.log('⚙️ Админ-панель инициализирована');
-

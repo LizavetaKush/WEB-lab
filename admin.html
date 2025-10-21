@@ -360,6 +360,45 @@
             opacity: 0.9;
         }
 
+        .feedback-filters-admin {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .error-message-admin {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message-admin.show {
+            display: block;
+        }
+
+        .form-input-admin.error,
+        .form-select-admin.error,
+        .form-textarea-admin.error {
+            border-color: #e74c3c;
+        }
+
         .access-denied {
             text-align: center;
             padding: 100px 20px;
@@ -439,7 +478,7 @@
             <div class="nav-menu">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="catalog-server.html" class="nav-link">Catalog</a>
-                <a href="admin.html" class="nav-link active">Admin Panel</a>
+                <a href="admin.html" class="nav-link active" id="admin-nav-link" style="display: none;">Admin Panel</a>
                 <a href="auth.html" class="nav-link" id="auth-link">Вход</a>
             </div>
             <div class="nav-social">
@@ -517,6 +556,26 @@
             <!-- Feedback Panel -->
             <div id="feedback-panel" class="admin-panel">
                 <h2 class="panel-title">Управление отзывами</h2>
+                
+                <!-- Фильтры отзывов -->
+                <div class="feedback-filters-admin">
+                    <div class="filter-group">
+                        <label for="filter-by-product">Фильтр по товару:</label>
+                        <select id="filter-by-product" class="form-select-admin" onchange="filterFeedback()">
+                            <option value="">Все товары</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-by-user">Фильтр по пользователю:</label>
+                        <select id="filter-by-user" class="form-select-admin" onchange="filterFeedback()">
+                            <option value="">Все пользователи</option>
+                        </select>
+                    </div>
+                    <button class="btn-submit-admin" onclick="resetFeedbackFilters()" style="margin-left: auto;">
+                        🔄 Сбросить фильтры
+                    </button>
+                </div>
+
                 <table class="data-table" id="feedback-table">
                     <thead>
                         <tr>
@@ -565,50 +624,57 @@
                 <input type="hidden" id="product-id">
                 <div class="form-grid">
                     <div class="form-group-admin">
-                        <label class="form-label-admin">Название</label>
+                        <label class="form-label-admin">Название <span style="color: red;">*</span></label>
                         <input type="text" class="form-input-admin" id="product-name" required>
+                        <span class="error-message-admin" id="product-name-error">Введите название товара</span>
                     </div>
                     <div class="form-group-admin">
-                        <label class="form-label-admin">Цена ($)</label>
-                        <input type="number" class="form-input-admin" id="product-price" required min="0">
+                        <label class="form-label-admin">Цена ($) <span style="color: red;">*</span></label>
+                        <input type="number" class="form-input-admin" id="product-price" required min="0" step="0.01">
+                        <span class="error-message-admin" id="product-price-error">Введите корректную цену</span>
                     </div>
                     <div class="form-group-admin">
-                        <label class="form-label-admin">Категория</label>
+                        <label class="form-label-admin">Категория <span style="color: red;">*</span></label>
                         <select class="form-select-admin" id="product-category" required>
+                            <option value="">Выберите категорию</option>
                             <option value="Electric Skateboards">Electric Skateboards</option>
                             <option value="Electric Scooters">Electric Scooters</option>
                             <option value="Accessories">Accessories</option>
                         </select>
+                        <span class="error-message-admin" id="product-category-error">Выберите категорию</span>
                     </div>
                     <div class="form-group-admin">
-                        <label class="form-label-admin">Изображение (путь)</label>
-                        <input type="text" class="form-input-admin" id="product-image" required>
+                        <label class="form-label-admin">Изображение (путь) <span style="color: red;">*</span></label>
+                        <input type="text" class="form-input-admin" id="product-image" required placeholder="images/product.jpg">
+                        <span class="error-message-admin" id="product-image-error">Введите путь к изображению</span>
                     </div>
                     <div class="form-group-admin full-width">
-                        <label class="form-label-admin">Описание</label>
+                        <label class="form-label-admin">Описание <span style="color: red;">*</span></label>
                         <textarea class="form-textarea-admin" id="product-description" required></textarea>
+                        <span class="error-message-admin" id="product-description-error">Введите описание товара</span>
                     </div>
                     <div class="form-group-admin">
                         <label class="form-label-admin">Макс. скорость</label>
-                        <input type="text" class="form-input-admin" id="product-max-speed">
+                        <input type="text" class="form-input-admin" id="product-max-speed" placeholder="24 mph">
                     </div>
                     <div class="form-group-admin">
                         <label class="form-label-admin">Дальность</label>
-                        <input type="text" class="form-input-admin" id="product-range">
+                        <input type="text" class="form-input-admin" id="product-range" placeholder="14 miles">
                     </div>
                     <div class="form-group-admin">
                         <label class="form-label-admin">Рейтинг</label>
-                        <input type="number" class="form-input-admin" id="product-rating" step="0.1" min="0" max="5">
+                        <input type="number" class="form-input-admin" id="product-rating" step="0.1" min="0" max="5" placeholder="4.5">
+                        <span class="error-message-admin" id="product-rating-error">Рейтинг должен быть от 0 до 5</span>
                     </div>
                     <div class="form-group-admin">
-                        <label class="form-label-admin">В наличии</label>
-                        <select class="form-select-admin" id="product-in-stock">
+                        <label class="form-label-admin">В наличии <span style="color: red;">*</span></label>
+                        <select class="form-select-admin" id="product-in-stock" required>
                             <option value="true">Да</option>
                             <option value="false">Нет</option>
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="btn-submit-admin">Сохранить</button>
+                <button type="submit" class="btn-submit-admin" id="btn-save-product" disabled>Сохранить</button>
                 <button type="button" class="btn-cancel" onclick="closeProductModal()">Отмена</button>
             </form>
         </div>
