@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog (JSON Server) - Boosted USA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Дополнительные стили для работы с API */
+        .api-indicator {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .api-indicator.loading {
+            background: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%);
+        }
+
+        .api-indicator.error {
+            background: linear-gradient(135deg, #ef5350 0%, #e53935 100%);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Панель фильтров */
+        .filters-panel {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        .filter-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-label {
+            font-weight: 600;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .filter-input,
+        .filter-select {
+            padding: 10px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .filter-input:focus,
+        .filter-select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* Числовые диапазоны */
+        .range-inputs {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .range-inputs span {
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+        }
+
+        /* Категории (чекбоксы) */
+        .categories-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .category-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 13px;
+        }
+
+        .category-chip input {
+            display: none;
+        }
+
+        .category-chip.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        /* Кнопки действий */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Статистика */
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .stats-info {
+            font-size: 14px;
+        }
+
+        .stats-numbers {
+            display: flex;
+            gap: 20px;
+            font-size: 13px;
+        }
+
+        /* Пагинация */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 30px 0;
+        }
+
+        .pagination button {
+            padding: 10px 16px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            background: #667eea;
+            color: white;
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination .page-info {
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Кнопки в карточках */
+        .product-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .btn-favorite,
+        .btn-cart {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-favorite {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+        }
+
+        .btn-cart {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-favorite:hover,
+        .btn-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .btn-favorite.added {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        /* Сообщение "не найдено" */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        .no-results-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .no-results h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .no-results p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Индикатор загрузки */
+        .loading-overlay {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+            color: #667eea;
+        }
+
+        /* Счетчики корзины и избранного */
+        .badge {
+            display: inline-block;
+            background: #ef5350;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-left: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Индикатор состояния API -->
+    <div id="api-indicator" class="api-indicator">
+        🟢 Connected to API
+    </div>
+
+    <!-- Financing Banner -->
+    <div class="financing-banner">
+        <p>🔴 LIVE: Data loaded from JSON Server API</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="images/Rectangle.png" alt="Boosted USA Logo">
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="catalog.html" class="nav-link">Catalog (Static)</a>
+                <a href="catalog-server.html" class="nav-link active">Catalog (Server)</a>
+                <a href="api-demo.html" class="nav-link">API Demo</a>
+            </div>
+            <div class="nav-social">
+                <a href="#favorites" class="social-link" onclick="viewFavorites(event)">
+                    ❤️ Избранное <span class="badge" id="favorites-badge">0</span>
+                </a>
+                <a href="#cart" class="social-link" onclick="viewCart(event)">
+                    🛒 Корзина <span class="badge" id="cart-badge">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Catalog Header -->
+    <section class="catalog-header">
+        <div class="container">
+            <h1 class="catalog-title">Каталог товаров (JSON Server API)</h1>
+            <p class="catalog-subtitle">Все данные загружаются с сервера в реальном времени</p>
+            <div class="divider-line"></div>
+        </div>
+    </section>
+
+    <!-- Фильтры и поиск -->
+    <section class="container">
+        <div class="filters-panel">
+            <h2 style="margin-bottom: 20px;">🔍 Поиск и фильтрация</h2>
+            
+            <!-- Строка 1: Поиск -->
+            <div class="filter-row">
+                <div class="filter-group" style="grid-column: 1 / -1;">
+                    <label class="filter-label">Полнотекстовый поиск (по всем полям)</label>
+                    <input type="text" 
+                           id="search-query" 
+                           class="filter-input" 
+                           placeholder="Введите название, описание товара..."
+                           onkeyup="applyFilters()">
+                </div>
+            </div>
+
+            <!-- Строка 2: Категории -->
+            <div class="filter-row">
+                <div class="filter-group" style="grid-column: 1 / -1;">
+                    <label class="filter-label">Категории товаров</label>
+                    <div class="categories-group" id="categories-container">
+                        <!-- Категории загрузятся динамически -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Строка 3: Числовые диапазоны -->
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label class="filter-label">Диапазон цен ($)</label>
+                    <div class="range-inputs">
+                        <input type="number" id="price-min" class="filter-input" placeholder="От" min="0" onchange="applyFilters()">
+                        <span>—</span>
+                        <input type="number" id="price-max" class="filter-input" placeholder="До" min="0" onchange="applyFilters()">
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Рейтинг (от)</label>
+                    <input type="number" id="rating-min" class="filter-input" placeholder="Минимальный рейтинг" min="0" max="5" step="0.1" onchange="applyFilters()">
+                </div>
+            </div>
+
+            <!-- Строка 4: Сортировка и дополнительные фильтры -->
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label class="filter-label">Сортировка</label>
+                    <select id="sort-select" class="filter-select" onchange="applyFilters()">
+                        <option value="">По умолчанию</option>
+                        <option value="price:asc">Цена: по возрастанию</option>
+                        <option value="price:desc">Цена: по убыванию</option>
+                        <option value="name:asc">Название: A-Z</option>
+                        <option value="name:desc">Название: Z-A</option>
+                        <option value="rating:desc">Рейтинг: высокий → низкий</option>
+                        <option value="rating:asc">Рейтинг: низкий → высокий</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Наличие на складе</label>
+                    <select id="stock-filter" class="filter-select" onchange="applyFilters()">
+                        <option value="all">Все товары</option>
+                        <option value="true">Только в наличии</option>
+                        <option value="false">Нет в наличии</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Товаров на странице</label>
+                    <select id="items-per-page" class="filter-select" onchange="applyFilters()">
+                        <option value="6">6 товаров</option>
+                        <option value="9">9 товаров</option>
+                        <option value="12" selected>12 товаров</option>
+                        <option value="15">15 товаров</option>
+                        <option value="999">Все товары</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Кнопки действий -->
+            <div class="action-buttons" style="margin-top: 20px;">
+                <button class="btn-action btn-primary" onclick="applyFilters()">
+                    🔍 Применить фильтры
+                </button>
+                <button class="btn-action btn-secondary" onclick="resetFilters()">
+                    🔄 Сбросить все
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Статистика -->
+    <section class="container">
+        <div class="stats-bar">
+            <div class="stats-info">
+                <strong id="results-count">Загрузка...</strong>
+            </div>
+            <div class="stats-numbers">
+                <span>📦 Всего: <strong id="total-products">0</strong></span>
+                <span>❤️ Избранное: <strong id="favorites-count">0</strong></span>
+                <span>🛒 Корзина: <strong id="cart-count">0</strong></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Каталог товаров -->
+    <section class="catalog-section">
+        <div class="container">
+            <div id="catalog-products" class="catalog-grid">
+                <div class="loading-overlay">
+                    ⏳ Загрузка товаров с сервера...
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Пагинация -->
+    <section class="container">
+        <div class="pagination" id="pagination">
+            <!-- Пагинация загрузится динамически -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-logo">
+                    <div class="logo-icon">
+                        <img src="images/Rectangle(29).png" alt="Boosted Logo">
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Navigation</h4>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="catalog.html">Catalog (Static)</a>
+                        <a href="catalog-server.html">Catalog (Server)</a>
+                        <a href="api-demo.html">API Demo</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>JSON Server Features</h4>
+                    <p>✅ Загрузка данных через fetch()<br>
+                       ✅ Полнотекстовый поиск (?q=...)<br>
+                       ✅ Сортировка (?_sort=...&_order=...)<br>
+                       ✅ Фильтрация по категориям<br>
+                       ✅ Фильтрация по диапазонам<br>
+                       ✅ Пагинация (?_page=...&_limit=...)<br>
+                       ✅ Добавление в избранное/корзину</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="catalog-server.js"></script>
+</body>
+
+</html>
+

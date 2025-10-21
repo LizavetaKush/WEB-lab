@@ -181,7 +181,25 @@
       "rating": 4.1
     }
   ],
-  "favorites": [],
-  "cart": []
+  "favorites": [
+    {
+      "productId": 2,
+      "name": "Boosted Plus",
+      "price": 1399,
+      "image": "images/skate2.jpg",
+      "category": "Electric Skateboards",
+      "id": 1
+    }
+  ],
+  "cart": [
+    {
+      "productId": 1,
+      "name": "Boosted Stealth",
+      "price": 1599,
+      "image": "images/skate1.jpg",
+      "category": "Electric Skateboards",
+      "quantity": 1,
+      "id": 1
+    }
+  ]
 }
-
