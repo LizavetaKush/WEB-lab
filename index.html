@@ -62,7 +62,7 @@
 
     <!-- Financing Banner -->
     <div class="financing-banner">
-        <p>Financing option available at checkout.</p>
+        <p data-i18n="financing-banner">Financing option available at checkout.</p>
     </div>
 
     <!-- Navigation -->
@@ -74,13 +74,13 @@
             
             <!-- Desktop Menu -->
             <div class="nav-menu nav-menu-desktop">
-                <a href="#home" class="nav-link active smooth-scroll">Home</a>
-                <a href="#products" class="nav-link smooth-scroll">Products</a>
-                <a href="#gallery" class="nav-link smooth-scroll">Gallery</a>
-                <a href="#stores" class="nav-link smooth-scroll">Stores</a>
-                <a href="catalog-server.html" class="nav-link">Catalog</a>
-                <a href="admin.html" class="nav-link" id="admin-nav-link" style="display: none;">Admin</a>
-                <a href="auth.html" class="nav-link">Login</a>
+                <a href="#home" class="nav-link active smooth-scroll" data-i18n="nav-home">Home</a>
+                <a href="#products" class="nav-link smooth-scroll" data-i18n="products-title">Products</a>
+                <a href="#gallery" class="nav-link smooth-scroll" data-i18n="gallery-title">Gallery</a>
+                <a href="#stores" class="nav-link smooth-scroll" data-i18n="stores-title">Stores</a>
+                <a href="catalog-server.html" class="nav-link" data-i18n="burger-catalog">Catalog</a>
+                <a href="admin.html" class="nav-link" id="admin-nav-link" style="display: none;" data-i18n="nav-admin">Admin</a>
+                <a href="auth.html" class="nav-link" data-i18n="nav-login">Login</a>
             </div>
             
             <div class="nav-social">
@@ -90,6 +90,13 @@
                 <a href="cart.html" class="social-link">
                     🛒 <span id="cart-count">0</span>
                 </a>
+                <div class="lang-switcher">
+                    <button class="lang-btn" data-lang="en" onclick="getTranslate('en')">EN</button>
+                    <button class="lang-btn" data-lang="ru" onclick="getTranslate('ru')">RU</button>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Переключить тему">
+                    <span id="themeIcon">🌙</span>
+                </button>
             </div>
             
             <!-- Burger Menu Button -->
@@ -117,45 +124,45 @@
         <nav class="burger-menu-nav">
             <a href="#home" class="burger-menu-link active smooth-scroll">
                 <span class="link-icon">🏠</span>
-                <span>Home</span>
+                <span data-i18n="nav-home">Home</span>
             </a>
             <a href="#products" class="burger-menu-link smooth-scroll">
                 <span class="link-icon">🛹</span>
-                <span>Products</span>
+                <span data-i18n="products-title">Products</span>
             </a>
             <a href="#gallery" class="burger-menu-link smooth-scroll">
                 <span class="link-icon">🎨</span>
-                <span>Gallery</span>
+                <span data-i18n="gallery-title">Gallery</span>
             </a>
             <a href="#stores" class="burger-menu-link smooth-scroll">
                 <span class="link-icon">📍</span>
-                <span>Stores</span>
+                <span data-i18n="stores-title">Stores</span>
             </a>
             <a href="catalog-server.html" class="burger-menu-link">
                 <span class="link-icon">📦</span>
-                <span>Catalog</span>
+                <span data-i18n="burger-catalog">Catalog</span>
             </a>
             <a href="favorites.html" class="burger-menu-link">
                 <span class="link-icon">❤️</span>
-                <span>Favorites</span>
+                <span data-i18n="burger-favorites">Favorites</span>
                 <span class="link-badge" id="burger-favorites-count">0</span>
             </a>
             <a href="cart.html" class="burger-menu-link">
                 <span class="link-icon">🛒</span>
-                <span>Cart</span>
+                <span data-i18n="burger-cart">Cart</span>
                 <span class="link-badge" id="burger-cart-count">0</span>
             </a>
             <a href="feedback.html" class="burger-menu-link">
                 <span class="link-icon">💬</span>
-                <span>Reviews</span>
+                <span data-i18n="burger-reviews">Reviews</span>
             </a>
             <a href="admin.html" class="burger-menu-link" id="burger-admin-link" style="display: none;">
                 <span class="link-icon">⚙️</span>
-                <span>Admin</span>
+                <span data-i18n="nav-admin">Admin</span>
             </a>
             <a href="auth.html" class="burger-menu-link">
                 <span class="link-icon">👤</span>
-                <span>Login</span>
+                <span data-i18n="nav-login">Login</span>
             </a>
         </nav>
         <div class="burger-menu-footer">
@@ -188,12 +195,12 @@
         
         <!-- Layer 4: Main content (normal speed - 1.0x) -->
         <div class="hero-content parallax-layer" data-speed="1.0">
-            <h1 class="hero-title">Welcome to Boosted USA</h1>
-            <p class="hero-subtitle">The Holy Grail of Electric Skateboards and One REVolutionary Scooter</p>
+            <h1 class="hero-title" data-i18n="hero-title">Welcome to Boosted USA</h1>
+            <p class="hero-subtitle" data-i18n="hero-subtitle">The Holy Grail of Electric Skateboards and One REVolutionary Scooter</p>
             <div class="hero-buttons">
-                <button class="btn-primary" onclick="window.location.href='catalog.html'">VIEW CATALOG</button>
-                <button class="btn-primary">BOOSTED REVS</button>
-                <button class="btn-primary">BOOSTED BOARDS</button>
+                <button class="btn-primary" onclick="window.location.href='catalog.html'" data-i18n="hero-btn-catalog">VIEW CATALOG</button>
+                <button class="btn-primary" data-i18n="hero-btn-revs">BOOSTED REVS</button>
+                <button class="btn-primary" data-i18n="hero-btn-boards">BOOSTED BOARDS</button>
             </div>
         </div>
         
@@ -231,14 +238,14 @@
     <!-- Animated Statistics Section -->
     <section class="stats-section scroll-reveal" id="stats">
         <div class="container">
-            <h2 class="section-title">Our Achievements</h2>
-            <p class="section-subtitle">Numbers that speak for themselves</p>
+            <h2 class="section-title" data-i18n="stats-title">Our Achievements</h2>
+            <p class="section-subtitle" data-i18n="stats-subtitle">Numbers that speak for themselves</p>
             
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon">🛹</div>
                     <div class="stat-number" data-target="15000" data-suffix="+">0</div>
-                    <div class="stat-label">Happy Customers</div>
+                    <div class="stat-label" data-i18n="stat-customers">Happy Customers</div>
                     <div class="stat-progress">
                         <div class="stat-progress-bar"></div>
                     </div>
@@ -247,7 +254,7 @@
                 <div class="stat-card">
                     <div class="stat-icon">📦</div>
                     <div class="stat-number" data-target="25000" data-suffix="+">0</div>
-                    <div class="stat-label">Devices Sold</div>
+                    <div class="stat-label" data-i18n="stat-devices">Devices Sold</div>
                     <div class="stat-progress">
                         <div class="stat-progress-bar"></div>
                     </div>
@@ -256,7 +263,7 @@
                 <div class="stat-card">
                     <div class="stat-icon">⭐</div>
                     <div class="stat-number" data-target="4.9" data-suffix="" data-decimals="1">0</div>
-                    <div class="stat-label">Average Rating</div>
+                    <div class="stat-label" data-i18n="stat-rating">Average Rating</div>
                     <div class="stat-progress">
                         <div class="stat-progress-bar"></div>
                     </div>
@@ -265,7 +272,7 @@
                 <div class="stat-card">
                     <div class="stat-icon">🌍</div>
                     <div class="stat-number" data-target="50" data-suffix="+">0</div>
-                    <div class="stat-label">Shipping Countries</div>
+                    <div class="stat-label" data-i18n="stat-countries">Shipping Countries</div>
                     <div class="stat-progress">
                         <div class="stat-progress-bar"></div>
                     </div>
@@ -278,8 +285,8 @@
     <!-- Looking for Section -->
     <section class="looking-for-section">
         <div class="looking-for-content">
-            <h2 class="looking-for-title">Looking for Boosted Boards, or Boosted Revs?</h2>
-            <p class="looking-for-description">Boosted USA acquired all of the remaining inventory directly from
+            <h2 class="looking-for-title" data-i18n="looking-title">Looking for Boosted Boards, or Boosted Revs?</h2>
+            <p class="looking-for-description" data-i18n="looking-description">Boosted USA acquired all of the remaining inventory directly from
                 Boosted. This means we have the electric skateboards and scooter you all love and have been looking for.
                 Get your hands on these highly sought after products while supplies last.</p>
             <div class="divider-line"></div>
@@ -298,8 +305,8 @@
                         <div class="product-icon">
                             <img src="images/Vector(1).svg" alt="Lightning Icon">
                         </div>
-                        <h3>Shop Boosted Boards</h3>
-                        <span class="stock-status">In Stock</span>
+                        <h3 data-i18n="shop-boards">Shop Boosted Boards</h3>
+                        <span class="stock-status" data-i18n="in-stock">In Stock</span>
                     </div>
                 </div>
                 <div class="product-card revs-card">
@@ -310,8 +317,8 @@
                         <div class="product-icon">
                             <img src="images/Vector(1).svg" alt="Lightning Icon">
                         </div>
-                        <h3>Shop Boosted Revs</h3>
-                        <span class="stock-status">In Stock</span>
+                        <h3 data-i18n="shop-revs">Shop Boosted Revs</h3>
+                        <span class="stock-status" data-i18n="in-stock">In Stock</span>
                     </div>
                 </div>
             </div>
@@ -321,7 +328,7 @@
     <!-- Product Slider Section -->
     <section class="product-slider-section">
         <div class="container">
-            <h2 class="slider-title">Featured Products</h2>
+            <h2 class="slider-title" data-i18n="products-title">Featured Products</h2>
             <div class="divider-line"></div>
             
             <div class="product-slider" id="productSlider">
@@ -333,16 +340,16 @@
                             <img src="images/skate1.jpg" alt="Boosted Stealth">
                         </div>
                         <div class="slide-content">
-                            <span class="slide-badge">NEW</span>
-                            <h3>Boosted Stealth</h3>
-                            <p class="slide-description">Our top-of-the-line board with the most power, range, and speed. Perfect for experienced riders seeking maximum performance.</p>
+                            <span class="slide-badge" data-i18n="badge-new">NEW</span>
+                            <h3 data-i18n="product-stealth">Boosted Stealth</h3>
+                            <p class="slide-description" data-i18n="product-stealth-desc">Our top-of-the-line board with the most power, range, and speed. Perfect for experienced riders seeking maximum performance.</p>
                             <div class="slide-specs">
                                 <span class="spec-item">⚡ 24 mph</span>
                                 <span class="spec-item">🔋 14 miles</span>
                                 <span class="spec-item">⚙️ 2100W</span>
                             </div>
                             <div class="slide-price">$1,599</div>
-                            <button class="btn-primary">Shop Now</button>
+                            <button class="btn-primary" data-i18n="btn-shop-now">Shop Now</button>
                         </div>
                     </div>
 
@@ -352,16 +359,16 @@
                             <img src="images/skate2.jpg" alt="Boosted Plus">
                         </div>
                         <div class="slide-content">
-                            <span class="slide-badge">POPULAR</span>
-                            <h3>Boosted Plus</h3>
-                            <p class="slide-description">The perfect balance of power and range. Great for daily commuting and weekend adventures with smooth rides guaranteed.</p>
+                            <span class="slide-badge" data-i18n="badge-popular">POPULAR</span>
+                            <h3 data-i18n="product-plus">Boosted Plus</h3>
+                            <p class="slide-description" data-i18n="product-plus-desc">The perfect balance of power and range. Great for daily commuting and weekend adventures with smooth rides guaranteed.</p>
                             <div class="slide-specs">
                                 <span class="spec-item">⚡ 22 mph</span>
                                 <span class="spec-item">🔋 14 miles</span>
                                 <span class="spec-item">⚙️ 2000W</span>
                             </div>
                             <div class="slide-price">$1,399</div>
-                            <button class="btn-primary">Shop Now</button>
+                            <button class="btn-primary" data-i18n="btn-shop-now">Shop Now</button>
                         </div>
                     </div>
 
@@ -371,16 +378,16 @@
                             <img src="images/boosted-mini.jpg" alt="Boosted Mini">
                         </div>
                         <div class="slide-content">
-                            <span class="slide-badge">COMPACT</span>
-                            <h3>Boosted Mini</h3>
-                            <p class="slide-description">Compact and portable without sacrificing power. Perfect for urban riders who need easy storage and maximum maneuverability.</p>
+                            <span class="slide-badge" data-i18n="badge-compact">COMPACT</span>
+                            <h3 data-i18n="product-mini">Boosted Mini</h3>
+                            <p class="slide-description" data-i18n="product-mini-desc">Compact and portable without sacrificing power. Perfect for urban riders who need easy storage and maximum maneuverability.</p>
                             <div class="slide-specs">
                                 <span class="spec-item">⚡ 20 mph</span>
                                 <span class="spec-item">🔋 7 miles</span>
                                 <span class="spec-item">⚙️ 1800W</span>
                             </div>
                             <div class="slide-price">$999</div>
-                            <button class="btn-primary">Shop Now</button>
+                            <button class="btn-primary" data-i18n="btn-shop-now">Shop Now</button>
                         </div>
                     </div>
 
@@ -390,16 +397,16 @@
                             <img src="images/skate3.jpg" alt="Boosted Rev">
                         </div>
                         <div class="slide-content">
-                            <span class="slide-badge">SCOOTER</span>
-                            <h3>Boosted Rev</h3>
-                            <p class="slide-description">Revolutionary electric scooter with unmatched performance. Speed past traffic with industry-leading power and range.</p>
+                            <span class="slide-badge" data-i18n="badge-scooter">SCOOTER</span>
+                            <h3 data-i18n="product-rev">Boosted Rev</h3>
+                            <p class="slide-description" data-i18n="product-rev-desc">Revolutionary electric scooter with unmatched performance. Speed past traffic with industry-leading power and range.</p>
                             <div class="slide-specs">
                                 <span class="spec-item">⚡ 24 mph</span>
                                 <span class="spec-item">🔋 22 miles</span>
                                 <span class="spec-item">⚙️ 1500W</span>
                             </div>
                             <div class="slide-price">$1,599</div>
-                            <button class="btn-primary">Shop Now</button>
+                            <button class="btn-primary" data-i18n="btn-shop-now">Shop Now</button>
                         </div>
                     </div>
                 </div>
@@ -433,11 +440,11 @@
             <img src="images/Rectangle(13).png" alt="Electric Skateboards">
         </div>
         <div class="skateboards-content">
-            <p class="skateboards-subtitle">High-performance</p>
-            <h2>Electric Skateboards</h2>
-            <p class="skateboards-description">Cruising campus, going to work or getting through that long list of
+            <p class="skateboards-subtitle" data-i18n="skateboards-subtitle">High-performance</p>
+            <h2 data-i18n="skateboards-title">Electric Skateboards</h2>
+            <p class="skateboards-description" data-i18n="skateboards-description">Cruising campus, going to work or getting through that long list of
                 errands has never been easier or more fun.</p>
-            <button class="btn-primary small">Shop Now</button>
+            <button class="btn-primary small" data-i18n="btn-shop-now">Shop Now</button>
         </div>
     </section>
 
@@ -454,11 +461,11 @@
                     </div>
                 </div>
                 <div class="rev-content">
-                    <h2>Boosted Rev</h2>
-                    <p>There's never been an electric scooter quite like this. Speed past traffic at 24 mph. Go up to 22 miles
+                    <h2 data-i18n="rev-title">Boosted Rev</h2>
+                    <p data-i18n="rev-description">There's never been an electric scooter quite like this. Speed past traffic at 24 mph. Go up to 22 miles
                         on a single charge. You'll get there in no time at all. Stop and go with the roll of your thumb. Its
                         intuitive design means there's almost no learning curve.</p>
-                    <button class="btn-primary small">Shop Now</button>
+                    <button class="btn-primary small" data-i18n="btn-shop-now">Shop Now</button>
                 </div>
             </div>
         </div>
@@ -473,8 +480,8 @@
                         <img src="images/Rectangle(17).png" alt="Boosted Stealth">
                     </div>
                     <div class="model-content">
-                        <h3>Shop Boosted Stealth</h3>
-                        <span class="stock-status">IN STOCK</span>
+                        <h3 data-i18n="shop-stealth">Shop Boosted Stealth</h3>
+                        <span class="stock-status" data-i18n="in-stock">IN STOCK</span>
                     </div>
                 </div>
                 <div class="model-card plus">
@@ -482,8 +489,8 @@
                         <img src="images/Rectangle(18).png" alt="Boosted Plus">
                     </div>
                     <div class="model-content">
-                        <h3>Shop Boosted Plus</h3>
-                        <span class="stock-status">IN STOCK</span>
+                        <h3 data-i18n="shop-plus">Shop Boosted Plus</h3>
+                        <span class="stock-status" data-i18n="in-stock">IN STOCK</span>
                     </div>
                 </div>
                 <div class="model-card mini">
@@ -491,8 +498,8 @@
                         <img src="images/Rectangle(19).png" alt="Boosted Mini">
                     </div>
                     <div class="model-content">
-                        <h3>Shop Boosted Mini</h3>
-                        <span class="stock-status">IN STOCK</span>
+                        <h3 data-i18n="shop-mini">Shop Boosted Mini</h3>
+                        <span class="stock-status" data-i18n="in-stock">IN STOCK</span>
                     </div>
                 </div>
             </div>
@@ -516,12 +523,12 @@
     <!-- Accessories Section -->
     <section class="accessories">
         <div class="container">
-            <h2 class="accessories-title">Looking for Accessories?</h2>
+            <h2 class="accessories-title" data-i18n="accessories-title">Looking for Accessories?</h2>
             <div class="divider-line"></div>
             <div class="accessories-grid">
                 <div class="accessory-item">
                     <img src="images/Rectangle(22).png" alt="Rev Tube">
-                    <h4>Rev Tube</h4>
+                    <h4 data-i18n="accessory-rev-tube">Rev Tube</h4>
                     <div class="price-container">
                         <span class="sale-price">$16.00</span>
                         <span class="original-price">$19.00</span>
@@ -529,7 +536,7 @@
                 </div>
                 <div class="accessory-item">
                     <img src="images/Rectangle(23).png" alt="Boosted Rev Stem Catch">
-                    <h4>Boosted Rev Stem Catch</h4>
+                    <h4 data-i18n="accessory-stem-catch">Boosted Rev Stem Catch</h4>
                     <div class="price-container">
                         <span class="sale-price">$19.00</span>
                         <span class="original-price">$29.00</span>
@@ -537,27 +544,27 @@
                 </div>
                 <div class="accessory-item">
                     <img src="images/Rectangle(24).png" alt="Stomp Brake Fender">
-                    <h4>Stomp Brake Fender</h4>
-                    <span class="price sold-out">Sold Out</span>
+                    <h4 data-i18n="accessory-brake-fender">Stomp Brake Fender</h4>
+                    <span class="price sold-out" data-i18n="sold-out">Sold Out</span>
                 </div>
                 <div class="accessory-item">
                     <img src="images/Rectangle(25).png" alt="Boosted Belt Kit">
-                    <h4>Boosted Belt Kit</h4>
+                    <h4 data-i18n="accessory-belt-kit">Boosted Belt Kit</h4>
                     <span class="price">$25.00</span>
                 </div>
                 <div class="accessory-item">
                     <img src="images/Rectangle(26).png" alt="Bearing Service Kit">
-                    <h4>Bearing Service Kit</h4>
+                    <h4 data-i18n="accessory-bearing-kit">Bearing Service Kit</h4>
                     <span class="price">$50.00</span>
                 </div>
                 <div class="accessory-item">
                     <img src="images/Rectangle(27).png" alt="Boosted Pulley / Belt Upgrade Kit">
-                    <h4>Boosted Pulley / Belt Upgrade Kit</h4>
+                    <h4 data-i18n="accessory-pulley-kit">Boosted Pulley / Belt Upgrade Kit</h4>
                     <span class="price">$75.00</span>
                 </div>
                 <div class="accessory-item">
                     <img src="images/Rectangle(28).png" alt="Boosted Skid Plates">
-                    <h4>Boosted Skid Plates</h4>
+                    <h4 data-i18n="accessory-skid-plates">Boosted Skid Plates</h4>
                     <span class="price">$20.00</span>
                 </div>
             </div>
@@ -573,8 +580,8 @@
                         <img src="images/Rectangle(4).png" alt="Go Fast">
                     </div>
                     <div class="feature-content">
-                        <h3>Go Fast</h3>
-                        <p>Boosted is known for its premium performance boards offering a next-level experience.</p>
+                        <h3 data-i18n="feature-fast-title">Go Fast</h3>
+                        <p data-i18n="feature-fast-desc">Boosted is known for its premium performance boards offering a next-level experience.</p>
                     </div>
                 </div>
                 <div class="feature-card">
@@ -582,8 +589,8 @@
                         <img src="images/Rectangle(5).png" alt="Go Safe">
                     </div>
                     <div class="feature-content">
-                        <h3>Go Safe</h3>
-                        <p>Safety is a #1 priority for Boosted, always wear a helmet when riding.</p>
+                        <h3 data-i18n="feature-safe-title">Go Safe</h3>
+                        <p data-i18n="feature-safe-desc">Safety is a #1 priority for Boosted, always wear a helmet when riding.</p>
                     </div>
                 </div>
                 <div class="feature-card">
@@ -591,8 +598,8 @@
                         <img src="images/Rectangle(6).png" alt="Go Far">
                     </div>
                     <div class="feature-content">
-                        <h3>Go Far</h3>
-                        <p>With optional extended battery life, you can get wherever you need to go reliably.</p>
+                        <h3 data-i18n="feature-far-title">Go Far</h3>
+                        <p data-i18n="feature-far-desc">With optional extended battery life, you can get wherever you need to go reliably.</p>
                     </div>
                 </div>
                 <div class="feature-card">
@@ -600,8 +607,8 @@
                         <img src="images/Rectangle(7).png" alt="Built to Last">
                     </div>
                     <div class="feature-content">
-                        <h3>Built to Last!</h3>
-                        <p>Boosted products are engineered to last for years and are extremely reliable.</p>
+                        <h3 data-i18n="feature-last-title">Built to Last!</h3>
+                        <p data-i18n="feature-last-desc">Boosted products are engineered to last for years and are extremely reliable.</p>
                     </div>
                 </div>
             </div>
@@ -611,8 +618,8 @@
     <!-- Interactive Media Gallery Section -->
     <section class="media-gallery-section scroll-reveal" id="gallery">
         <div class="container">
-            <h2 class="section-title scroll-fade-in">Interactive Gallery</h2>
-            <p class="section-subtitle">Click buttons or images to browse the collection with audio</p>
+            <h2 class="section-title scroll-fade-in" data-i18n="gallery-title">Interactive Gallery</h2>
+            <p class="section-subtitle" data-i18n="gallery-subtitle">Click buttons or images to browse the collection with audio</p>
             
             <div class="gallery-container">
                 <!-- Main Display -->
@@ -635,13 +642,13 @@
                 <!-- Controls -->
                 <div class="gallery-controls">
                     <div class="gallery-action-buttons">
-                        <button class="gallery-btn gallery-btn-primary" id="randomImageBtn">
+                        <button class="gallery-btn gallery-btn-primary" id="randomImageBtn" data-i18n="gallery-btn-random">
                             🎲 Random image
                         </button>
-                        <button class="gallery-btn gallery-btn-secondary" id="nextImageBtn">
+                        <button class="gallery-btn gallery-btn-secondary" id="nextImageBtn" data-i18n="gallery-btn-next">
                             ➡️ Next
                         </button>
-                        <button class="gallery-btn gallery-btn-tertiary" id="prevImageBtn">
+                        <button class="gallery-btn gallery-btn-tertiary" id="prevImageBtn" data-i18n="gallery-btn-prev">
                             ⬅️ Previous
                         </button>
                     </div>
@@ -649,7 +656,7 @@
                     <!-- Volume Control -->
                     <div class="volume-control">
                         <label for="volumeSlider">
-                            <span id="volumeIcon">🔊</span> Volume
+                            <span id="volumeIcon">🔊</span> <span data-i18n="gallery-volume">Volume</span>
                         </label>
                         <input type="range" id="volumeSlider" min="0" max="100" value="50">
                         <span id="volumeValue">50%</span>
@@ -658,7 +665,7 @@
                     <!-- Player Status -->
                     <div class="player-status">
                         <span class="status-indicator" id="statusIndicator">⏹️</span>
-                        <span id="statusText">Stopped</span>
+                        <span id="statusText" data-i18n="gallery-status-stopped">Stopped</span>
                     </div>
                 </div>
                 
@@ -698,8 +705,8 @@
     <!-- Store Locations Section -->
     <section class="stores-section scroll-reveal" id="stores">
         <div class="container">
-            <h2 class="section-title scroll-fade-in">Our Stores in Minsk</h2>
-            <p class="section-subtitle">Visit one of our stores to test electric vehicles</p>
+            <h2 class="section-title scroll-fade-in" data-i18n="stores-title">Our Stores in Minsk</h2>
+            <p class="section-subtitle" data-i18n="stores-subtitle">Visit one of our stores to test electric vehicles</p>
             
             <div class="stores-container">
                 <!-- Map -->
@@ -712,11 +719,11 @@
                     <div class="store-card" data-coords="53.9045,27.5615">
                         <div class="store-icon">📍</div>
                         <div class="store-info">
-                            <h3>Boosted Central</h3>
-                            <p class="store-address">Independence Ave, 47</p>
-                            <p class="store-hours">⏰ Mon-Sun: 10:00 - 21:00</p>
-                            <p class="store-phone">📞 +375 (29) 123-45-67</p>
-                            <button class="store-route-btn" onclick="showRoute(53.9045, 27.5615)">
+                            <h3 data-i18n="store1-name">Boosted Central</h3>
+                            <p class="store-address" data-i18n="store1-address">Independence Ave, 47</p>
+                            <p class="store-hours" data-i18n="store-hours">⏰ Mon-Sun: 10:00 - 21:00</p>
+                            <p class="store-phone" data-i18n="store1-phone">📞 +375 (29) 123-45-67</p>
+                            <button class="store-route-btn" onclick="showRoute(53.9045, 27.5615)" data-i18n="store-route-btn">
                                 🗺️ Get Directions
                             </button>
                         </div>
@@ -725,11 +732,11 @@
                     <div class="store-card" data-coords="53.9168,27.5921">
                         <div class="store-icon">📍</div>
                         <div class="store-info">
-                            <h3>Boosted Komarovka</h3>
-                            <p class="store-address">Vera Horuzhaya St, 3</p>
-                            <p class="store-hours">⏰ Mon-Sun: 10:00 - 22:00</p>
-                            <p class="store-phone">📞 +375 (29) 234-56-78</p>
-                            <button class="store-route-btn" onclick="showRoute(53.9168, 27.5921)">
+                            <h3 data-i18n="store2-name">Boosted Komarovka</h3>
+                            <p class="store-address" data-i18n="store2-address">Vera Horuzhaya St, 3</p>
+                            <p class="store-hours" data-i18n="store2-hours">⏰ Mon-Sun: 10:00 - 22:00</p>
+                            <p class="store-phone" data-i18n="store2-phone">📞 +375 (29) 234-56-78</p>
+                            <button class="store-route-btn" onclick="showRoute(53.9168, 27.5921)" data-i18n="store-route-btn">
                                 🗺️ Get Directions
                             </button>
                         </div>
@@ -738,11 +745,11 @@
                     <div class="store-card" data-coords="53.9253,27.4615">
                         <div class="store-icon">📍</div>
                         <div class="store-info">
-                            <h3>Boosted Drazhnya</h3>
-                            <p class="store-address">Dzerzhinsky Ave, 104</p>
-                            <p class="store-hours">⏰ Mon-Sun: 10:00 - 21:00</p>
-                            <p class="store-phone">📞 +375 (29) 345-67-89</p>
-                            <button class="store-route-btn" onclick="showRoute(53.9253, 27.4615)">
+                            <h3 data-i18n="store3-name">Boosted Drazhnya</h3>
+                            <p class="store-address" data-i18n="store3-address">Dzerzhinsky Ave, 104</p>
+                            <p class="store-hours" data-i18n="store-hours">⏰ Mon-Sun: 10:00 - 21:00</p>
+                            <p class="store-phone" data-i18n="store3-phone">📞 +375 (29) 345-67-89</p>
+                            <button class="store-route-btn" onclick="showRoute(53.9253, 27.4615)" data-i18n="store-route-btn">
                                 🗺️ Get Directions
                             </button>
                         </div>
@@ -762,35 +769,35 @@
                     </div>
                 </div>
                 <div class="footer-section">
-                    <h4>Explore</h4>
+                    <h4 data-i18n="footer-explore">Explore</h4>
                     <div class="footer-links">
-                        <a href="#">Electric Skateboards</a>
-                        <a href="#">Electric Scooters</a>
-                        <a href="#">Accessories</a>
-                        <a href="#">FAQs</a>
-                        <a href="#">Warranty</a>
-                        <a href="#">Quick Start Guide</a>
-                        <a href="#">Contact</a>
-                        <a href="#">Gift Card</a>
-                        <a href="#">Accessibility Statement</a>
+                        <a href="#" data-i18n="footer-electric-skateboards">Electric Skateboards</a>
+                        <a href="#" data-i18n="footer-electric-scooters">Electric Scooters</a>
+                        <a href="#" data-i18n="footer-accessories">Accessories</a>
+                        <a href="#" data-i18n="footer-faqs">FAQs</a>
+                        <a href="#" data-i18n="footer-warranty">Warranty</a>
+                        <a href="#" data-i18n="footer-quick-start">Quick Start Guide</a>
+                        <a href="#" data-i18n="footer-contact">Contact</a>
+                        <a href="#" data-i18n="footer-gift-card">Gift Card</a>
+                        <a href="#" data-i18n="footer-accessibility">Accessibility Statement</a>
                     </div>
                 </div>
                 <div class="footer-section">
-                    <h4>About Boosted USA</h4>
-                    <p>Boosted empowers people everywhere to commute across their cities, campuses, and communities in ways that were never before possible. Boosted is solving one of the biggest problems people face each day: transportation.</p>
+                    <h4 data-i18n="footer-about">About Boosted USA</h4>
+                    <p data-i18n="footer-about-text">Boosted empowers people everywhere to commute across their cities, campuses, and communities in ways that were never before possible. Boosted is solving one of the biggest problems people face each day: transportation.</p>
                     <div class="footer-address">
-                        <p>CaliRides LLC - DBA Boosted USA</p>
-                        <p>1281 Andersen Drive Ste. K</p>
-                        <p>San Rafael, CA 94901</p>
+                        <p data-i18n="footer-company">CaliRides LLC - DBA Boosted USA</p>
+                        <p data-i18n="footer-address1">1281 Andersen Drive Ste. K</p>
+                        <p data-i18n="footer-address2">San Rafael, CA 94901</p>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
                 <div class="container">
                     <div class="footer-copyright">
-                        <span>© 2021 Boosted USA. All Rights Reserved.</span>
-                        <a href="#" class="brand">Terms of Service</a>
-                        <span>. Built by</span>
+                        <span data-i18n="footer-copyright">© 2021 Boosted USA. All Rights Reserved.</span>
+                        <a href="#" class="brand" data-i18n="footer-terms">Terms of Service</a>
+                        <span data-i18n="footer-built-by">. Built by</span>
                         <a href="#" class="brand">BH</a>
                     </div>
                     <div class="footer-payment">
@@ -1849,8 +1856,9 @@
     <style>
         /* Interactive Media Gallery Section */
         .media-gallery-section {
-            background: #fff;
+            background: var(--body-bg-color);
             padding: 80px 0;
+            transition: background 0.3s ease;
         }
         
         .media-gallery-section .section-title {
@@ -1867,8 +1875,9 @@
         .media-gallery-section .section-subtitle {
             text-align: center;
             font-size: 18px;
-            color: #666;
+            color: var(--secondary-text-color);
             margin-bottom: 50px;
+            transition: color 0.3s ease;
         }
         
         .gallery-container {
@@ -1958,10 +1967,11 @@
         }
         
         .gallery-controls {
-            background: white;
+            background: var(--card-bg-color);
             border-radius: 16px;
             padding: 30px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            transition: background 0.3s ease;
         }
         
         .gallery-action-buttons {
@@ -2014,10 +2024,11 @@
         
         .volume-control label {
             font-weight: 600;
-            color: #333;
+            color: var(--body-text-color);
             display: flex;
             align-items: center;
             gap: 8px;
+            transition: color 0.3s ease;
         }
         
         #volumeSlider {
@@ -2062,10 +2073,11 @@
             align-items: center;
             gap: 12px;
             padding: 15px 20px;
-            background: white;
-            border: 2px solid #e0e0e0;
+            background: var(--body-bg-color);
+            border: 2px solid var(--border-color);
             border-radius: 10px;
             font-weight: 600;
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
         
         .status-indicator {
@@ -2073,7 +2085,8 @@
         }
         
         #statusText {
-            color: #666;
+            color: var(--secondary-text-color);
+            transition: color 0.3s ease;
         }
         
         .gallery-thumbnails {
@@ -2089,7 +2102,8 @@
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            border: 3px solid transparent;
+            border: 3px solid var(--border-color);
+            background: var(--card-bg-color);
         }
         
         .gallery-thumbnail:hover {
@@ -2552,9 +2566,10 @@
         /* Animated Statistics Section */
         .stats-section {
             padding: 80px 0;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: var(--card-bg-color);
             position: relative;
             overflow: hidden;
+            transition: background 0.3s ease;
         }
         
         .stats-section::before {
@@ -2578,7 +2593,7 @@
         }
         
         .stat-card {
-            background: white;
+            background: var(--body-bg-color);
             padding: 40px 30px;
             border-radius: 20px;
             text-align: center;
@@ -2617,6 +2632,15 @@
             box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
         }
         
+        /* Dark theme specific styles for stat cards */
+        body.dark-theme .stat-card {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        body.dark-theme .stat-card:hover {
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.5);
+        }
+        
         .stat-icon {
             font-size: 3.5rem;
             margin-bottom: 20px;
@@ -2646,20 +2670,22 @@
         
         .stat-label {
             font-size: 1rem;
-            color: #666;
+            color: var(--secondary-text-color);
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-top: 15px;
+            transition: color 0.3s ease;
         }
         
         .stat-progress {
             width: 100%;
             height: 4px;
-            background: #e0e0e0;
+            background: var(--border-color);
             border-radius: 2px;
             margin-top: 20px;
             overflow: hidden;
+            transition: background 0.3s ease;
         }
         
         .stat-progress-bar {
@@ -2845,7 +2871,7 @@
         }
         
         .video-modal-content {
-            background: white;
+            background: var(--body-bg-color);
             border-radius: 16px;
             padding: 30px;
             max-width: 900px;
@@ -2855,6 +2881,7 @@
             position: relative;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             animation: modalSlideIn 0.3s ease-out;
+            transition: background 0.3s ease;
         }
         
         @keyframes modalSlideIn {
@@ -2923,8 +2950,9 @@
         
         .video-modal-desc {
             font-size: 16px;
-            color: #666;
+            color: var(--secondary-text-color);
             line-height: 1.6;
+            transition: color 0.3s ease;
         }
         
         @media (max-width: 768px) {
@@ -2940,8 +2968,9 @@
         
         /* Store Locations Section */
         .stores-section {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: var(--card-bg-color);
             padding: 80px 0;
+            transition: background 0.3s ease;
         }
         
         .stores-section .section-title {
@@ -2958,8 +2987,9 @@
         .stores-section .section-subtitle {
             text-align: center;
             font-size: 18px;
-            color: #666;
+            color: var(--secondary-text-color);
             margin-bottom: 50px;
+            transition: color 0.3s ease;
         }
         
         .stores-container {
@@ -2970,12 +3000,13 @@
         }
         
         .stores-map {
-            background: white;
+            background: var(--body-bg-color);
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             position: sticky;
             top: 20px;
+            transition: background 0.3s ease;
         }
         
         .stores-list {
@@ -2985,13 +3016,14 @@
         }
         
         .store-card {
-            background: white;
+            background: var(--body-bg-color);
             border-radius: 12px;
             padding: 25px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
             display: flex;
             gap: 20px;
+            border: 1px solid var(--border-color);
         }
         
         .store-card:hover {
@@ -3019,20 +3051,23 @@
             font-size: 22px;
             font-weight: 700;
             margin-bottom: 10px;
-            color: #333;
+            color: var(--body-text-color);
+            transition: color 0.3s ease;
         }
         
         .store-address {
             font-size: 16px;
-            color: #666;
+            color: var(--secondary-text-color);
             margin-bottom: 8px;
+            transition: color 0.3s ease;
         }
         
         .store-hours,
         .store-phone {
             font-size: 14px;
-            color: #888;
+            color: var(--secondary-text-color);
             margin-bottom: 5px;
+            transition: color 0.3s ease;
         }
         
         .store-route-btn {
@@ -3089,6 +3124,12 @@
             }
         }
     </style>
+    
+    <!-- Translation Script -->
+    <script src="translate.js"></script>
+    
+    <!-- Theme Toggle Script -->
+    <script src="theme-toggle.js"></script>
 </body>
 
 </html>
